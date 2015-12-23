@@ -10,5 +10,3 @@ alongside it, but need to concentrate on one of them as _Think like a programmer
 <button class="button-save large">Funky button</button> 
 
 P.S. also experementing with markdown. 
-
-
