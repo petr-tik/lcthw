@@ -1,5 +1,5 @@
 # lcthw
-Learning C the hard way using Zed Shaw's [alpha book release]9c.learncodethehardway.org/book/). 
+Learning C the hard way using Zed Shaw's [alpha book release](c.learncodethehardway.org/book/). 
 
 I need to take notes on paper and go over things in more detail, so I can remember concepts like pointers, linked lists 
 and other data structures particular to C languages.    
