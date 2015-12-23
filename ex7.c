@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
     double bug_rate = 1.2;
     printf("You have %d bugs at the imaginary rate of %f.\n", bugs, bug_rate);
 
-    long universe_of_defects = 1L * 1024L * 1024L * 1024L;
+    unsigned long universe_of_defects = 1L * 1024L * 1024L * 1024L* 1024L * 1024L * 5024L;
     printf("The entire universe has %ld bugs.\n", universe_of_defects);
 
     double expected_bugs = bugs * bug_rate;
