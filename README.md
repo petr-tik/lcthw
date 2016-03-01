@@ -7,6 +7,5 @@ and other data structures particular to C languages.
 Reading [Think like a programmer](http://www.amazon.co.uk/Think-Like-Programmer-Introduction-Creative/dp/1593274246)
 alongside it, but need to concentrate on one of them as _Think like a programmer_ is C++ based. 
 
-<button class="button-save large">Funky button</button> 
 
 P.S. also experementing with markdown. 
