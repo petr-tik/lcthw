@@ -6,4 +6,4 @@ $$1: $$1.c
 
 .PHONY : clean
 clean:
-	rm -f ex1
+	rm -f ex1 ex3
