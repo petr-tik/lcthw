@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
 
     // let's make own array of strings
     char *states[] = {
-        "California", "Oregon", "Washington", "Texas"}; 
-    int num_states = 4;
+        "California", "Oregon", "Washington", "Texas", "Freedom"}; 
+    int num_states = 5;
 
     for(i = 0; i < num_states; i++) {
         printf("state %d: is %s\n", i, states[i]); 
