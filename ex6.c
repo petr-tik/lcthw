@@ -10,12 +10,15 @@ int main(int argc, char *argv[])
    char last_name[] = "Tikilyaynen";
 
    printf("You are %d miles away.\n", distance);
-   printf("You have %f levels of power\n", power);
-   printf("You have %f awesome super powers\n", super_power);
+   printf("You have %f levels of power.\n", power); // %f takes float numbers
+   printf("You have %f awesome super powers.\n", super_power);
    printf("I have an initial %c\n", initial);
-   printf("My first name is: %s\n", first_name);
-   printf("my last name is: %s\n", last_name);
-   printf("my full name is: %s %c %s\n", first_name, initial, last_name);
+   printf("My first name is: %s \n", first_name);
+   printf("My surname is: %s \n", last_name);
+   printf("My whole name is: %s %c %s \n", first_name, initial, last_name);
+   // printf("\n");
+   // %c takes one char
+   // %s takes an array of chars i.e. a string
 
    return 0;
 }
