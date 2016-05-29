@@ -11,10 +11,13 @@ int factorial(int upper){
     return product;
 }
 
-
 int main(int argc, char *argv[])
 {
-    int var = 16;
+    int var = 0;
+    fscanf(stdin, "%d", &var);
+    // fscnaf(stdin, conversion format, pointer to intitialised variable of that type)
+
+    // 
     printf("The factorial of %d is %d\n", var, factorial(var));
     return 0;
 }
