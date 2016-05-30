@@ -8,7 +8,8 @@ int to_lower_case(char letter)
 		printf("Please enter a word\n");
 		return 1;
 	}
-	int code; // ascii code for each letter
+	int code = 0; // ascii code for each letter
+	// need to initialise it at 0 for every run of the helper
 	int errno;
 	errno = sscanf(&letter, "%c", &code);
 	// printf("the ascii code for %c is %d\n", letter, code);
@@ -18,7 +19,6 @@ int to_lower_case(char letter)
 		sscanf(&code, "%c", &letter);
 		// format the value of ascii code as char and assign to char letter variable
 	} 
-
 	return letter;
 }
 
@@ -32,10 +32,12 @@ int main(int argc, char *argv[])
 	int i = 0;
 	for(i = 0; argv[1][i] != '\0'; i++) {
 		char letter = argv[1][i];
+		// char new_letter;
 		letter = to_lower_case(letter);
+		// printf("%c after conversion is %c\n", letter, new_letter);
 		switch(letter) {
 			case 'a':
-				printf("%d: 'a'\n", i);
+				printf("%d: %c\n", i, letter);
 				break;
 
 			case 'e':
@@ -57,7 +59,7 @@ int main(int argc, char *argv[])
 			case 'y':
 				if(i > 2) {
 					// it's only sometimes Y
-					printf("%d: 'Y'\n", i);
+					printf("%d: 'y'\n", i);
 				}
 				break;
 
