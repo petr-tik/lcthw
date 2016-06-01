@@ -24,12 +24,17 @@ int main(int argc, char *argv[])
 
     // setup the pointers to the beginning of arrays
     int *cur_age = ages;
+    
     char **cur_name = names;
+    printf("%p stores an int of %d \n", &cur_age, *cur_age);
+
 
     // 2nd method - using pointers
     for(i = 0; i < count; i++){
         printf("%s is %d years old\n", *(cur_name+i), *(cur_age+i));
+        //printf("The age '%d' is stored in memory at %p\n", *(cur_age + i), &(cur_age+i));
     }
+    // pointer is just a memory address, which you can loop over if you add the size of element in bytes
 
     printf("\n-------------\n");
 
@@ -49,3 +54,9 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
+
+// Don't continue until you've written down what you think a pointer does.
+
+// afaik
+// a pointer of a particular type (int, char, whatever) defines the beginning of a block of memory 
+// allocated for that data type (ints, chars)
