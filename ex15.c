@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     // setup the pointers to the beginning of arrays
     int *cur_age = ages;
-    
+    // a pointer of int type called cur_age set to the beginning 
     char **cur_name = names;
     printf("%p stores an int of %d \n", &cur_age, *cur_age);
 
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     // 2nd method - using pointers
     for(i = 0; i < count; i++){
         printf("%s is %d years old\n", *(cur_name+i), *(cur_age+i));
-        //printf("The age '%d' is stored in memory at %p\n", *(cur_age + i), &(cur_age+i));
+        printf("The age '%d' is stored in memory at %p\n", *(cur_age + i), (cur_age+i));
     }
     // pointer is just a memory address, which you can loop over if you add the size of element in bytes
 
