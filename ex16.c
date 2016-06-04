@@ -33,7 +33,6 @@ void Person_destroy(struct Person *who){
     // free(who);
     // running free on already freed pointer causes an error
     // *** Error in `./ex16': double free or corruption (fasttop): 0x0000000001f3c010 ***
-
 }
 
 // func returns nothing, takes a Person struct as argument and prints its attributes

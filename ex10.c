@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     //for(initialiser; test; incrementer)
         //{ block of code
         // }
-    for(i = 1; i < argc; i++){
+    for(i = 0; i < argc; i++){
         printf("arg %d: %s\n", i, argv[i]);
     }
 
@@ -23,7 +23,5 @@ int main(int argc, char *argv[])
     for(i = 0; i < num_states; i++) {
         printf("state %d: is %s\n", i, states[i]); 
     }
-
     return 0;
-
 }
