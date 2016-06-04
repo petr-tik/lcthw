@@ -169,12 +169,12 @@ int main(int argc, char *argv[])
     if(id >= MAX_ROWS) die("There is not that many records");
 
     switch(action) {
-        case 'c':
+        case 'c': // creates a database
             Database_create(conn);
             Database_write(conn);
             break;
 
-        case 'g':
+        case 'g': //
             if(argc != 4) die("Need an id to get");
 
             Database_get(conn, id);
@@ -203,3 +203,20 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+/* 
+http://www.catb.org/esr/structure-packing/
+
+Compilers use the biggest memory data structure to align all others. 
+If a variable's size doesn't reach the memory boundary, the compiler adds padding until the boundary. 
+Restructuring needs to be done manually by the programmer, because:
+a) readability is as important as efficiency
+b) C gives you direct access to memory and trusts to think about the decisions you make
+
+For optimal memory usage, 
+The simplest way to eliminate slop is to reorder the structure members by decreasing alignment. 
+Pointer-aligned subfields come first (8 bytes on 64-bit machines). 
+Then the 4-byte ints; 
+then the 2-byte shorts; 
+then the character fields.
+*/
