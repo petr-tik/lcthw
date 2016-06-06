@@ -124,7 +124,22 @@ class Stack(object):
     #     for _ in xrange(idx):
     #         pass
 
-
+    def print_stack(self):
+        node = self.head
+        counter = 0
+        stack_values = []
+        while node.next != None:
+            stack_values.append(node.data)
+            counter += 1
+            node = node.next
+        stack_values.append(node.data)
+        print stack_values[counter], "<- top value"
+        print "|"
+        for idx in xrange(counter - 1, -1, -1):
+            print stack_values[idx]
+            if idx == 0:
+                break
+            print "|"
 
 
 st = Stack([12,3,4])
