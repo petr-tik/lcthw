@@ -72,7 +72,7 @@ class LinkedList(object):
             prev = node
             upcoming = node.next
             node = node.next
-        prev.next = node
+        prev.next = node.next
         print "deleted {} from the list".format(value)
 
 
