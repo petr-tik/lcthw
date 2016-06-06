@@ -10,11 +10,14 @@ class Node(object):
 
 
 class LinkedList(object):
-    """docstring for LinkedList"""
-    def __init__(self):
+    """LinkedList """
+    def __init__(self, arr=None):
         # given an array of numbers, return a linked list of them
         # super(LinkedList, self).__init__()
         self.head = None
+        if arr:
+            for item in arr:
+                self.append_node(item)
 
     def append_node(self, data):
         new_node = Node(data)
@@ -97,6 +100,7 @@ ll.print_list()
 ll.delete(4)
 ll.print_list()
 
-ll1 = LinkedList()
+ll1 = LinkedList([12,34,5,6])
 ll1.delete(5)
+ll1.print_list()
 
