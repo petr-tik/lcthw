@@ -79,13 +79,6 @@ class LinkedList(object):
         print "deleted {} from the list".format(value)
 
 
-class Stack(object):
-    def __init__(self):
-    	self.maxsize = None
-    	self.top = None
-    	self.items = list()
-
-
 ll = LinkedList()
 ll.append_node(3)
 ll.append_node(5)
@@ -104,3 +97,35 @@ ll1 = LinkedList([12,34,5,6])
 ll1.delete(5)
 ll1.print_list()
 
+
+print "Starting stack exercises\n\n\n\n################\n\n"
+
+class Stack(object):
+    def __init__(self, arr=None):
+    	self.head = None
+    	self.size = 0
+        if arr:
+            for item in arr:
+                self.push(item)
+                self.size += 1
+
+    def push(self, value):
+        new_node = Node(value)
+        if self.head == None:
+            self.head = new_node
+            return
+
+        node = self.head
+        while node.next != None:
+            node = node.next
+        node.next = new_node
+        
+    # def pop(self, idx = self.size):
+    #     for _ in xrange(idx):
+    #         pass
+
+
+
+
+st = Stack([12,3,4])
+st.print_stack()
