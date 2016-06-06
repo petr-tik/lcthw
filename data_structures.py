@@ -27,18 +27,54 @@ class LinkedList(object):
             while node.next != None:
                 node = node.next
             node.next = new_node
+        print "Adding {} to the right of the list".format(data)
 
     def left_append(self, data):
         new_node = Node(data)
+        # whatever the current the head is, it will be after the node we are inserting
         new_node.next = self.head
+        # after head is linked to new, make the new node head
         self.head = new_node
+        print "Adding {} to the left of the list".format(data)
 
     def print_list(self):
         node = self.head
         while node:
             print node.data
             node = node.next
-        
+        print "end of list"
+
+    def delete(self, value):
+        # delete the node with given value
+        # walk down the list
+        # when value found
+        # | prev | -> | found | -> | next |
+
+        # prev's next = found's next
+        # 3 special cases
+        # empty list
+        # deleting the head node
+        # no such value in list
+
+        node = self.head
+        prev = None
+        if node == None:
+            print "Empty list cannot delete"
+            return None
+        elif node.data == value:
+            self.head = node.next
+            return 
+
+        while node.data != value:
+            # if you the value is never in the list
+            if node.next == None:
+                return None    
+            prev = node
+            upcoming = node.next
+            node = node.next
+        prev.next = node
+        print "deleted {} from the list".format(value)
+
 
 class Stack(object):
     def __init__(self):
@@ -56,3 +92,11 @@ ll.print_list()
 
 ll.left_append(4)
 ll.print_list()
+
+
+ll.delete(4)
+ll.print_list()
+
+ll1 = LinkedList()
+ll1.delete(5)
+
