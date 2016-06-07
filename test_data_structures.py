@@ -38,7 +38,9 @@ class LinkedListTestCase(unittest.TestCase):
         self.assertEqual(ll1_original, ll1_with_del.as_list())
 
     def test_delete_head(self):
-        pass
+        self.LL1.delete(self.arr[0])
+        new_ll = LinkedList(self.arr[1:]).as_list()
+        self.assertEqual(self.LL1.as_list(), new_ll)
 
 
 
