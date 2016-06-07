@@ -87,20 +87,6 @@ class LinkedList(object):
         return res
 
 
-
-
-
-
-ll.delete(4)
-ll.print_list()
-
-ll1 = LinkedList([12,34,5,6])
-ll1.delete(5)
-ll1.print_list()
-
-
-print "Starting stack exercises\n\n\n\n################\n\n"
-
 class Stack(object):
     def __init__(self, arr=None):
     	self.head = None
