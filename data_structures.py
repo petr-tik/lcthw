@@ -18,7 +18,7 @@ class LinkedList(object):
         if arr:
             for item in arr:
                 self.append_node(item)
-
+    
     def append_node(self, data):
         new_node = Node(data)
         # if empty list, set head to new node
@@ -30,7 +30,7 @@ class LinkedList(object):
             while node.next != None:
                 node = node.next
             node.next = new_node
-        print "Adding {} to the right of the list".format(data)
+        # print "Adding {} to the right of the list".format(data)
 
     def left_append(self, data):
         new_node = Node(data)
@@ -38,7 +38,7 @@ class LinkedList(object):
         new_node.next = self.head
         # after head is linked to new, make the new node head
         self.head = new_node
-        print "Adding {} to the left of the list".format(data)
+        # print "Adding {} to the left of the list".format(data)
 
     def print_list(self):
         node = self.head
@@ -76,18 +76,19 @@ class LinkedList(object):
             upcoming = node.next
             node = node.next
         prev.next = node.next
-        print "deleted {} from the list".format(value)
+        # print "deleted {} from the list".format(value)
+
+    def as_list(self):
+        node = self.head
+        res = []
+        while node:
+            res.append(node.data)
+            node = node.next
+        return res
 
 
-ll = LinkedList()
-ll.append_node(3)
-ll.append_node(5)
-ll.append_node(7)
 
-ll.print_list()
 
-ll.left_append(4)
-ll.print_list()
 
 
 ll.delete(4)
@@ -125,7 +126,6 @@ class Stack(object):
         if self.head == None:
             print "Stack underflow"
             return
-
         node = self.head
         for _ in xrange(self.size - 1):
             prev = node # keep track of current
