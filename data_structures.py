@@ -118,11 +118,22 @@ class Stack(object):
         node = self.head
         while node.next != None:
             node = node.next
+            print node.data
         node.next = new_node
         
-    # def pop(self, idx = self.size):
-    #     for _ in xrange(idx):
-    #         pass
+    def pop(self):
+        if self.head == None:
+            print "Stack underflow"
+            return
+
+        node = self.head
+        for _ in xrange(self.size - 1):
+            prev = node # keep track of current
+            node = node.next
+        prev.next = None # make it the new top
+        val = node.data # get the value
+        self.size -= 1 # reduce the size
+        return val #
 
     def print_stack(self):
         node = self.head
@@ -132,15 +143,17 @@ class Stack(object):
             stack_values.append(node.data)
             counter += 1
             node = node.next
-        stack_values.append(node.data)
-        print stack_values[counter], "<- top value"
+        stack_values.append(node.data) # append the last one
+        print stack_values[counter], "<- top value" # print it with an arrow
         print "|"
         for idx in xrange(counter - 1, -1, -1):
-            print stack_values[idx]
+            print stack_values[idx] # print stack values from the end of the array
             if idx == 0:
                 break
             print "|"
 
 
 st = Stack([12,3,4])
+st.print_stack()
+print st.pop()
 st.print_stack()
