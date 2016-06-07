@@ -15,7 +15,14 @@ class LinkedListTestCase(unittest.TestCase):
         l2 = self.LL2.as_list()
         self.assertEqual(l1, l2)
 
-
+    def test_left_append(self):
+        l1 = self.LL1.as_list()
+        l2 = self.LL2
+        l2.append_node(2)
+        l2.append_node(3)
+        l2.append_node(4)
+        l2.left_append(1)
+        self.assertEqual(l1,l2.as_list())
 
 
 if __name__ == '__main__':
