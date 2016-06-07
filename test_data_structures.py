@@ -24,6 +24,10 @@ class LinkedListTestCase(unittest.TestCase):
         l2.left_append(1)
         self.assertEqual(l1,l2.as_list())
 
+    def test_delete_empty(self):
+        ll2 = self.LL2.delete(5)
+        self.assertEqual(ll2, None)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=10)
