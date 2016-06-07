@@ -31,7 +31,11 @@ class LinkedListTestCase(unittest.TestCase):
         self.assertEqual(ll2, None)
 
     def test_delete_not_found(self):
-        pass
+        ll1_original = self.LL1.as_list()
+        ll1_with_del = self.LL1
+        ll1_with_del.delete(25)
+
+        self.assertEqual(ll1_original, ll1_with_del.as_list())
 
     def test_delete_head(self):
         pass
