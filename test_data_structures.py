@@ -64,7 +64,11 @@ class StackTestCase(unittest.TestCase):
         self.assertEqual(self.st1.as_list()[-1], new_val)
 
     def test_size_after_push(self):
-        pass
+        new_val = rnd.randint(20,40)
+        size_before_push = self.st1.size
+        self.st1.push(new_val)
+        size_after_push = self.st1.size
+        self.assertEqual(size_after_push - 1, size_before_push)
 
 
 if __name__ == '__main__':
