@@ -95,7 +95,6 @@ class Stack(object):
         if arr:
             for item in arr:
                 self.push(item)
-                self.size += 1
 
     def push(self, value):
         new_node = Node(value)
@@ -114,13 +113,22 @@ class Stack(object):
             print "Stack underflow"
             return
         node = self.head
-        for _ in xrange(self.size - 1):
+        for _ in xrange(self.size):
             prev = node # keep track of current
             node = node.next
         prev.next = None # make it the new top
         val = node.data # get the value
         self.size -= 1 # reduce the size
-        return val #
+        return val
+
+    def as_list(self):
+        node = self.head
+        res = []
+        while node.next != None:
+            res.append(node.data)
+            node = node.next
+        res.append(node.data)
+        return res
 
     def print_stack(self):
         node = self.head
@@ -138,17 +146,3 @@ class Stack(object):
             if idx == 0:
                 break
             print "|"
-
-    def as_list(self):
-        node = self.head
-        res = []
-        while node.next != None:
-            res.append(node.data)
-            node = node.next
-        res.append(node.data)
-        return res
-
-st = Stack([12,3,4])
-st.print_stack()
-print st.pop()
-st.print_stack()
