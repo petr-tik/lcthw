@@ -43,7 +43,6 @@ class LinkedListTestCase(unittest.TestCase):
         self.assertEqual(self.LL1.as_list(), new_ll)
 
 
-
 class StackTestCase(unittest.TestCase):
     def setUp(self):
         self.arr = [rnd.randint(0,20) for x in xrange(10)]
@@ -54,7 +53,10 @@ class StackTestCase(unittest.TestCase):
         self.assertEqual(self.last_val, self.st1.pop())
 
     def test_size_after_pop(self):
-        pass
+        size_before_pop = self.st1.size
+        self.st1.pop()
+        size_after_pop = self.st1.size
+        self.assertEqual(size_before_pop - 1, size_after_pop)
 
     def test_size_after_push(self):
         pass
