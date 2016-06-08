@@ -44,5 +44,21 @@ class LinkedListTestCase(unittest.TestCase):
 
 
 
+class StackTestCase(unittest.TestCase):
+    def setUp(self):
+        self.arr = [rnd.randint(0,20) for x in xrange(10)]
+        self.st1 = Stack(self.arr)
+        self.last_val = self.arr[-1]
+
+    def test_pop_return(self):
+        self.assertEqual(self.last_val, self.st1.pop())
+
+    def test_size_after_pop(self):
+        pass
+
+    def test_size_after_push(self):
+        pass
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=10)
