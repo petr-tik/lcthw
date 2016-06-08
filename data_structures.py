@@ -88,6 +88,7 @@ class LinkedList(object):
 
 
 class Stack(object):
+    """"Implementing a Stack as a LinkedList with a pretty print method"""
     def __init__(self, arr=None):
     	self.head = None
     	self.size = 0
@@ -105,8 +106,8 @@ class Stack(object):
         node = self.head
         while node.next != None:
             node = node.next
-            print node.data
         node.next = new_node
+        self.size += 1
         
     def pop(self):
         if self.head == None:
@@ -138,6 +139,14 @@ class Stack(object):
                 break
             print "|"
 
+    def as_list(self):
+        node = self.head
+        res = []
+        while node.next != None:
+            res.append(node.data)
+            node = node.next
+        res.append(node.data)
+        return res
 
 st = Stack([12,3,4])
 st.print_stack()
