@@ -58,6 +58,11 @@ class StackTestCase(unittest.TestCase):
         size_after_pop = self.st1.size
         self.assertEqual(size_before_pop - 1, size_after_pop)
 
+    def test_push(self):
+        new_val = rnd.randint(20,40)
+        self.st1.push(new_val)
+        self.assertEqual(self.st1.as_list()[-1], new_val)
+
     def test_size_after_push(self):
         pass
 
