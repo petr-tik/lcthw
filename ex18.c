@@ -58,6 +58,42 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     return target;
 }
 
+int *insert_sort(int *numbers, int count, compare_cb cmp)
+{
+    int start = 0;
+    int end = count - 1;
+
+    int *target = malloc(count * sizeof(int));
+
+    if(!target) die("memory error.");
+
+    memcpy(target, numbers, count * sizeof(int));
+    // copy 
+
+    /*
+    for i = 1 to length(A)-1
+    x = A[i]
+    j = i - 1
+    while j >= 0 and A[j] > x
+        A[j+1] = A[j]
+        j = j - 1
+    end while
+    A[j+1] = x[3]
+    end for
+    */
+
+    for(int i = start + 1; i < end; i++) {
+        int x = numbers[i];
+        int j = i - 1;
+        while(j >= 0 && numbers[j] > x) {
+            numbers[j+1] = numbers[j];
+            j--;
+        }
+    } 
+
+    return target;
+}
+
 int sorted_order(int a, int b)
 {
     return a - b;
