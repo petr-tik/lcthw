@@ -58,7 +58,7 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     return target;
 }
 
-int *insert_sort(int *numbers, int count, compare_cb cmp)
+int *insert_sort(int *numbers, int count)
 {
     int start = 0;
     int end = count - 1;
@@ -68,7 +68,7 @@ int *insert_sort(int *numbers, int count, compare_cb cmp)
     if(!target) die("memory error.");
 
     memcpy(target, numbers, count * sizeof(int));
-    // copy 
+    // copy count * sizeof(int) lot of bytes from numbers to target and return the pointer
 
     /*
     for i = 1 to length(A)-1
@@ -78,17 +78,29 @@ int *insert_sort(int *numbers, int count, compare_cb cmp)
         A[j+1] = A[j]
         j = j - 1
     end while
-    A[j+1] = x[3]
+    A[j+1] = x
     end for
+
+    the rightmost element of the unsorted list is automatically placed in the sorted sublist
+    iterate over all over elements (using index in unsorted)
     */
 
-    for(int i = start + 1; i < end; i++) {
-        int x = numbers[i];
-        int j = i - 1;
-        while(j >= 0 && numbers[j] > x) {
-            numbers[j+1] = numbers[j];
-            j--;
+    for(int idx_in_unsorted = start + 1; idx_in_unsorted < count; idx_in_unsorted++) {
+        int moving_int = target[idx_in_unsorted]; // this will be moved from unsorted sublist to sorted
+        int index_in_sorted = idx_in_unsorted - 1; // the left index/boundary, where sorted sublist starts
+        while(index_in_sorted >= 0 && target[index_in_sorted] > moving_int) {
+            // keep going to the left boundary of sorted list, 
+            // until you find a number, that is less than or equal to the moving int
+            target[index_in_sorted+1] = target[index_in_sorted]; 
+            // slide the already sorted number to the right to make space
+            index_in_sorted--;
+            // 
         }
+        target[index_in_sorted+1] = moving_int; 
+        // while loop breaks if either:
+            // you either reach index -1 
+            // or find a number at index_in_sorted that is smaller
+        // so you insert the moving int just before
     } 
 
     return target;
@@ -121,7 +133,8 @@ int strange_order(int a, int b)
 void test_sorting(int *numbers, int count, compare_cb cmp)
 {
     int i = 0;
-    int *sorted = bubble_sort(numbers, count, cmp);
+    // int *sorted = bubble_sort(numbers, count, cmp);
+    int *sorted = insert_sort(numbers, count);
     // sorted is the pointer to the beginning of memory block 
     // where sorted numbers have been stored
 
@@ -153,6 +166,7 @@ int main(int argc, char *argv[])
     test_sorting(numbers, count, sorted_order);
     test_sorting(numbers, count, reverse_order);
     test_sorting(numbers, count, strange_order);
+
 
     free(numbers);
 
