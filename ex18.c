@@ -35,6 +35,11 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     if(!target) die("memory error.");
 
     memcpy(target, numbers, count * sizeof(int));
+    // copies count * sizeof(int) bytes from numbers (which is a memory location)
+    // to target - memory we allocated previously
+    // an int is 4 bytes long, so for 10 numbers, we need 10 * 4 bytes of memory
+
+    // memcpy also returns a pointer to target, but we don't need it 
 
     for(i = 0; i < count; i++) {
         for(j = 0; j < count - 1; j++) {
@@ -42,11 +47,15 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
                 temp = target[j+1];
                 target[j+1] = target[j];
                 target[j] = temp;
+    // go through i integers, i times
+    // compare prev with next, if in order leave, otherwise swap
+    // first run will bubble the largest to the end
+    // second run will bubble the 2nd largest to the end etc.
             }
         }
     }
 
-    return target
+    return target;
 }
 
 int sorted_order(int a, int b)
@@ -77,6 +86,8 @@ void test_sorting(int *numbers, int count, compare_cb cmp)
 {
     int i = 0;
     int *sorted = bubble_sort(numbers, count, cmp);
+    // sorted is the pointer to the beginning of memory block 
+    // where sorted numbers have been stored
 
     if(!sorted) die("Failed to sort as requested");
 
@@ -85,10 +96,10 @@ void test_sorting(int *numbers, int count, compare_cb cmp)
     }
     printf("\n");
 
-    free(sorted);
+    free(sorted); // free that block of memory
 }
 
-int main(int argc, char *arhv[])
+int main(int argc, char *argv[])
 {
     if(argc < 2) die("USE like this: ex18 4 5 3 2 1");
 
@@ -102,6 +113,7 @@ int main(int argc, char *arhv[])
     for(i = 0; i < count; i++) {
         numbers[i] = atoi(inputs[i]);
     }
+
     test_sorting(numbers, count, sorted_order);
     test_sorting(numbers, count, reverse_order);
     test_sorting(numbers, count, strange_order);
