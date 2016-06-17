@@ -60,6 +60,8 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
 
 int *insert_sort(int *numbers, int count)
 {
+    // https://www.youtube.com/watch?v=DFG-XuyPYUQ
+    // good explanation apart from the annoying accent
     int start = 0;
     int end = count - 1;
 
@@ -133,8 +135,8 @@ int strange_order(int a, int b)
 void test_sorting(int *numbers, int count, compare_cb cmp)
 {
     int i = 0;
-    // int *sorted = bubble_sort(numbers, count, cmp);
-    int *sorted = insert_sort(numbers, count);
+    int *sorted = bubble_sort(numbers, count, cmp);
+    // int *sorted = insert_sort(numbers, count);
     // sorted is the pointer to the beginning of memory block 
     // where sorted numbers have been stored
 
