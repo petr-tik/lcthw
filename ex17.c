@@ -43,7 +43,7 @@ void die(const char *message)
 
 void Address_print(struct Address *addr)
 {
-    printf("%d %s %s\n", addr->id, addr->name, addr->email);
+    printf("%d \t\t %s \t\t %s\n", addr->id, addr->name, addr->email);
 }
 
 void Database_load(struct Connection *conn)
@@ -130,6 +130,7 @@ void Database_get(struct Connection *conn, int id)
     struct Address *addr = &conn->db->rows[id];
 
     if(addr->set) {
+        printf("ID \t\t Name \t\t Email\n");
         Address_print(addr);
     } else {
         die("ID is not set");
@@ -146,7 +147,7 @@ void Database_list(struct Connection *conn)
 {
     int i = 0;
     struct Database *db = conn->db;
-
+    printf("ID \t\t Name \t\t Email\n");
     for(i = 0; i < MAX_ROWS; i++) {
         struct Address *cur = &db->rows[i];
 
@@ -196,6 +197,7 @@ int main(int argc, char *argv[])
         case 'l':
             Database_list(conn);
             break;
+        
         default:
             die("invalid action\nOnly c=create, g=get, s=set, d=del, l=list");
     }
