@@ -85,6 +85,8 @@ int *insert_sort(int *numbers, int count)
 
     the rightmost element of the unsorted list is automatically placed in the sorted sublist
     iterate over all over elements (using index in unsorted)
+    move one element from unsorted to sorted at a time
+    
     */
 
     for(int idx_in_unsorted = start + 1; idx_in_unsorted < count; idx_in_unsorted++) {

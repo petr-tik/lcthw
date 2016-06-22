@@ -139,7 +139,9 @@ void Database_get(struct Connection *conn, int id)
 
 void Database_delete(struct Connection *conn, int id)
 {
+    // make a new struct with same ID, but .set parameter at 0
     struct Address addr = {.id = id, .set = 0};
+    // assign the row in the db under currently live connection the new struct
     conn->db->rows[id] = addr;
 }
 
