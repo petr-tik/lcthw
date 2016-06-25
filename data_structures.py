@@ -150,12 +150,24 @@ class Stack(object):
 
 class Queue(object):
     def __init__(self):
+        """Implementing a queue with a list and a head index
+        The dynamic nature of python allows me to keep growing the list and operate with indices
+        """
         self.size = 0
-        self.head = 0
+        self.head = -1
+        self.items = []
 
     def enqueque(self, value):
-        pass
+        self.items.append(value)
+        self.size += 1
 
     def dequeue(self):
         """ Pops (Returns and removes) the head of queue """
-        pass
+        if self.size == 0:
+            print "Error: empty queue"
+            return
+        
+        temp = self.head
+        self.head += 1
+        self.size -= 1
+        return self.items[temp]
