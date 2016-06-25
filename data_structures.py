@@ -146,3 +146,16 @@ class Stack(object):
             if idx == 0:
                 break
             print "|"
+
+
+class Queue(object):
+    def __init__(self):
+        self.size = 0
+        self.head = 0
+
+    def enqueque(self, value):
+        pass
+
+    def dequeue(self):
+        """ Pops (Returns and removes) the head of queue """
+        pass
