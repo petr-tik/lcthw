@@ -1,7 +1,7 @@
 #! /usr/bin/env python 
 
 import unittest
-from data_structures import LinkedList, Stack, Node
+from data_structures import LinkedList, Stack, Node, Queue
 import random as rnd
 
 class LinkedListTestCase(unittest.TestCase):
@@ -69,6 +69,20 @@ class StackTestCase(unittest.TestCase):
         self.st1.push(new_val)
         size_after_push = self.st1.size
         self.assertEqual(size_after_push - 1, size_before_push)
+
+
+class QueueTestCase(unittest.TestCase):
+    def setUp(self):
+        self.bare_q = Queue()
+        self.q2 = Queue([4,5,6])
+
+    def test_dequeue_return(self):
+        self.assertEqual(4, self.q2.dequeue())
+
+    def test_dequeue_from_empty(self):
+        self.assertEqual(None, self.bare_q.dequeue())
+
+
 
 
 if __name__ == '__main__':
