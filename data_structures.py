@@ -97,6 +97,8 @@ class Stack(object):
                 self.push(item)
 
     def push(self, value):
+        """Pushes a value on top of the stack
+        returns nothing, just modifies the stack object"""
         new_node = Node(value)
         if self.head == None:
             self.head = new_node
@@ -109,6 +111,7 @@ class Stack(object):
         self.size += 1
         
     def pop(self):
+        """Pops the value from the top of the stack"""
         if self.head == None:
             print "Stack underflow"
             return
@@ -122,6 +125,7 @@ class Stack(object):
         return val
 
     def as_list(self):
+        """ Returns the Stack as a list, where the head is at the start of the list"""
         node = self.head
         res = []
         while node.next != None:
@@ -131,6 +135,7 @@ class Stack(object):
         return res
 
     def print_stack(self):
+        """returns nothing, pretty prints the stack with comments"""
         node = self.head
         counter = 0
         stack_values = []
@@ -149,17 +154,23 @@ class Stack(object):
 
 
 class Queue(object):
-    def __init__(self):
+    def __init__(self, arr=None):
         """Implementing a queue with a list and a head index
         The dynamic nature of python allows me to keep growing the list and operate with indices
         """
         self.size = 0
-        self.head = -1
+        self.head = -1 
         self.items = []
+        if arr:
+            for item in arr:
+                self.enqueque(item)
 
     def enqueque(self, value):
+        """Adds a value to the back of the queue""" 
         self.items.append(value)
         self.size += 1
+        if self.head == -1:
+            self.head = 0
 
     def dequeue(self):
         """ Pops (Returns and removes) the head of queue """
@@ -168,6 +179,6 @@ class Queue(object):
             return
         
         temp = self.head
-        self.head += 1
+        self.head += 1 # go up to the next index
         self.size -= 1
         return self.items[temp]
