@@ -82,6 +82,11 @@ class QueueTestCase(unittest.TestCase):
     def test_dequeue_from_empty(self):
         self.assertEqual(None, self.bare_q.dequeue())
 
+    def test_deq_enq(self):
+        val = 5
+        self.bare_q.enqueque(val)
+        ret = self.bare_q.dequeue()
+        self.assertEqual(val, ret)
 
 
 
