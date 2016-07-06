@@ -8,4 +8,9 @@ int main(int argc, char *argv[])
     int length;
     length = strlen(str);
     printf("\nString '%s' has length %d and is in memory at address: %p \n", str, length, str);
+
+    int *ptr;
+    int number;
+    ptr = &number;
+    printf("\nNumber '%d' is in memory at address: %p \n", *ptr, ptr);
 }
