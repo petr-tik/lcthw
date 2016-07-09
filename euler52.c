@@ -11,8 +11,8 @@ int num_to_dig(int *number, int *digits)
     // return array of length 10, where 
     // array[idx] = count for idx in range(0,9)
     
-    while(number) {
-        int idx = *number % 10;
+    while(*number) {
+        int idx = (*number % 10);
         digits[idx] += 1;
         *number /= 10;
     };
@@ -39,10 +39,10 @@ int num_to_dig(int *number, int *digits)
 
 int main(int argc, char argv[])
 {
-    // int *number;
-    // number = 5;
+    int *number;
+    *number = 123;
     int *digits = calloc(10, sizeof(int));
-    // num_to_dig(*number, *digits);
+    num_to_dig(number, digits);
     for (int i = 0; i < 10; i++)
     {   
         int val = digits[i];
