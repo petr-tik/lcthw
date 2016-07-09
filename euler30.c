@@ -31,12 +31,14 @@ double digit_powerer(double number, int power)
 int main(int argc, char *argv[])
 {
   double power, sum = 0; // the running total
-  
-  if (argc == 1)
+  if (argc == 1) // default power = 5
   {
     power = 5;
-  } else {
+  } else if (argc == 2) {
     power = atoi(argv[1]);
+  } else {
+    printf("ERROR.\nCorrect Usage: %s <power> (default 5) \n", argv[0]);
+    return 1;
   }
   for (int num = 2; num < 1000000; num++)
   {
