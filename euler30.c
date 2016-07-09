@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 // compile 
 // gcc euler30.c -lm -o euler30
@@ -29,18 +30,18 @@ double digit_powerer(double number, int power)
 
 int main(int argc, char *argv[])
 {
-  double number, power, res;
-  double sum = 0; // the running total
-  // fscanf(stdin, "%lf", &number);
-  // fscanf(stdin, "%lf", &power);
-  // printf("Number: %lf to the power: %lf\n", number, power);
+  double power, sum = 0; // the running total
   
-  // res = digit_powerer(number, power);
-  //printf("Result: %d\n", (int)res);
+  if (argc == 1)
+  {
+    power = 5;
+  } else {
+    power = atoi(argv[1]);
+  }
   for (int num = 2; num < 1000000; num++)
   {
     double digit_power_sum;
-    digit_power_sum = digit_powerer(num, 5);
+    digit_power_sum = digit_powerer(num, power);
     if(num == digit_power_sum)
     {
       printf("Adding %d to %lf\n", num, sum);
