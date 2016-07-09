@@ -17,14 +17,10 @@ double digit_powerer(double number, int power)
   ptr_to_sum = &sum;
   int digit;
   int int_part = (int)number;
-  printf("Number %lf\n", number);
-  printf("Integer part of number %d\n", int_part);
   while(int_part) {
-    printf("%d\n", int_part);
     digit = int_part % 10;
     int_part /= 10;
     *ptr_to_sum += pow(digit, power);
-    printf("%lf\n", *ptr_to_sum);
     };
 
   return *ptr_to_sum;
@@ -41,18 +37,28 @@ int main(int argc, char *argv[])
   
   // res = digit_powerer(number, power);
   //printf("Result: %d\n", (int)res);
-
-
-  for (int num = 0; num < 10000; num++)
+  for (int num = 2; num < 1000000; num++)
   {
     double digit_power_sum;
     digit_power_sum = digit_powerer(num, 5);
     if(num == digit_power_sum)
     {
+      printf("Adding %d to %lf\n", num, sum);
       sum += num;
     }
   }
-  printf("%lf\n", sum);
+  printf("%d\n", (int)sum);
   return 0;
 };
 
+// compared to its python equivalent
+
+// petr_tik@merluza:~/Coding/lcthw$ gcc euler30.c -lm -o euler30
+// petr_tik@merluza:~/Coding/lcthw$ time ./euler30
+// real  0m5.925s
+// user  0m5.916s
+// sys 0m0.000s
+// petr_tik@merluza:~/Coding/lcthw$ time python ../euler_project/euler30.py
+// real  1m5.754s
+// user  1m3.920s
+// sys 0m0.000s
