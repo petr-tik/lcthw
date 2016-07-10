@@ -5,15 +5,13 @@
 // Find the smallest positive integer, x, 
 // such that 2x, 3x, 4x, 5x, and 6x, contain the same digits.
 
-
-
 int num_to_dig(int *number, int *digits)
 {
-    // takes:
-    //  pointer to number
-    //  pointer to array
-    // fill the array with counts of each digit
-    // array[idx] = count for idx in range(0,9)
+    /* takes:
+     pointer to number
+     pointer to array
+    fill the array with counts of each digit
+    array[idx] = count for idx in range(0,9) */
     int fading_number = *number;
     while(fading_number) {
         int idx = fading_number % 10;
@@ -52,12 +50,13 @@ int check_number(int *num1)
         int num2 = (*num1) * mult;
         int *num2_ptr = &num2;
         memset(digits2, 0, sizeof(unsigned int)*10);
-        num_to_dig(num2_ptr, digits2);    
-        
+        // zero all the counts before adding from new number
+        num_to_dig(num2_ptr, digits2);
         for (int idx = 0; idx < 10; idx++)
+        // compare each digit's counter
         {
-
             if (digits1[idx] != digits2[idx])
+            // as soon as something wrong - abort
             {
                 free(digits1);
                 free(digits2);                
@@ -81,6 +80,7 @@ int main(int argc, char argv[])
         if (check_number(num_ptr) == 0)
         {
             printf("%d\n", *num_ptr);
+            print_digit_list(num_ptr);
             return 0;
         }
         (*num_ptr)++; 
