@@ -86,6 +86,22 @@ class LinkedList(object):
             node = node.next
         return res
 
+    def retrieve_from_end(self, N):
+        node = self.head
+        n_from_end = node
+        counter = 1
+        while node.next is not None:
+            if counter > N:
+            # only start keeping track of element N places behind, 
+            # after reaching position N+1     
+                n_from_end = n_from_end.next
+            node = node.next
+            counter += 1
+        if counter > N:
+            return n_from_end
+        else:
+            return None
+
 
 class Stack(object):
     """"Implementing a Stack as a LinkedList with a pretty print method"""
