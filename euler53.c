@@ -21,16 +21,19 @@ Run:
 int fact(unsigned int num, long *fact_of_number)
 {
     /*Takes:
-    *       pointer to a number 
+    *       a number 
             pointer to factorial of number
-    *   return 0 if all goes well
+
+    *   return 0 if all goes well 
+            and changes the value at pointer address to factorial of number
     */
     
-    if ((num) < 0)
+    if (num < 0)
     {
         printf("Error - negative numbers don't have a factorial\n");
         return 1;
     }
+    *fact_of_number = 1;
     for (int i = 2; i <= num; i++)
     {
         *fact_of_number *= i;
@@ -75,7 +78,6 @@ int main(int argc, char *argv[])
     int N = 100, res;
     int upper_limit = 1000000;
     res = simulate_nCr(N, upper_limit);
-    
     printf("%d\n", res); 
     return 0;
 }
