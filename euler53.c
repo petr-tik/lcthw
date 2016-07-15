@@ -14,7 +14,7 @@ Compile:
 gcc -lm euler53.c -o euler53
 
 Run: 
-./euler53 <N_factorial>
+./euler53
 
 */
 
@@ -27,7 +27,6 @@ int fact(unsigned int num, long *fact_of_number)
     *   return 0 if all goes well 
             and changes the value at pointer address to factorial of number
     */
-    
     if (num < 0)
     {
         printf("Error - negative numbers don't have a factorial\n");
@@ -47,12 +46,19 @@ int nCr(int N, int r, long *res_ptr)
     return 0 if number successfully assigned to res_ptr
     */
     // return f(n)/(f(r)*f(n-r))
-    long *n_fact, *r_fact, *n_r_fact;
+
+    long *n_fact = malloc(sizeof(long));
+    long *r_fact = malloc(sizeof(long));
+    long *n_r_fact = malloc(sizeof(long));
+
     fact(N, n_fact);
     fact(r, r_fact);
-    fact(N - r, n_r_fact);
+    fact((N - r), n_r_fact);
+    
     *res_ptr = *n_fact/((*r_fact)*(*n_r_fact));
-
+    free(n_fact);
+    free(r_fact);
+    free(n_r_fact);
     return 0;
 }
 
@@ -77,7 +83,20 @@ int main(int argc, char *argv[])
 {
     int N = 100, res;
     int upper_limit = 1000000;
+    
     res = simulate_nCr(N, upper_limit);
     printf("%d\n", res); 
     return 0;
 }
+
+/* 
+int main(int argc, char *argv[]) {
+    // Compile as normal and use as below
+    // ./euler53 <N_to_factorialise>
+
+    n = atoi(argv[1]);
+    long *res;
+    fact(n, res);
+    printf("%ld\n", *res);
+}
+*/ 
