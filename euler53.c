@@ -37,39 +37,46 @@ int fact(unsigned int num, long *fact_of_number)
     {
         *fact_of_number *= i;
     }
+
     return 0;
 }
 
-int nCr(int N, int r, long *res_ptr)
+int nCr(int n, int r, long *res_ptr)
 {
     /* Takes pointer to N and r
     return 0 if number successfully assigned to res_ptr
     */
-    // return f(n)/(f(r)*f(n-r))
+    if (r > n)
+    {
+        printf("Error. Cannot calculate the value\n");
+        return 1;
+    }
 
     long *n_fact = malloc(sizeof(long));
     long *r_fact = malloc(sizeof(long));
     long *n_r_fact = malloc(sizeof(long));
 
-    fact(N, n_fact);
+    fact(n, n_fact);
     fact(r, r_fact);
-    fact((N - r), n_r_fact);
+    fact((n - r), n_r_fact);
+    *res_ptr = (*n_fact)/((*r_fact)*(*n_r_fact));
     
-    *res_ptr = *n_fact/((*r_fact)*(*n_r_fact));
     free(n_fact);
     free(r_fact);
     free(n_r_fact);
     return 0;
 }
 
-int simulate_nCr(int N, int upper_limit) {
+int simulate_nCr(int n, int upper_limit) {
     /* Given N - top number, return the number of nCr values above the upper_limit */
     int counter = 0;
     long *nCr_value_ptr = malloc(sizeof(long));
-    for (int num = 0; num <= N; num++)
+    for (int num = 0; num <= n; num++)
     {
-        for (int r = 0; r < num; r++) {
+        printf("Now looking at %d\n", num);
+        for (int r = 0; r <= num/2; r++) {
             nCr(num, r, nCr_value_ptr);
+            printf("%ld\n", *nCr_value_ptr);
             if (*nCr_value_ptr > upper_limit) {
                 counter += 1;
             }
@@ -81,11 +88,12 @@ int simulate_nCr(int N, int upper_limit) {
 
 int main(int argc, char *argv[])
 {
-    int N = 100, res;
-    int upper_limit = 1000000;
-    
+    int N = 50;
+    int res;
+    int upper_limit = 5;
     res = simulate_nCr(N, upper_limit);
     printf("%d\n", res); 
+
     return 0;
 }
 
@@ -93,10 +101,14 @@ int main(int argc, char *argv[])
 int main(int argc, char *argv[]) {
     // Compile as normal and use as below
     // ./euler53 <N_to_factorialise>
-
+    if (argc != 2) {
+        printf("Error! Use ./euler53 <N_to_factorialise>\n");
+        return 1;
+    }
     n = atoi(argv[1]);
     long *res;
     fact(n, res);
     printf("%ld\n", *res);
+    return 0;
 }
 */ 
