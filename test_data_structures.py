@@ -9,6 +9,7 @@ class LinkedListTestCase(unittest.TestCase):
         self.arr = [rnd.randint(0,20) for x in xrange(10)]
         self.LL1 = LinkedList(self.arr)
         self.LL2 = LinkedList()
+        self.det_ll = LinkedList([1,2,3,4])
 
     def test_append(self):
         for item in self.arr:
@@ -41,6 +42,10 @@ class LinkedListTestCase(unittest.TestCase):
         self.LL1.delete(self.arr[0])
         new_ll = LinkedList(self.arr[1:]).as_list()
         self.assertEqual(self.LL1.as_list(), new_ll)
+
+    def test_retrieve_from_end(self):
+        n_from_end = self.det_ll.retrieve_from_end(2)
+        self.assertEqual(n_from_end.data, 2)
 
 
 class StackTestCase(unittest.TestCase):
