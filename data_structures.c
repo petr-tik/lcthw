@@ -3,16 +3,14 @@
 #include <string.h> // gives strdup func
 #include <assert.h>
 
-struct Node {
+typedef struct Node {
   /* This LinkedList node stores a int data and a ptr to the next Node struct */ 
   int data;
   Node struct Node *next;
-};
+} Node;
 
 struct LinkedList {
-  
 };
-
 
 /* Binary Search Trees 
    Need a different Node structure with pointers to left and right
@@ -20,15 +18,13 @@ struct LinkedList {
       search
       delete
       insert
-
-
 */
 
-struct BSTNode {
+typedef struct BSTNode {
   int key; // comparable key - make it an int
   BSTNode struct BSTNode *left;
   BSTNode struct BSTNode *right;
-};
+} BSTNode;
 
 
 int search(int value, struct BSTNode *node)
@@ -51,9 +47,7 @@ int insert(int value, struct BSTNode *tree)
   // given a value and a pointer to a Binary Search Tree, insert the value
   // return 0 if successful, 1 otherwise
   assert(tree != NULL); 
-
   
-
 }
 
 int main(int argc, char *argv[])
