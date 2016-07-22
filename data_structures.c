@@ -10,7 +10,27 @@ typedef struct Node {
 } Node;
 
 struct LinkedList {
+  struct Node head;
 };
+
+
+int LinkedList_add(struct LinkedList *list_ptr, int value) {
+  if (*list_ptr->head->data == NULL) {
+    *list_ptr->head = value;
+    return 0; 
+  } else {
+    node = *list_ptr->head
+    while (node->next != NULL) {
+      node = node->next;
+    } 
+    new_node = Node;
+    new_node->data = value;
+    new_node->next = NULL;
+    node->next = new_node;
+}  
+  return 0;
+}
+
 
 /* Binary Search Trees 
    Need a different Node structure with pointers to left and right
