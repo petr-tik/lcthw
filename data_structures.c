@@ -9,12 +9,12 @@ typedef struct Node {
   Node struct Node *next;
 } Node;
 
-struct LinkedList {
-  struct Node head;
-};
+typedef struct LinkedList {
+  Node head;
+} LinkedList;
 
 
-int LinkedList_add(struct LinkedList *list_ptr, int value) {
+int LinkedList_add(LinkedList *list_ptr, int value) {
   if (*list_ptr->head->data == NULL) {
     *list_ptr->head = value;
     return 0; 
@@ -47,9 +47,9 @@ typedef struct BSTNode {
 } BSTNode;
 
 
-int search(int value, struct BSTNode *node)
+int BST_search(int value, BSTNode *node)
 {
-  // if tree empty or no such value, return 1, else 0
+  // if tree empty or no such value, return 0, else 1
   if(node->key == NULL) {
     return 1; } 
   else if (node->key == value) {
@@ -62,17 +62,17 @@ int search(int value, struct BSTNode *node)
   return 1;
 }
 
-int insert(int value, struct BSTNode *tree)
+int BST_insert(int value, BSTNode *tree)
 {
   // given a value and a pointer to a Binary Search Tree, insert the value
-  // return 0 if successful, 1 otherwise
+  // return 0 if successful, 1 otherwise. 
+  // The updated (or not, if return 1) tree 
+  // will be available at the same pointer address
   assert(tree != NULL); 
   
 }
 
 int main(int argc, char *argv[])
 {
-
-
   return 0;
 }
