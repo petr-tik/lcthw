@@ -38,6 +38,9 @@ int LinkedList_add(LinkedList *list_ptr, int value) {
       search
       delete
       insert
+
+All operations take the pointer to the BST as argument and 
+return int for success/failure. Either way, the BST is available under the same pointer
 */
 
 typedef struct BSTNode {
@@ -49,27 +52,37 @@ typedef struct BSTNode {
 
 int BST_search(int value, BSTNode *node)
 {
+  // check that tree is not empty
+  assert(*node != NULL); 
+
   // if tree empty or no such value, return 0, else 1
   if(node->key == NULL) {
     return 1; } 
   else if (node->key == value) {
     return 0; }
   else if (node->key < value) {
-    search(value, node->right); }
+    BST_search(value, node->right); }
   else {
-    search(value, node->left);}
-    
+    BST_search(value, node->left);}
   return 1;
 }
 
-int BST_insert(int value, BSTNode *tree)
+int BST_insert(int value, BSTNode *node)
 {
   // given a value and a pointer to a Binary Search Tree, insert the value
   // return 0 if successful, 1 otherwise. 
   // The updated (or not, if return 1) tree 
   // will be available at the same pointer address
-  assert(tree != NULL); 
-  
+  if (node == NULL) {
+    *node = BSTNode; 
+    node->key = value;
+    node->*left = NULL;
+    node->*right = NULL; }
+  else if (node->key > value) {
+    BST_insert(value, node->left);
+    } else {
+    BST_insert(value, node->right);}
+  return 0;
 }
 
 int main(int argc, char *argv[])
