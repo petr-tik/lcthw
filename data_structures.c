@@ -95,11 +95,11 @@ int BST_insert(int value, BSTNode *tree)
 }
 
 int get_option() {
-  int *answer;
+  int answer;
   printf("Which simulation do you want to run\n1. Linked List\n2. Binary Search Tree\n");
   fscanf(stdin, "%d", &answer);
-  if (*answer < 3) {
-    return *answer;
+  if (answer < 3) {
+    return answer;
 } else {
     get_option();
 }
@@ -107,21 +107,18 @@ int get_option() {
 
 int main(int argc, char *argv[])
 {
-  int *answer;
-  *answer = get_option();
-  switch(*answer) {
+  switch(get_option()) {
     case 1:
-      test_LinkedList();
+      //test_LinkedList();
       return 0;
       break;
     case 2:
-      test_BST();
+      //test_BST();
       return 0;
       break;
     default:
       return 1;
 
   return 0;
-
 }
 }
