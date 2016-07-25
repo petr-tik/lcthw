@@ -87,6 +87,17 @@ int BST_insert(int value, BSTNode *tree)
   return 1; // if it ever gets here, it never inserted a node
 }
 
+int get_option(void) {
+  int *answer;
+  printf("Which simulation do you want to run\n1. Linked List\n2. Binary Search Tree\n");
+  fscanf(stdin, "%d", &answer);
+  if (*answer < 3) {
+    return *answer;
+} else {
+    get_option(void);
+}
+}
+
 int main(int argc, char *argv[])
 {
   int *answer;
