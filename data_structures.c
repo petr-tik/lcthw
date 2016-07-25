@@ -53,10 +53,10 @@ typedef struct BSTNode {
 int BST_search(int value, BSTNode *node)
 {
   // check that tree is not empty
-  assert(*node != NULL); 
+  assert(node); 
 
   // if tree empty or no such value, return 0, else 1
-  if(node->key == NULL) {
+  if !(node->key) {
     return 1; } 
   else if (node->key == value) {
     return 0; }
@@ -67,25 +67,37 @@ int BST_search(int value, BSTNode *node)
   return 1;
 }
 
-int BST_insert(int value, BSTNode *node)
+int BST_insert(int value, BSTNode *tree)
 {
   // given a value and a pointer to a Binary Search Tree, insert the value
   // return 0 if successful, 1 otherwise. 
   // The updated (or not, if return 1) tree 
   // will be available at the same pointer address
-  if (node == NULL) {
-    *node = BSTNode; 
+  if !(tree) {
+    node = (BSTNode *)malloc(sizeof(BSTNode)); 
     node->key = value;
-    node->*left = NULL;
-    node->*right = NULL; }
+    node->left = NULL;
+    node->right = NULL; 
+    return 0;
+}
   else if (node->key > value) {
     BST_insert(value, node->left);
     } else {
     BST_insert(value, node->right);}
-  return 0;
+  return 1; // if it ever gets here, it never inserted a node
 }
 
 int main(int argc, char *argv[])
 {
+  int *answer;
+  *answer = get_option(void);
+  switch(*answer) {
+    case 1:
+      test_LinkedList(void);
+      break;
+    case 2:
+      test_binary_search_tree(void);
+      break;
+      
   return 0;
 }
