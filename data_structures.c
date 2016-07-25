@@ -3,6 +3,7 @@
 #include <string.h> // gives strdup func
 #include <assert.h>
 
+
 typedef struct Node {
   /* This LinkedList node stores a int data and a ptr to the next Node struct */ 
   int data;
@@ -49,6 +50,12 @@ typedef struct BSTNode {
   BSTNode struct BSTNode *right;
 } BSTNode;
 
+/* Forward declaring test funcs */
+
+void test_LinkedList(void);
+void test_BST(void); 
+
+// declarations over
 
 int BST_search(int value, BSTNode *node)
 {
@@ -73,7 +80,7 @@ int BST_insert(int value, BSTNode *tree)
   // return 0 if successful, 1 otherwise. 
   // The updated (or not, if return 1) tree 
   // will be available at the same pointer address
-  if !(tree) {
+  if (!tree) {
     node = (BSTNode *)malloc(sizeof(BSTNode)); 
     node->key = value;
     node->left = NULL;
@@ -87,28 +94,34 @@ int BST_insert(int value, BSTNode *tree)
   return 1; // if it ever gets here, it never inserted a node
 }
 
-int get_option(void) {
+int get_option() {
   int *answer;
   printf("Which simulation do you want to run\n1. Linked List\n2. Binary Search Tree\n");
   fscanf(stdin, "%d", &answer);
   if (*answer < 3) {
     return *answer;
 } else {
-    get_option(void);
+    get_option();
 }
 }
 
 int main(int argc, char *argv[])
 {
   int *answer;
-  *answer = get_option(void);
+  *answer = get_option();
   switch(*answer) {
     case 1:
-      test_LinkedList(void);
+      test_LinkedList();
+      return 0;
       break;
     case 2:
-      test_binary_search_tree(void);
+      test_BST();
+      return 0;
       break;
-      
+    default:
+      return 1;
+
   return 0;
+
+}
 }
