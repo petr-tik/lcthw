@@ -3,12 +3,26 @@
 #include <string.h> // gives strdup func
 #include <assert.h>
 
+// to run
+//  gcc data_structures.c -o data_structures
+// ./data_structures
+
+/* LinkedList: structs and forward declarations
+Methods include: 
+    add
+    add_from_left
+    search
+    delete
+*/ 
+
+void test_LinkedList(void);
 
 typedef struct Node {
   /* This LinkedList node stores a int data and a ptr to the next Node struct */ 
   int data;
   Node struct Node *next;
 } Node;
+
 
 typedef struct LinkedList {
   Node head;
@@ -52,7 +66,6 @@ typedef struct BSTNode {
 
 /* Forward declaring test funcs */
 
-void test_LinkedList(void);
 void test_BST(void); 
 
 // declarations over
@@ -76,10 +89,10 @@ int BST_search(int value, BSTNode *node)
 
 int BST_insert(int value, BSTNode *tree)
 {
-  // given a value and a pointer to a Binary Search Tree, insert the value
-  // return 0 if successful, 1 otherwise. 
-  // The updated (or not, if return 1) tree 
-  // will be available at the same pointer address
+  /* Given a value and a pointer to a Binary Search Tree, insert the value
+  return 0 if successful, 1 otherwise. 
+  The updated (or not, if return 1) tree 
+  will be available at the same pointer address */
   if (!tree) {
     node = (BSTNode *)malloc(sizeof(BSTNode)); 
     node->key = value;
@@ -95,10 +108,12 @@ int BST_insert(int value, BSTNode *tree)
 }
 
 int get_option() {
+  /* Prints a numbered list of options and returns the chosen value, restarts if the value isn't allowed */
   int answer;
   printf("Which simulation do you want to run\n1. Linked List\n2. Binary Search Tree\n");
   fscanf(stdin, "%d", &answer);
   if (answer < 3) {
+    printf("ERROR! Invalid option, try again.\n");
     return answer;
 } else {
     get_option();
