@@ -24,6 +24,12 @@ salary | tax rate
 
 if you earn 100,000, you pay
 40% * (100,000 - 80,000) + 30% * (80,000 - 43,000) + 20%(43,000 - 11,000) = 25,500 GBP in taxes
+
+todo:
+national insurance
+no personal allowance with income >150k
+different currencies/countries' tax regimes
+move constants and func declarations to a header file
 */
 
 float TAXRATES[] = {0, 20, 40, 45};
