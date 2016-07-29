@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <float.h>
+#include "salary_calc.h"
 
 /*
 to run 
