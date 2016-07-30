@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <float.h>
+#include <argp.h>
 #include "salary_calc.h"
 
 /*
@@ -30,11 +31,7 @@ todo:
 national insurance
 no personal allowance with income >150k
 different currencies/countries' tax regimes
-move constants and func declarations to a header file
 */
-
-float TAXRATES[] = {0, 20, 40, 45};
-float SALARY_LIMITS[] = {0, 11000, 43000, 150000};
 
 int calc_taxes(float *salary_ptr, float *taxes_paid) {
   /* Given pointers to salary, amount of tax paid, return 0 if no
@@ -42,18 +39,46 @@ int calc_taxes(float *salary_ptr, float *taxes_paid) {
      The value under taxes paid will be incremented 
      by the value of tax you pay at every bracket
   */
-  int idx = 0;
+
   float salary = *salary_ptr;
+  int SALARY_LIMITS[] = TAX_REGIMES.California.SALARY_LIMITS;
+  float TAXRATES[] =  TAX_REGIMES.California.TAXRATES;
+
+  int idx = 0;
   while (salary > SALARY_LIMITS[idx]) {
     idx += 1;
 }
-  idx -= 1;
+  idx -= 1; // incremented one too many times
   for(idx; idx > -1; idx--) {
     *taxes_paid += TAXRATES[idx]/100*(salary - SALARY_LIMITS[idx]);
     salary = SALARY_LIMITS[idx];
 }
   return 0;
 }
+
+
+struct rules_t get_country(enum TAX_REGIME) {
+/* Given a tax_regime value, return an initialised struct with tax rules */
+  rules_t rules;
+  switch(TAX_REGIME) {
+      case eUK:
+        rules = UK_rules;
+        break;
+
+      case eCalifornia:
+        rules = California_rules;
+        break;
+      
+      case eRussia:
+        rules = Russia_rules;
+        break;
+        
+      default:
+        printf("Error: Unrecognised case\n");
+        break;
+}
+  return rules;
+} 
 
 
 int salary_stats(float *salary_after_tax) {
