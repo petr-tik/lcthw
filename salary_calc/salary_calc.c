@@ -33,34 +33,11 @@ no personal allowance with income >150k
 different currencies/countries' tax regimes
 */
 
-int calc_taxes(float *salary_ptr, float *taxes_paid) {
-  /* Given pointers to salary, amount of tax paid, return 0 if no
-     errors.
-     The value under taxes paid will be incremented 
-     by the value of tax you pay at every bracket
-  */
-
-  float salary = *salary_ptr;
-  int SALARY_LIMITS[] = TAX_REGIMES.California.SALARY_LIMITS;
-  float TAXRATES[] =  TAX_REGIMES.California.TAXRATES;
-
-  int idx = 0;
-  while (salary > SALARY_LIMITS[idx]) {
-    idx += 1;
-}
-  idx -= 1; // incremented one too many times
-  for(idx; idx > -1; idx--) {
-    *taxes_paid += TAXRATES[idx]/100*(salary - SALARY_LIMITS[idx]);
-    salary = SALARY_LIMITS[idx];
-}
-  return 0;
-}
-
-
-struct rules_t get_country(enum TAX_REGIME) {
+struct rules_t get_country(int choice) {
 /* Given a tax_regime value, return an initialised struct with tax rules */
   rules_t rules;
-  switch(TAX_REGIME) {
+  TAX_REGIME tax_sys = choice;
+  switch(choice) {
       case eUK:
         rules = UK_rules;
         break;
@@ -79,6 +56,27 @@ struct rules_t get_country(enum TAX_REGIME) {
 }
   return rules;
 } 
+
+int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules) {
+  /* Given pointers to salary, amount of tax paid, return 0 if no
+     errors.
+     The value under taxes paid will be incremented 
+     by the value of tax you pay at every bracket
+  */
+
+  float salary = *salary_ptr;
+
+  int idx = 0;
+  while (salary > tax_rules.SALARY_LIMITS[idx]) {
+    idx += 1;
+}
+  idx -= 1; // incremented one too many times
+  for(idx; idx > -1; idx--) {
+    *taxes_paid += tax_rules.TAXRATES[idx]/100*(salary - tax_rules.SALARY_LIMITS[idx]);
+    salary = tax_rules.SALARY_LIMITS[idx];
+}
+  return 0;
+}
 
 
 int salary_stats(float *salary_after_tax) {
@@ -108,8 +106,8 @@ int main(int argc, char *argv[]) {
     char *end;
     *salary_ptr = strtof(number, &end);
 }
-  // printf("%f\n", *salary_ptr);
-  errno = calc_taxes(salary_ptr, ptr_taxes_paid);
+  rules_t tax_rules = get_country(0);
+  errno = calc_taxes(salary_ptr, ptr_taxes_paid, tax_rules);
   *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
   // *salary_after_tax_ptr = 25000.0;
   salary_stats(salary_after_tax_ptr);
