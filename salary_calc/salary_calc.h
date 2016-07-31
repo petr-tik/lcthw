@@ -6,20 +6,24 @@ typedef enum TAX_REGIME {eUK = 0, eCalifornia = 1, eSeattle = 2, eNYC = 3, eRuss
 typedef struct rules_t {
   float TAXRATES[10];
   int SALARY_LIMITS[10];
+  char SIGN[3];
 } rules_t;
 
 rules_t UK_rules = {.TAXRATES = {0, 20, 40, 45}, 
-                    .SALARY_LIMITS = {0, 11000, 43000, 150000}};
+                    .SALARY_LIMITS = {0, 11000, 43000, 150000},
+                    .SIGN = '£'}
 rules_t California_rules = {.TAXRATES = {1, 2, 4, 6, 8, 9.3, 10.3, 11.3, 12.3},
                             .SALARY_LIMITS = {0, 7850, 18610, 29372, 40773, 
-                                   51350, 263222, 315866, 526443, 1000000}};
+                                   51350, 263222, 315866, 526443, 1000000},
+                            .SIGN = '$'}
 rules_t Russia_rules = {.TAXRATES = {13},
-                        .SALARY_LIMITS = {100000000}};
+                        .SALARY_LIMITS = {100000000},
+                        .SIGN = 'R'}
 
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules);
 
-int salary_stats(float *salary_after_tax);
+int salary_stats(float *salary_after_tax, rules_t country);
 
 struct rules_t get_country(int choice);
 
