@@ -78,13 +78,16 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules) {
 }
 
 
-int salary_stats(float *salary_after_tax, rules_t country) {
+int print_salary_stats(float *salary_after_tax, rules_t country) {
   /* Given a pointer to salary after tax value (annual), 
      print out weekly and monthly allowance */
+
+  //printf("%s\n", country.SIGN);
+
   printf("Salary after tax: %s%.2f\n", country.SIGN, *salary_after_tax); 
   printf("Your monthly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/12);
   printf("Your weekly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/52);
-  
+
   return 0;
 }
 
@@ -97,18 +100,16 @@ int main(int argc, char *argv[]) {
   float *ptr_taxes_paid = &taxes_paid;
   int errno;
 
-  if (argc == 1) {
-    printf("What are you offered? \n");
-    fscanf(stdin, "%f", salary_ptr);
-  } else if (argc == 2) {
-    char *number = argv[1]; 
-    char *end;
-    *salary_ptr = strtof(number, &end);
-}
-  rules_t tax_rules = get_country(3);
+  printf("What are you offered? \n");
+  fscanf(stdin, "%f", salary_ptr);
+  
+  rules_t tax_rules = get_country(1);
   errno = calc_taxes(salary_ptr, ptr_taxes_paid, tax_rules);
+  
   *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
   // *salary_after_tax_ptr = 25000.0;
-  salary_stats(salary_after_tax_ptr, tax_rules);
+
+  print_salary_stats(salary_after_tax_ptr, tax_rules);
+
   return 0;
 }
