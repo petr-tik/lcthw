@@ -11,14 +11,14 @@ typedef struct rules_t {
 
 rules_t UK_rules = {.TAXRATES = {0, 20, 40, 45}, 
                     .SALARY_LIMITS = {0, 11000, 43000, 150000},
-                    .SIGN = '£'}
+                    .SIGN = "£"};
 rules_t California_rules = {.TAXRATES = {1, 2, 4, 6, 8, 9.3, 10.3, 11.3, 12.3},
                             .SALARY_LIMITS = {0, 7850, 18610, 29372, 40773, 
                                    51350, 263222, 315866, 526443, 1000000},
-                            .SIGN = '$'}
+                            .SIGN = "$"};
 rules_t Russia_rules = {.TAXRATES = {13},
                         .SALARY_LIMITS = {100000000},
-                        .SIGN = 'R'}
+                        .SIGN = "R"};
 
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules);
