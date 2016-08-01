@@ -2,32 +2,24 @@
 #include <math.h>
 #include <stdio.h>
 #include <float.h>
-#include <argp.h>
 #include "salary_calc.h"
 
 /*
-to run 
-gcc salary_calc.c -lm -o salary_calc
-EITHER
 
-./salary_calc <amount>
+usage: 
+./salary_calc -a <amount> -c <country> [-m married]
 
-OR
+-a - salary offered without currency symbol
 
-./salary_calc
-What are you offered?
-<amount>
- 
-salary | tax rate
-11000  | 0%
-43000  | 20%
-43000  | 40%
-150000 | 45%
-
-if you earn 100,000, you pay
-40% * (100,000 - 80,000) + 30% * (80,000 - 43,000) + 20%(43,000 - 11,000) = 25,500 GBP in taxes
+-c - Tax residence: 
+         UK
+         NYC
+         California
+         Seattle
+         Russia
 
 todo:
+UK:
 national insurance
 no personal allowance with income >150k
 */
