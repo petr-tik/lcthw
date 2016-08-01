@@ -7,5 +7,6 @@ OBJ = salary_calc.o
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-salary_calc: $(OBJ)
-	gcc $(CFLAGS) $(DEPS) $@ $^
+salary_calc: 
+	gcc $(CFLAGS) salary_calc.c -lm -o salary_calc
+
