@@ -35,18 +35,25 @@ no personal allowance with income >150k
 struct rules_t get_country(int choice) {
 /* Given a tax_regime value, return an initialised struct with tax rules */
   rules_t rules;
-  TAX_REGIME tax_sys = choice;
   switch(choice) {
       case eUK:
-        rules = UK_rules;
+        rules = UK;
         break;
 
       case eCalifornia:
-        rules = California_rules;
+        rules = California;
         break;
       
       case eRussia:
-        rules = Russia_rules;
+        rules = Russia;
+        break;
+
+      case eNYC:
+        //rules = NYC;
+        break;
+
+      case eSeattle:
+        //rules = Seattle;
         break;
         
       default:
