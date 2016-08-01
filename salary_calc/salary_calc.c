@@ -55,6 +55,7 @@ struct rules_t get_country(int choice) {
   return rules;
 } 
 
+
 int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules) {
   /* Given pointers to salary, amount of tax paid, return 0 if no
      errors.
@@ -102,9 +103,10 @@ int main(int argc, char *argv[]) {
   printf("What are you offered? \n");
   fscanf(stdin, "%f", salary_ptr);
   
-  rules_t tax_rules = get_country(1);
+  rules_t tax_rules = get_country(0);
+  rules_t NI_rates = UK_NI;
   errno = calc_taxes(salary_ptr, ptr_taxes_paid, tax_rules);
-  
+  errno = calc_taxes(salary_ptr, ptr_taxes_paid, NI_rates);
   *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
   // *salary_after_tax_ptr = 25000.0;
 

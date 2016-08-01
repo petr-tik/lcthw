@@ -9,9 +9,16 @@ typedef struct rules_t {
   char SIGN[3];
 } rules_t;
 
+
+
 rules_t UK = {.TAXRATES = {0, 20, 40, 45}, 
-                    .SALARY_LIMITS = {0, 11000, 43000, 150000},
-                    .SIGN = "£"};
+              .SALARY_LIMITS = {0, 11000, 43000, 150000},
+              .SIGN = "£"};
+
+rules_t UK_NI = {.TAXRATES = {0, 12, 2},
+               .SALARY_LIMITS = {0, 8064, 43000},
+               .SIGN = ""};
+
 rules_t California = {.TAXRATES = {1, 2, 4, 6, 8, 9.3, 10.3, 11.3, 12.3},
                             .SALARY_LIMITS = {0, 7850, 18610, 29372, 40773, 
                                    51350, 263222, 315866, 526443, 1000000},
