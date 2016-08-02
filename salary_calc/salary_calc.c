@@ -7,11 +7,11 @@
 /*
 
 usage: 
-./salary_calc -a <amount> -c <country> [-m married]
+./salary_calc -a <amount> -p <country> [-m married]
 
 -a - salary offered without currency symbol
 
--c - Tax residence: 
+-p - Tax residence: 
          UK
          NYC
          California

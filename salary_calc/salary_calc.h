@@ -10,7 +10,6 @@ typedef struct rules_t {
 } rules_t;
 
 
-
 rules_t UK = {.TAXRATES = {0, 20, 40, 45}, 
               .SALARY_LIMITS = {0, 11000, 43000, 150000},
               .SIGN = "£"};
@@ -39,7 +38,5 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules);
 int print_salary_stats(float *salary_after_tax, rules_t country);
 
 struct rules_t get_country(int choice);
-
-const char *argp_program_version = "Salary Calculator. Version 0.1";
 
 #endif
