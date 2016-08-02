@@ -53,7 +53,7 @@ struct rules_t get_country(int choice) {
         break;
 }
   return rules;
-} 
+}
 
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules) {
@@ -91,6 +91,24 @@ int print_salary_stats(float *salary_after_tax, rules_t country) {
   return 0;
 }
 
+int UK_full(float *salary_ptr, float *taxes_paid) {
+  /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers */
+  int errno;
+  rules_t taxes = UK;
+  rules_t NI = UK_NI;
+  errno = calc_taxes(salary_ptr, taxes_paid, taxes);
+  if (errno == 0) {
+    errno = calc_taxes(salary_ptr, taxes_paid, NI);
+    if (errno == 0) {
+      return 0;} 
+    else 
+      {return 1;} 
+  
+  } else {
+  return 1;
+  }
+
+}
 
 int main(int argc, char *argv[]) {
   float salary, salary_after_tax;

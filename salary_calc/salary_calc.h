@@ -22,6 +22,7 @@ rules_t California = {.TAXRATES = {1, 2, 4, 6, 8, 9.3, 10.3, 11.3, 12.3},
                             .SALARY_LIMITS = {0, 7850, 18610, 29372, 40773, 
                                    51350, 263222, 315866, 526443, 1000000},
                             .SIGN = "$"};
+
 rules_t Russia = {.TAXRATES = {13},
                         .SALARY_LIMITS = {100000000},
                         .SIGN = "RUB"};
@@ -38,5 +39,7 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules);
 int print_salary_stats(float *salary_after_tax, rules_t country);
 
 struct rules_t get_country(int choice);
+
+int UK_full(float *salary_ptr, float *taxes_paid);
 
 #endif
