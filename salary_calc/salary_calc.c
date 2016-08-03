@@ -24,9 +24,9 @@ national insurance
 no personal allowance with income >150k
 */
 
-struct rules_t get_country(int choice) {
+struct tax_t get_country(int choice) {
 /* Given a tax_regime value, return an initialised struct with tax rules */
-  rules_t rules;
+  tax_t rules;
   switch(choice) {
       case eUK:
         rules = UK;
@@ -56,7 +56,7 @@ struct rules_t get_country(int choice) {
 }
 
 
-int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules) {
+int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
   /* Given pointers to salary, amount of tax paid, return 0 if no
      errors.
      The value under taxes paid will be incremented 
@@ -78,7 +78,7 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, rules_t tax_rules) {
 }
 
 
-int print_salary_stats(float *salary_after_tax, rules_t country) {
+int print_salary_stats(float *salary_after_tax, tax_t country) {
   /* Given a pointer to salary after tax value (annual), 
      print out weekly and monthly allowance */
 
@@ -94,8 +94,8 @@ int print_salary_stats(float *salary_after_tax, rules_t country) {
 int UK_full(float *salary_ptr, float *taxes_paid) {
   /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers */
   int errno;
-  rules_t taxes = UK;
-  rules_t NI = UK_NI;
+  tax_t taxes = UK;
+  tax_t NI = UK_NI;
   errno = calc_taxes(salary_ptr, taxes_paid, taxes);
   if (errno == 0) {
     errno = calc_taxes(salary_ptr, taxes_paid, NI);
@@ -121,8 +121,8 @@ int main(int argc, char *argv[]) {
   printf("What are you offered? \n");
   fscanf(stdin, "%f", salary_ptr);
   
-  rules_t tax_rules = get_country(0);
-  rules_t NI_rates = UK_NI;
+  tax_t tax_rules = get_country(0);
+  tax_t NI_rates = UK_NI;
   errno = calc_taxes(salary_ptr, ptr_taxes_paid, tax_rules);
   errno = calc_taxes(salary_ptr, ptr_taxes_paid, NI_rates);
   *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
