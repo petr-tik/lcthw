@@ -28,13 +28,17 @@ int parse_amount(struct options_t *options, const char delim) {
   options->amount = strtof(token);
   return 0;
 } // end else
-}
+
+} // end func
 
 int parse_location(struct options_t *options, const char delim) {
   /* Similar to parse_amount, takes a options_t ptr and delimiter, to fill the struct with location value */
   char *token = strtok(NULL, delim);
-  short int = strtoi
-}
+  short int loc = atoi(token);
+  options->location = loc;
+  return 0;
+  
+} // func end
 
 int parser(char *arguments, struct options_t *options) {
 /* Given pointers: to arg string and to options struct, return errcode and modiy the struct at pointer */
@@ -43,5 +47,14 @@ int parser(char *arguments, struct options_t *options) {
   token = strtok(arguments, delim);
   while(token != NULL) {
     token = strtok(arguments, delim);
+    if (token == "-m") {
+      options->married = 1;
+} 
+    else if (token == "-a") {
+      parse_amount(options, delim);
+} 
+    else if (token == "-l") {
+      parse_location(options, delim);
 }
-}
+} // while end
+} // parser end
