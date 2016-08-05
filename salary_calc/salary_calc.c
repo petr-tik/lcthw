@@ -7,11 +7,13 @@
 /*
 
 usage: 
-./salary_calc -a <amount> -p <country> [-m married]
+./salary_calc -a <amount> -l <location> [-m -s <amount_of_stock> <stock_quote>]
 
 -a - salary offered without currency symbol
 
--p - Tax residence: 
+-s - stocks 
+
+-l - Tax residence: 
          UK
          NYC
          California
