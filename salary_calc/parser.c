@@ -32,11 +32,12 @@ void print_options(struct options_t *options){
 int parse_amount(struct options_t *options, const char *delim) {
 /* Given a pointer to options struct and the delimiter, run the strtok */
   char *token = strtok(NULL, delim);
-  float res = strtof(token); // if no conversion, returns 0
+  char *end;
+  float res = strtof(token, &end); // if no conversion, returns 0
   if (res == 0) {
     return 1;
   } else {
-  options->amount = strtof(token);
+  options->amount = strtof(token, &end);
   return 0;
 } // end else
 
