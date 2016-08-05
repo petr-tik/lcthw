@@ -9,7 +9,10 @@
 /* Given a string of chars from the command line, return a struct with flags filled in 
 allowed options:
    -a <amount>
-   -l <place> [uk | NYC | russia | cali(fornia) | sea(ttle)
+   -l <location> [uk | NYC | russia | cali(fornia) | sea(ttle)
+
+Optional:
+   -s <amount_of_stock> <stock_quote> 
    -m married (default 0)
 */ 
 
