@@ -3,7 +3,10 @@
 
 typedef struct options_t {
   float amount;
+  float stock_amount;
+  float stock_price;
   int married;
+  char stock_quote;
   short int location;
 } options_t;
 
