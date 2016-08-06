@@ -10,8 +10,11 @@
 allowed options:
    -a <amount>
    -l <location> [uk | NYC | russia | cali(fornia) | sea(ttle)
+
+Optional:
+   -s <amount_of_stock> <stock_quote> 
    -m married (default 0)
-   -s shares  <amount> <stock_quote>
+
 */ 
 
 void options_init(struct options_t *options) {
