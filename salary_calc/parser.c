@@ -9,8 +9,9 @@
 /* Given a string of chars from the command line, return a struct with flags filled in 
 allowed options:
    -a <amount>
-   -l <place> [uk | NYC | russia | cali(fornia) | sea(ttle)
+   -l <location> [uk | NYC | russia | cali(fornia) | sea(ttle)
    -m married (default 0)
+   -s shares  <amount> <stock_quote>
 */ 
 
 void options_init(struct options_t *options) {
@@ -52,29 +53,25 @@ int parse_location(struct options_t *options, const char *delim) {
   
 } // func end
 
-int parser(char *arguments, struct options_t *options) {
+int parser(int argc, char **argv, struct options_t *options) {
 /* Given pointers: to arg string and to options struct, return errcode and modiy the struct at pointer */
-  char *token;
-  const char *delim = " ";
-  token = strtok(arguments, delim);
-  while(token != NULL) {
-    token = strtok(arguments, delim);
-    if (token == "-m") {
-      options->married = 1;
-} 
-    else if (token == "-a") {
-      parse_amount(options, delim);
-} 
-    else if (token == "-l") {
-      parse_location(options, delim);
-}
-} // while end
+  for (int idx = 1; idx < argc; idx++) {
+    if (argv[idx] == "-m") {
+      options->married == 1; 
+    } else if (argv[idx] == "-a") {
+      options->amount == atof(argv[idx+1]);
+    } else {
+      continue;
+    } // for end
 } // parser end
+}
 
 int main(int argc, char *argv[]) {
 // testing it out
-  options_t *args;
-  options_init(args);
-  print_options(args);
+  options_t *options = malloc(sizeof(struct options_t));
+  parser(argc, **argv, options);
+  options_init(options);
+  print_options(options);
   return 0;
+  free(options);
 }
