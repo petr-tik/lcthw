@@ -17,64 +17,85 @@ Optional:
 
 */ 
 
+void show_help() {
+  printf("Usage:\n salary_calc [--version] [--help]\n [-a <amount> -l <location>]\n\nOptional:\n [-s <amount_of_stock> <stock_quote>]\n [-m married] (default 0)\n\n");
+}
+
+void show_version() {
+  printf("Salary calculator version 0.2\n");
+}
+
 void options_init(struct options_t *options) {
   /* Given a ptr to options struct, initialise it with default values */
-  options->amount = 35000;
-  options->married = 0; //won't change unless -m option
-  options->location = 0;
+  options->amount = -1;
+  options->married = 0; // won't change unless -m option
+  options->location = -1;
+  options->stock_amount = -1;
+  memcpy(options->stock_quote, "", sizeof(""));
 }
+
 
 void print_options(struct options_t *options){
   printf("Salary is: %f\n", options->amount);
-  if (options->married) {
+  printf("You have %.1f shares in %s\n", options->stock_amount, options->stock_quote); 
+  if (options->married == 0) {
     printf("Not married\n");
 } else {
     printf("married\n"); }
   printf("The location code is: %d\n", options->location);
 }
 
-int parse_amount(struct options_t *options, const char *delim) {
-/* Given a pointer to options struct and the delimiter, run the strtok */
-  char *token = strtok(NULL, delim);
-  char *end;
-  float res = strtof(token, &end); // if no conversion, returns 0
-  if (res == 0) {
-    return 1;
-  } else {
-  options->amount = strtof(token, &end);
-  return 0;
-} // end else
-
-} // end func
-
-int parse_location(struct options_t *options, const char *delim) {
-  /* Similar to parse_amount, takes a options_t ptr and delimiter, to fill the struct with location value */
-  char *token = strtok(NULL, delim);
-  short int loc = atoi(token);
-  options->location = loc;
-  return 0;
-  
-} // func end
-
-int parser(int argc, char **argv, struct options_t *options) {
-/* Given pointers: to arg string and to options struct, return errcode and modiy the struct at pointer */
-  for (int idx = 1; idx < argc; idx++) {
-    if (argv[idx] == "-m") {
-      options->married == 1; 
-    } else if (argv[idx] == "-a") {
-      options->amount == atof(argv[idx+1]);
+int parser(int argc, char *argv[], struct options_t *options) {
+/* Given pointers: to arg string and to options struct, modiy the struct at pointer and return info code
+0 - no info, break program and show correct usage
+1 - only mandatory info - salary amount and location
+2 - full info - full struct
+ */
+  if (argc == 2) {
+    if (strcmp(argv[1], "--version") == 0) {
+        show_version();
+        return 0;
+    } else if (strcmp(argv[1], "--help") == 0) {
+        show_help();
+        return 0;
     } else {
-      continue;
-    } // for end
-} // parser end
+      printf("ERROR. ");
+      show_help();
+      return 0;} 
+} // end if argc == 2 clause
+
+  for (int idx = 1; idx < argc; idx++) {
+    printf("Arg %d/%d: %s\n", idx, argc - 1, argv[idx]);
+    if (strcmp(argv[idx], "-m") == 0) // set the marriage flag to 1
+{
+      options->married = 1; 
+} 
+    else if (strcmp(argv[idx], "-a") == 0) // salary amount
+{
+      options->amount = atof(argv[idx+1]);
 }
+    else if (strcmp(argv[idx], "-s") == 0) // stock options
+{
+      options->stock_amount = atof(argv[idx+1]);
+      memcpy(options->stock_quote, argv[idx+2], sizeof(argv[idx+2]));
+}
+    else if (strcmp(argv[idx], "-l") == 0)
+{
+     //options->location = get_location(argv[idx+1]);
+}
+}  // for end
+  return 0;
+}
+ // parser end
 
 int main(int argc, char *argv[]) {
 // testing it out
   options_t *options = malloc(sizeof(struct options_t));
-  parser(argc, **argv, options);
   options_init(options);
+
+  parser(argc, argv, options);
   print_options(options);
-  return 0;
   free(options);
+  return 0;
+
 }
