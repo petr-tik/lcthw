@@ -25,13 +25,15 @@ void show_version() {
   printf("Salary calculator version 0.2\n");
 }
 
-void options_init(struct options_t *options) {
+options_t * options_init() {
   /* Given a ptr to options struct, initialise it with default values */
+  options_t *options = malloc(sizeof(struct options_t));
   options->amount = -1;
   options->married = 0; // won't change unless -m option
   options->location = -1;
   options->stock_amount = -1;
   memcpy(options->stock_quote, "", sizeof(""));
+  return options;
 }
 
 
@@ -90,8 +92,7 @@ int parser(int argc, char *argv[], struct options_t *options) {
 
 int main(int argc, char *argv[]) {
 // testing it out
-  options_t *options = malloc(sizeof(struct options_t));
-  options_init(options);
+  options_t * options = options_init();
 
   parser(argc, argv, options);
   print_options(options);

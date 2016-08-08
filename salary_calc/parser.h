@@ -15,11 +15,11 @@ typedef struct options_t {
 
 int check_options(struct options_t *options);
 
-void options_init(struct options_t *options);
+options_t * options_init();
 
 void print_options(struct options_t *options);
 
-int parser(int argc, char args[argc], struct options_t *options);
+int parser(int argc, char *argv[], struct options_t *options);
 
 
 #endif
