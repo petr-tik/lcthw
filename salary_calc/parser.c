@@ -1,3 +1,5 @@
+#include <assert.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -74,16 +76,18 @@ int parser(int argc, char *argv[], struct options_t *options) {
 } 
     else if (strcmp(argv[idx], "-a") == 0) // salary amount
 {
-      options->amount = atof(argv[idx+1]);
+      for (int idx_2 = 0; idx_2 < sizeof(argv[idx+1]; idx_2++) {
+      assert(isdigit(argv[idx+1][idx_2]) == 0); 
+}
+      options->amount = atof(argv[idx+1]); }
+    else if (strcmp(argv[idx], "-l") == 0) // location
+{
+     //options->location = get_location(argv[idx+1]);
 }
     else if (strcmp(argv[idx], "-s") == 0) // stock options
 {
-      options->stock_amount = atof(argv[idx+1]);
-      memcpy(options->stock_quote, argv[idx+2], sizeof(argv[idx+2]));
-}
-    else if (strcmp(argv[idx], "-l") == 0)
-{
-     //options->location = get_location(argv[idx+1]);
+      options->stock_amount = atof(argv[idx+1]); // amount 
+      memcpy(options->stock_quote, argv[idx+2], sizeof(argv[idx+2])); // quote
 }
 }  // for end
   return 0;
@@ -93,10 +97,8 @@ int parser(int argc, char *argv[], struct options_t *options) {
 int main(int argc, char *argv[]) {
 // testing it out
   options_t * options = options_init();
-
   parser(argc, argv, options);
   print_options(options);
   free(options);
   return 0;
-
 }
