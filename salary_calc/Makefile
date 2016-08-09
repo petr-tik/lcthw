@@ -1,3 +1,5 @@
+OS := $(shell uname)
+
 CC=gcc
 CFLAGS=-Wall
 DEPS=salary_calc.c
