@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <float.h>
 #include "salary_calc.h"
+#include "parser.h"
 
 /*
 
@@ -22,8 +23,6 @@ usage:
 
 todo:
 UK:
-national insurance
-no personal allowance with income >150k
 */
 
 struct tax_t get_country(int choice) {
@@ -59,7 +58,8 @@ struct tax_t get_country(int choice) {
 
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
-  /* Given pointers to salary, amount of tax paid, return 0 if no
+  /* Helper function to calculate amount of tax paid, given the rules and the salary. Can be applied for any contribution: NI in the UK, taxes elsewhere. 
+     Given pointers to salary, amount of tax paid, return 0 if no
      errors.
      The value under taxes paid will be incremented 
      by the value of tax you pay at every bracket
@@ -84,13 +84,25 @@ int print_salary_stats(float *salary_after_tax, tax_t country) {
   /* Given a pointer to salary after tax value (annual), 
      print out weekly and monthly allowance */
 
-  //printf("%s\n", country.SIGN);
-
-  printf("Salary after tax: %s%.2f\n", country.SIGN, *salary_after_tax); 
-  printf("Your monthly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/12);
-  printf("Your weekly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/52);
-
+  if (strcmp(country.SIGN, "$") == 0 || strcmp(country.SIGN, "£") == 0) {
+    printf("Salary after tax: %s%.2f\n", country.SIGN, *salary_after_tax); 
+    printf("Your monthly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/12);
+    printf("Your weekly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/52);
+} else {
+    printf("Salary after tax: %.2f %s\n", *salary_after_tax, country.SIGN); 
+    printf("Your monthly allowance: %.2f %s\n", *salary_after_tax/12, country.SIGN);
+    printf("Your weekly allowance: %.2f %s\n", *salary_after_tax/52, country.SIGN,);
+} // end else
   return 0;
+}
+
+int Cali_full(float *salary_ptr, float *taxes_paid, int *married) {
+  /* Function that calls as  */ 
+
+}
+
+int NYC_full(float *salary_ptr, float *taxes_paid, int *married) {
+
 }
 
 int UK_full(float *salary_ptr, float *taxes_paid) {
