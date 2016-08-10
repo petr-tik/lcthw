@@ -5,8 +5,10 @@
 #include <string.h>
 #include "parser.h"
 
+/* */ 
+
 // testing, run
-// gcc parser.c -o test && ./test
+// gcc parser.c -o test
 
 /* Given a string of chars from the command line, return a struct with flags filled in 
 allowed options:
@@ -55,18 +57,9 @@ int parser(int argc, char *argv[], struct options_t *options) {
 1 - only mandatory info - salary amount and location
 2 - full info - full struct
  */
-  if (argc == 2) {
-    if (strcmp(argv[1], "--version") == 0) {
-        show_version();
-        return 0;
-    } else if (strcmp(argv[1], "--help") == 0) {
-        show_help();
-        return 0;
-    } else {
-      printf("ERROR. ");
-      show_help();
-      return 0;} 
-} // end if argc == 2 clause
+  if (argc == 2 && (strcmp(argv[1], "--version") == 0))) {
+      show_version();    
+}
 
   for (int idx = 1; idx < argc; idx++) {
     printf("Arg %d/%d: %s\n", idx, argc - 1, argv[idx]);
@@ -76,7 +69,7 @@ int parser(int argc, char *argv[], struct options_t *options) {
 } 
     else if (strcmp(argv[idx], "-a") == 0) // salary amount
 {
-      for (int idx_2 = 0; idx_2 < sizeof(argv[idx+1]; idx_2++) {
+      for (int idx_2 = 0; idx_2 < sizeof(argv[idx+1]); idx_2++) {
       assert(isdigit(argv[idx+1][idx_2]) == 0); 
 }
       options->amount = atof(argv[idx+1]); }
