@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <float.h>
-#include "salary_calc.h"
+#include "income_calc.h"
 #include "parser.h"
 
 /*
@@ -131,18 +131,17 @@ int main(int argc, char *argv[]) {
   float taxes_paid = 0;
   float *ptr_taxes_paid = &taxes_paid;
   int errno;
-
-  printf("What are you offered? \n");
-  fscanf(stdin, "%f", salary_ptr);
   
-  tax_t tax_rules = get_country(0);
-  tax_t NI_rates = UK_NI;
-  errno = calc_taxes(salary_ptr, ptr_taxes_paid, tax_rules);
-  errno = calc_taxes(salary_ptr, ptr_taxes_paid, NI_rates);
-  *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
-  // *salary_after_tax_ptr = 25000.0;
+  tax_t country = get_country(0);
 
-  print_salary_stats(salary_after_tax_ptr, tax_rules);
+  errno = UK_full(salary_ptr, ptr_taxes_paid, country);
+  if (errno == 0) 
+{
+    *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
+    print_salary_stats(salary_after_tax_ptr, country);
+} else {
+    return 1;
+} // end else
 
   return 0;
 }
