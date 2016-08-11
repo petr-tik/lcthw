@@ -1,4 +1,4 @@
-11/8
+## 11/8
 
 Added the helper function for the parser - it copies the location array of chars and lowercases all upper case chars. 
 -l UK, -l Uk, -l uk   - will be treated the same
@@ -32,7 +32,9 @@ Downsides:
   * This isn't great, cos the idea is once parser is done - no more worrying about the cli args
 
 
+==============================================
 
+Changelog
 
 Version 0.2 released so far. 
 
