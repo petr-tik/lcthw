@@ -20,8 +20,8 @@ Run and compile the salary_calc.c and it should take your arguments and product 
 
 
 ## Roadmap
-* Rework the data structure the parser modifies
-* Make it work for UK salaries (no personal allowance if salary >150k)
+* Rework the data structure for the parser modifies
+* Make it work for UK salaries (no personal allowance if salary >150k) with parser
 * Write a makefile for OSX
 * Test on linux and OSX
 * Add stock quote look up module
