@@ -5,7 +5,9 @@
 #include <string.h>
 #include "parser.h"
 
-/* */ 
+/* Module responsible for parsing the command line arguments.
+   Receives argc and argv and iterates over them to fill in a previously initialised 
+ */ 
 
 // testing, run
 // gcc parser.c -o test
@@ -42,6 +44,7 @@ options_t * options_init() {
 
 
 void print_options(struct options_t *options){
+  // ONLY FOR DEBUGGING - REMOVE FROM END PRODUCT
   printf("Salary is: %f\n", options->amount);
   printf("You have %.1f shares in %s\n", options->stock_amount, options->stock_quote); 
   if (options->married == 0) {
@@ -49,6 +52,30 @@ void print_options(struct options_t *options){
 } else {
     printf("married\n"); }
   printf("The location code is: %d\n", options->location);
+}
+
+char * strcpy_lowercase(char *dest, const char *src, size_t n) {
+  /* Helper function for the parser. Given a pointer to desination and a pointer to source string with size_t n, copy char elements from src to dest and make them lowercase while copying   */
+  size_t i;
+  int errno;
+  int ascii_code = 0; // ascii code for each letter
+  for (i = 0; i < n && src[i] != '\0'; i++) {
+    errno = sscanf(src[i], "%c", &ascii_code);
+    if(ascii_code > 64 && ascii_code < 91) //ascii range for uppercase
+    {
+      ascii_code += 32; // change ascii_code from upper to lower case
+    } else // if char isn't in the alphabetic range
+    {
+      exit(1);
+    }
+     
+    sscanf(&ascii_code, "%c", &dest[i]);
+    dest[i] = src[i];
+} // for end
+  for ( ; i < n; i++) {
+    dest[i] = '\0';
+}
+  return dest;
 }
 
 int parser(int argc, char *argv[], struct options_t *options) {
@@ -75,7 +102,7 @@ int parser(int argc, char *argv[], struct options_t *options) {
       options->amount = atof(argv[idx+1]); }
     else if (strcmp(argv[idx], "-l") == 0) // location
 {
-     //options->location = get_location(argv[idx+1]);
+     memcpy(options->location, argv[idx+1], sizeof(argv[idx+1]));
 }
     else if (strcmp(argv[idx], "-s") == 0) // stock options
 {

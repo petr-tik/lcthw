@@ -21,7 +21,9 @@ options_t * options_init();
 
 int parser(int argc, char *argv[], struct options_t *options);
 
-// debugging funcs 
+char * strcpy_lowercase(char *dest, const char *src, size_t n);
+
+// debugging/testing funcs 
 // won't actually need them for final executable
 
 void print_options(struct options_t *options);
