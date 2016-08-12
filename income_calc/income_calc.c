@@ -20,9 +20,6 @@ usage:
          California
          Seattle
          Russia
-
-todo:
-UK:
 */
 
 struct tax_t get_country(int choice) {
@@ -97,7 +94,7 @@ int print_salary_stats(float *salary_after_tax, tax_t country) {
 }
 
 int Cali_full(float *salary_ptr, float *taxes_paid, int *married) {
-  /* Function that calls as  */ 
+  /* Helper function that internally calculates all tax contributions including healthcare charges. The value of all taxes paid will be added to the taxes_paid ptr  */ 
 
 }
 
@@ -125,6 +122,7 @@ int UK_full(float *salary_ptr, float *taxes_paid) {
 }
 
 int main(int argc, char *argv[]) {
+  /* the main initialises the necessary pointers, all functions take at least pointers to salary and taxes_paid. US tax funcs take pointer to married parameter */
   float salary, salary_after_tax;
   float *salary_after_tax_ptr = &salary_after_tax;
   float *salary_ptr = &salary;  
