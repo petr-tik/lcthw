@@ -1,3 +1,12 @@
+## 13/8
+
+Idea to keep tax_rules structs outside the options struct. Use the location int flag to activate a branch in a ```switch``` statement, which calls the right helper function with all the business logic for that location's tax contributions, including national insurance and other charges. 
+
+Keeps the structs nice and light, makes it easy to extend to new tax residencies by adding:
+      relevant tax_rules structs
+      helper func for full calculation
+      a ```switch``` statement branch
+
 ## 11/8
 
 Added the helper function for the parser - it copies the location array of chars and lowercases all upper case chars. 
