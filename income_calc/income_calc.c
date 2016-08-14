@@ -101,7 +101,21 @@ int main(int argc, char *argv[]) {
   
   tax_t country = get_country(0);
 
-  errno = UK_full(salary_ptr, ptr_taxes_paid, country);
+  switch(choice){
+    case 'uk':
+      errno = UK_full(salary_ptr, ptr_taxes_paid, country);
+      break;
+
+    case 'seattle':
+      break;
+ 
+    case 'nyc':
+      break;
+
+    case 'russia':
+      break;
+}
+
   if (errno == 0) 
 {
     *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
