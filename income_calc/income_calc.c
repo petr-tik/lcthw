@@ -22,37 +22,6 @@ usage:
          Russia
 */
 
-struct tax_t get_country(int choice) {
-/* Given a tax_regime value, return an initialised struct with tax rules */
-  tax_t rules;
-  switch(choice) {
-      case eUK:
-        rules = UK;
-        break;
-
-      case eCalifornia:
-        rules = California;
-        break;
-      
-      case eRussia:
-        rules = Russia;
-        break;
-
-      case eNYC:
-        //rules = NYC;
-        break;
-
-      case eSeattle:
-        //rules = Seattle;
-        break;
-        
-      default:
-        printf("Error: Unrecognised case\n");
-        break;
-}
-  return rules;
-}
-
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
   /* Helper function to calculate amount of tax paid, given the rules and the salary. Can be applied for any contribution: NI in the UK, taxes elsewhere. 
