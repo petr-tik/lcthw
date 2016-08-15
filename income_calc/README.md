@@ -1,9 +1,9 @@
-## Tax calculator
+## Income calculator
 
 usage: 
 
 ```bash
-./salary_calc -a <amount> -c <country> [-m married]
+./income_calc -a <amount> -c <country> [-m married]
 ```
 -a - salary offered without currency symbol
 
