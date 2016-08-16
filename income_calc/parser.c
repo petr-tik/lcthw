@@ -114,6 +114,27 @@ int parser(int argc, char *argv[], struct options_t *options) {
 }
  // parser end
 
+
+int check_options(options_t *options) {
+  /* Used after parser. Takes a pointer to options and checks how many option flags have been filled in and returns an action code:
+   0 - not enough info on necessary info - location and amount
+   1 - only basic info
+   2 - full info including stocks
+
+   The return code and location flag will be used to call the right tax method 
+*/
+  int ret = 0;
+  if (options->amount != -1 && options->location != -1) 
+{
+  ret += 1;
+}
+  if (options->stock_amount != -1 && strcmp("", options->stock_quote) != 0)
+{
+  ret += 1;
+}
+  return ret;
+}
+
 int main(int argc, char *argv[]) {
 // testing it out
   options_t * options = options_init();
