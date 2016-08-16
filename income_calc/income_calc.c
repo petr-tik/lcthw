@@ -6,9 +6,8 @@
 #include "parser.h"
 
 /*
-
 usage: 
-./salary_calc -a <amount> -l <location> [-m -s <amount_of_stock> <stock_quote>]
+./income_calc -a <amount> -l <location> [-m -s <amount_of_stock> <stock_quote>]
 
 -a - salary offered without currency symbol
 
@@ -19,7 +18,6 @@ usage:
          NYC
          California
          Seattle
-         Russia
 */
 
 
@@ -64,30 +62,32 @@ int print_salary_stats(float *salary_after_tax, tax_t country) {
 
 int Cali_full(float *salary_ptr, float *taxes_paid, int *married) {
   /* Helper function that internally calculates all tax contributions including healthcare charges. The value of all taxes paid will be added to the taxes_paid ptr  */ 
-
+  return 0;
 }
 
 int NYC_full(float *salary_ptr, float *taxes_paid, int *married) {
-
+  return 0;
 }
 
 int UK_full(float *salary_ptr, float *taxes_paid) {
-  /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers */
+  /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers 
+*/
+
   int errno;
+  int ret = 0;
   tax_t taxes = UK;
   tax_t NI = UK_NI;
+  // apply taxes
   errno = calc_taxes(salary_ptr, taxes_paid, taxes);
   if (errno == 0) {
+    // apply national insurance
     errno = calc_taxes(salary_ptr, taxes_paid, NI);
     if (errno == 0) {
-      return 0;} 
-    else 
-      {return 1;} 
-  
-  } else {
-  return 1;
-  }
-
+      return ret;
+} 
+} // if end
+  ret = 1;
+  return ret;
 }
 
 int main(int argc, char *argv[]) {
@@ -99,20 +99,28 @@ int main(int argc, char *argv[]) {
   float *ptr_taxes_paid = &taxes_paid;
   int errno;
   
-  tax_t country = get_country(0);
+  
+  // parser module - create and init an options struct 
+  options_t * options = options_init();
+  parser(argc, argv, options);
+  int scenario = check_options(options);
 
-  switch(choice){
-    case 'uk':
+  switch(options->location){
+    case 0:
       errno = UK_full(salary_ptr, ptr_taxes_paid, country);
       break;
 
-    case 'seattle':
+    case 1:
       break;
  
-    case 'nyc':
+    case 2:
       break;
 
-    case 'russia':
+    case 3:
+      break;
+
+    default:
+      printf("activated default - value of options->location = %d\n", options->location);
       break;
 }
 
@@ -124,5 +132,9 @@ int main(int argc, char *argv[]) {
     return 1;
 } // end else
 
+  free(options);
   return 0;
 }
+
+
+

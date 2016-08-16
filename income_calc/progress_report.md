@@ -1,3 +1,22 @@
+## 16/8 
+
+Reworked UK_full to have fewer if statements. If applying tax rules returns not 0, no point working further, return 1. Decision tree for UK_full is
+
+                            return 0
+                          /
+              no problem /
+                        /
+               apply NI           
+             /          \
+ no problem /      error \
+           /              \
+apply taxes                 return 1
+           \ 
+     error  \   
+             \    
+                return 1
+
+
 ## 13/8
 
 Idea to keep tax_rules structs outside the options struct. Use the location int flag to activate a branch in a ```switch``` statement, which calls the right helper function with all the business logic for that location's tax contributions, including national insurance and other charges. 
