@@ -6,20 +6,17 @@
 #include "parser.h"
 
 /*
-usage: 
-./income_calc -a <amount> -l <location> [-m -s <amount_of_stock> <stock_quote>]
+This file contains the general formulae for calculating progressive tax contributions and printing net income. 
 
--a - salary offered without currency symbol
+Tax calculator methods take a pointer to salary float value and a struct with tax info. Most countries have progressive taxation, so we the tax_t struct includes salary thresholds and tax rate arrays of equal length such that tax_rate[i] is the rate applied to income earned between salary_limits[i] and salary_limits[i+1]. 
 
--s - stocks 
+It also contains country-specific income calculators, which internally process income tax, sales tax, national insurance payments and other country-specific contributions to add to the taxes_paid pointer. 
 
--l - Tax residence: 
-         UK
-         NYC
-         California
-         Seattle
+The main func uses the parser func (which fills in the options struct) to decide, what to do along 2 dimensions:
+    salary and/or taxes
+    country
+
 */
-
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
   /* Helper function to calculate amount of tax paid, given the rules and the salary. Can be applied for any contribution: NI in the UK, taxes elsewhere. 
@@ -72,7 +69,6 @@ int NYC_full(float *salary_ptr, float *taxes_paid, int *married) {
 int UK_full(float *salary_ptr, float *taxes_paid) {
   /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers 
 */
-
   int errno;
   int ret = 0;
   tax_t taxes = UK;
