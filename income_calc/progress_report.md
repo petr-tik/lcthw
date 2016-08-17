@@ -1,3 +1,42 @@
+## 17/8
+
+There are 2 decisions to make about calculating income:
+      salary only vs salary and stocks
+      country of tax residence
+
+Both are represented by int flags and can be combined in one switch statement.
+
+Countries are listed from 0 to 3 (TODO: change to from 1 to 4) and salary vs salary and stock is decided by check_options method, which returns 0 in case of failure, 1 if only salary present, 2 if both salary and stocks. If we multiply the flag ints, we can get different branches for the switch statement
+
+countries:
+1 - UK
+2 - NYC
+3 - Seattle
+4 - California
+
+options:
+0 - no info
+1 - just salary
+2 - salary and stock
+
+multiplying makes sense, because 0 as result will trigger an exit and show_help method. We want to avoid overload 
+
+with 4 countries, we have 9 scenarios
++1 - not enough info
++2 - UK - salary and salary and stocks
++2 - NYC - salary and salary and stocks
++2 - Seattle - salary and salary and stocks
++2 - California - salary and salary and stocks
+
+the minimum number of bits we need is number_of_countries*2 + 1. 
+
+one idea is to use prime numbers for country flag, so they don't intersect. so it becomes
+1 - UK
+2 - NYC
+3 - Seattle
+5 - California
+
+
 ## 16/8 
 
 Reworked UK_full to have fewer if statements. If applying tax rules returns not 0, no point working further, return 1. Decision tree for UK_full is
