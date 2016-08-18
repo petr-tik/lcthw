@@ -14,5 +14,7 @@ usage:
          Cali, California
          Seattle
 
--s - stock options <amount_of_shares> <stock_quote>
+-s - stock options 
+
+```-s <amount_of_shares> <stock_quote>```
 
