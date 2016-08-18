@@ -24,7 +24,7 @@ Optional:
 */ 
 
 void show_help() {
-  printf("Usage:\n salary_calc [--version] [--help]\n [-a <amount> -l <location>]\n\nOptional:\n [-s <amount_of_stock> <stock_quote>]\n [-m married] (default 0)\n\n");
+  printf("Usage:\n income_calc [--version] [--help]\n [-a <amount> -l <location>]\n\nOptional:\n [-s <amount_of_stock> <stock_quote>]\n [-m married] (default 0)\n\n");
 }
 
 void show_version() {
@@ -54,37 +54,41 @@ void print_options(struct options_t *options){
   printf("The location code is: %d\n", options->location);
 }
 
-char * strcpy_lowercase(char *dest, const char *src, size_t n) {
-  /* Helper function for the parser. Given a pointer to desination and a pointer to source string with size_t n, copy char elements from src to dest and make them lowercase while copying   */
-  size_t i;
-  int errno;
-  int ascii_code = 0; // ascii code for each letter
-  for (i = 0; i < n && src[i] != '\0'; i++) {
-    errno = sscanf(src[i], "%c", &ascii_code);
-    if(ascii_code > 64 && ascii_code < 91) //ascii range for uppercase
-    {
-      ascii_code += 32; // change ascii_code from upper to lower case
-    } else // if char isn't in the alphabetic range
-    {
-      exit(1);
-    }
-     
-    sscanf(&ascii_code, "%c", &dest[i]);
-    dest[i] = src[i];
-} // for end
-  for ( ; i < n; i++) {
-    dest[i] = '\0';
+short int parse_location(const char *loc_arg) {
+  /* Given a pointer to char array i.e. command line location argument, returns the location code, which is assigned to the options->location variable 
+1 - UK
+2 - NYC
+3 - Seattle
+4 - California
+*/
+  char dest[10];
+  strcpy(dest, loc_arg);
+  for(int loop=0;loop<strlen(dest);loop++) {
+    dest[loop] = tolower(dest[loop]);
+} // end for
+  if ((strcmp(dest, "uk") == 0) || (strcmp(dest, "london") == 0))
+{
+  return 1;
+} 
+  else if ((strcmp(dest, "ny") == 0) || (strcmp(dest, "nyc") == 0))
+{
+  return 2;
+} 
+  else if (strcmp(dest, "seattle") == 0)
+{
+  return 3;
 }
-  return dest;
+  else if ((strcmp(dest, "california") == 0) || (strcmp(dest, "cali") == 0))
+{
+  return 4;
 }
+}
+
 
 int parser(int argc, char *argv[], struct options_t *options) {
 /* Given pointers: to arg string and to options struct, modiy the struct at pointer and return info code
-0 - no info, break program and show correct usage
-1 - only mandatory info - salary amount and location
-2 - full info - full struct
  */
-  if (argc == 2 && (strcmp(argv[1], "--version") == 0))) {
+  if (argc == 2 && (strcmp(argv[1], "--version") == 0)) {
       show_version();    
 }
 
@@ -96,13 +100,10 @@ int parser(int argc, char *argv[], struct options_t *options) {
 } 
     else if (strcmp(argv[idx], "-a") == 0) // salary amount
 {
-      for (int idx_2 = 0; idx_2 < sizeof(argv[idx+1]); idx_2++) {
-      assert(isdigit(argv[idx+1][idx_2]) == 0); 
-}
       options->amount = atof(argv[idx+1]); }
     else if (strcmp(argv[idx], "-l") == 0) // location
 {
-     memcpy(options->location, argv[idx+1], sizeof(argv[idx+1]));
+      options->location = parse_location(argv[idx+1]);
 }
     else if (strcmp(argv[idx], "-s") == 0) // stock options
 {
