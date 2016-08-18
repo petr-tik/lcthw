@@ -3,13 +3,12 @@
 usage: 
 
 ```bash
-./income_calc -a <amount> -c <country> [-m married]
+./income_calc -a <amount> -l <location> [-m married]
 ```
 -a - salary offered without currency symbol
 
--c - Tax residence: 
-         UK
-         NYC
-         California
+-l - Tax residence: 
+         UK, London
+         New York, NY, NYC
+         Cali, California
          Seattle
-         Russia
