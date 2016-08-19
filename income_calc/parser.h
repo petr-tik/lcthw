@@ -10,8 +10,8 @@ void show_help();
 typedef struct options_t {
   float amount; // mandatory
   float stock_amount; // optional 
-  int married; // optional 
   char stock_quote[6]; // optional 
+  int married; // optional 
   short int location; // mandatory
 } options_t;
 
