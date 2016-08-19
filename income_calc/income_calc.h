@@ -1,11 +1,12 @@
 #ifndef _INCOME_CALC_H
 #define _INCOME_CALC_H 
 
-typedef enum TAX_REGIME {eUK = 0, eCalifornia = 1, eSeattle = 2, eNYC = 3, eRussia = 4} TAX_REGIME;
+// length of taxrates and salary_limits array. 
+int NUM_TAXES = 10;
 
 typedef struct tax_t {
-  float TAXRATES[10];
-  int SALARY_LIMITS[10];
+  float TAXRATES[NUM_TAXES];
+  int SALARY_LIMITS[NUM_TAXES];
   char SIGN[3];
 } tax_t;
 
@@ -37,8 +38,6 @@ tax_t NYC
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules);
 
 int print_salary_stats(float *salary_after_tax, tax_t country);
-
-struct tax_t get_country(int choice);
 
 int UK_full(float *salary_ptr, float *taxes_paid);
 
