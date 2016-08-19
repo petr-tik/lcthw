@@ -62,15 +62,17 @@ short int parse_location(const char *loc_arg) {
 4 - California
 */
   char dest[10];
-  strcpy(dest, loc_arg);
-  for(int loop=0;loop<strlen(dest);loop++) {
-    dest[loop] = tolower(dest[loop]);
+  strcpy(dest, loc_arg); 
+  for(int idx = 0; idx < strlen(dest); idx++) {
+    dest[idx] = tolower(dest[idx]);
 } // end for
   if ((strcmp(dest, "uk") == 0) || (strcmp(dest, "london") == 0))
 {
   return 1;
 } 
-  else if ((strcmp(dest, "ny") == 0) || (strcmp(dest, "nyc") == 0))
+  else if ((strcmp(dest, "new york") == 0) || 
+           (strcmp(dest, "ny") == 0) ||
+           (strcmp(dest, "nyc") == 0))
 {
   return 2;
 } 
@@ -81,6 +83,10 @@ short int parse_location(const char *loc_arg) {
   else if ((strcmp(dest, "california") == 0) || (strcmp(dest, "cali") == 0))
 {
   return 4;
+}
+  else 
+{
+  return -1;
 }
 }
 
@@ -100,7 +106,8 @@ int parser(int argc, char *argv[], struct options_t *options) {
 } 
     else if (strcmp(argv[idx], "-a") == 0) // salary amount
 {
-      options->amount = atof(argv[idx+1]); }
+      options->amount = atof(argv[idx+1]); 
+}
     else if (strcmp(argv[idx], "-l") == 0) // location
 {
       options->location = parse_location(argv[idx+1]);
@@ -125,7 +132,7 @@ int check_options(options_t *options) {
    The return code and location flag will be used to call the right tax method 
 */
   int ret = 0;
-  if (options->amount != -1 && options->location != -1) 
+  if ((options->amount != -1) && (options->location != -1))
 {
   ret += 1;
 }
