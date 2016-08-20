@@ -55,11 +55,13 @@ void print_options(struct options_t *options){
 }
 
 short int parse_location(const char *loc_arg) {
-  /* Given a pointer to char array i.e. command line location argument, returns the location code, which is assigned to the options->location variable 
+  /* Given a pointer to char array i.e. command line location argument, returns the location code, which is assigned to the options->location variable.
+
+Use prime numbers as return values, so when multiplied with check_options status, the result cannot coincide with other countries.
 1 - UK
 2 - NYC
 3 - Seattle
-4 - California
+5 - California
 */
   char dest[10];
   strcpy(dest, loc_arg); 
@@ -82,7 +84,7 @@ short int parse_location(const char *loc_arg) {
 }
   else if ((strcmp(dest, "california") == 0) || (strcmp(dest, "cali") == 0))
 {
-  return 4;
+  return 5;
 }
   else 
 {
@@ -148,6 +150,7 @@ int main(int argc, char *argv[]) {
   options_t * options = options_init();
   parser(argc, argv, options);
   print_options(options);
+  printf("The check_options return is %d\n", check_options(options));
   free(options);
   return 0;
 }
