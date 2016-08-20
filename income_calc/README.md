@@ -8,7 +8,13 @@ usage:
 -a - salary offered without currency symbol
 
 -l - Tax residence: 
+         
          UK, London
-         New York, NY, NYC
+         NY, NYC - cannot do New York (separated by a space in terminal)
          Cali, California
          Seattle
+
+-s - stock options 
+
+```-s <amount_of_shares> <stock_quote>```
+
