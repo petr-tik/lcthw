@@ -97,11 +97,11 @@ int main(int argc, char *argv[]) {
   
   
   // parser module - create and init an options struct 
-  options_t * options = options_init();
-  parser(argc, argv, options);
-  int scenario = check_options(options);
+  options_t * arg_options = options_init();
+  parser(argc, argv, arg_options);
+  int scenario = (arg_options->location) * check_options(arg_options);
 
-  switch(options->location){
+  switch(scenario){
     case 0:
       errno = UK_full(salary_ptr, ptr_taxes_paid, country);
       break;
