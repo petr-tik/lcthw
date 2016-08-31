@@ -1,7 +1,7 @@
 #! /usr/bin/env python 
 
 import unittest
-from data_structures import LinkedList, Stack, Node, Queue
+from data_structures import LinkedList, Stack, Node, Queue, Heap
 import random as rnd
 
 class LinkedListTestCase(unittest.TestCase):
@@ -93,6 +93,33 @@ class QueueTestCase(unittest.TestCase):
         ret = self.bare_q.dequeue()
         self.assertEqual(val, ret)
 
+
+class HeapTestCase(unittest.TestCase):
+    def setUp(self):
+        self.min_heap = Heap(0)
+        self.max_heap = Heap(1)
+
+    def test_insert_to_empty(self):
+        val_to_insert = 5
+        self.min_heap.push(val_to_insert)
+        self.assertEqual(val_to_insert, self.min_heap.top())
+
+    def test_size_after_insert(self):
+        size_before_ins = self.min_heap.size
+        self.min_heap.push(5)
+        self.assertEqual(size_before_ins + 1, self.min_heap.size)
+
+    def test_insert_and_pop(self):
+        pass
+
+
+    def test_bigger_rises_in_max_heap(self):
+        """ Test that if you push 2 values onto the heap, the greater one will stay on top. Values are generated at random, but the first is always greater than the second """
+        bigger_val = rnd.randint(30,50) 
+        smaller_val = rnd.randint(0, 15)
+        self.max_heap.push(bigger_val)
+        self.max_heap.push(smaller_val)
+        self.assertEqual(bigger_val, self.max_heap.top())
 
 
 if __name__ == '__main__':
