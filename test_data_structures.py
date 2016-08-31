@@ -99,19 +99,27 @@ class HeapTestCase(unittest.TestCase):
         self.min_heap = Heap(0)
         self.max_heap = Heap(1)
 
-    def test_insert_to_empty(self):
-        val_to_insert = 5
+    def test_items_empty(self):
+        """ Testing that a newly created heap (regardless min or max) is a empty list """
+        self.assertEqual(self.min_heap.items(), [])        
+
+    def test_push_to_empty(self):
+        val_to_insert = rnd.randint(0,5)
         self.min_heap.push(val_to_insert)
         self.assertEqual(val_to_insert, self.min_heap.top())
 
+    def test_items_nonempty(self):
+        """ Testing that the .items() method returns an updated heaparray after pushing a value """
+        self.assertEqual(self.min_heap.items(), self.min_heap.heaparray)
+
     def test_size_after_insert(self):
+        """ Testing that the private size attribute of class increments by 1 after adding a new item """
         size_before_ins = self.min_heap.size
         self.min_heap.push(5)
         self.assertEqual(size_before_ins + 1, self.min_heap.size)
 
     def test_insert_and_pop(self):
         pass
-
 
     def test_bigger_rises_in_max_heap(self):
         """ Test that if you push 2 values onto the heap, the greater one will stay on top. Values are generated at random, but the first is always greater than the second """
@@ -120,6 +128,15 @@ class HeapTestCase(unittest.TestCase):
         self.max_heap.push(bigger_val)
         self.max_heap.push(smaller_val)
         self.assertEqual(bigger_val, self.max_heap.top())
+
+    def test_smaller_rises_in_min_heap(self):
+        """ Test that if you push 2 values onto the heap, the smaller one will stay on top. Values are generated at random, but the first is always smaller than the second """        
+        bigger_val = rnd.randint(30,50) 
+        smaller_val = rnd.randint(0, 15)
+        self.min_heap.push(bigger_val)
+        self.min_heap.push(smaller_val)
+        self.assertEqual(smaller_val, self.min_heap.top())
+
 
 
 if __name__ == '__main__':
