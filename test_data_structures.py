@@ -100,10 +100,11 @@ class HeapTestCase(unittest.TestCase):
         self.max_heap = Heap(1)
 
     def test_items_empty(self):
-        """ Testing that a newly created heap (regardless min or max) is a empty list """
+        """ Testing that a newly created heap (min or max) is an empty list """
         self.assertEqual(self.min_heap.items(), [])        
 
     def test_push_to_empty(self):
+        """ Pushing a new value to empty always has it go on top """
         val_to_insert = rnd.randint(0,5)
         self.min_heap.push(val_to_insert)
         self.assertEqual(val_to_insert, self.min_heap.top())
