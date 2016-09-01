@@ -198,3 +198,74 @@ class Queue(object):
         self.head += 1 # go up to the next index
         self.size -= 1
         return self.items[temp]
+
+
+
+class Heap(object):
+    """ Implementing priority queue as a binary heap. The main property of a min or max heap is that each key is the smaller/greater (respectively) or equal to the keys in all his children. Max-heap has the greatest element at the top, min-heap lowest element at the top
+    Usage:
+    Heap(1, [1,3,4]) - makes a max-heap from [1,3,4]
+    Heap(0, [2,3,1]) - makes a min-heap from [2,3,1]
+ """    
+    def __init__(self, max_or_min, arr=None):
+        self.heaparray = []
+        self.size = 0
+        self.max_or_min = max_or_min # max-heap 1, min-heap 0
+        if arr:
+            for item in arr:
+                self.push(item)
+
+
+    def items(self):
+        return self.heaparray
+
+
+    def top(self):
+        """ Shows the value currently at the top of the heap without popping it off"""
+        return self.heaparray[0]
+
+
+    def push(self, value):
+        """ One of the main methods of Heap class. Given a value, push it onto the Heap and make sure it keeps the heap property, where the parent of every subtree is the greatest/smallest element (max-heap/min-heap) in the subtree """
+        self.heaparray = self.heaparray + [value]
+        self.size += 1
+        if self.size == 1:
+            return
+        else:
+            self.percolate_up()
+
+
+    def cmp_func(self, new_item, parent):
+        """ Internal compare function: looks up the self.max_or_min value to choose, which way to compare new_item and parent in percolate_up
+        return True if comparison works, False otherwise"""
+        if self.max_or_min == 1:
+            if new_item > parent:
+                return True
+            else:
+                return False
+        else:
+            if new_item < parent:
+                return True
+            else:
+                return False
+
+
+    def percolate_up(self):
+        """ Takes the heaparray with a newly added element and percolates it up acording to self.max_or_min. By default, it uses the index of the last item and moves it as high up as possible. 
+        if 1, swap if new element greater than parent
+        elif 0, swap if new element is less than parent"""
+        idx = self.size - 1 # starting idx is the last item of the array
+        while idx > 0:
+            parent_idx = (idx - 1)/2
+            parent = self.heaparray[parent_idx] # zero-based array
+            if self.cmp_func(self.heaparray[idx], parent):
+                # the compare function calls to self.max_or_min to choose the correct comparison
+                print "swapping parent {} with new {}".format(parent, self.heaparray[idx])
+                temp = self.heaparray[idx] 
+                self.heaparray[idx] = parent
+                self.heaparray[parent_idx] = temp
+                # swap new_item and parent
+                idx = parent_idx # change the idx to new idx
+            else:
+                break
+
