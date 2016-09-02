@@ -235,6 +235,25 @@ class Heap(object):
             self.percolate_up()
 
 
+    def pop(self):
+        """ Another important method of the class - pops (removes and returns) the top element of the heap and rebalances it. First pop the top element, then add the last element of the heap to the top and move it down as much as possible """
+        # deal with simple cases - heap of 0 or 1 elements
+        if not self.size:
+            print "ERROR. Empty heap - nothing to return"
+            return
+        # whatever happens you are popping off the first element
+        ret = self.heaparray[0]
+        if self.size == 1:
+            self.size = 0
+            self.heaparray = []
+            return ret
+        # pops the element of the end of the array and moves it to the beginning  
+        self.heaparray.insert(0, self.heaparray.pop(-1))
+
+        self.percolate_down()
+        return ret
+
+
     def cmp_func(self, new_item, parent):
         """ Internal compare function: looks up the self.max_or_min value to choose, which way to compare new_item and parent in percolate_up
         return True if comparison works, False otherwise"""
@@ -248,6 +267,42 @@ class Heap(object):
                 return True
             else:
                 return False
+
+
+    def percolate_down(self, start_parent_idx=0):
+        """ Helper func for self.pop. Takes the heap after with the top has been removed. 
+Moves the last element to the (temporary) top of the heap and then compare it to children to move it down as much as possible. 
+Comparison funcs - if self.max_or_min == 1
+ """
+        parent_idx = start_parent_idx
+        parent = self.heaparray[parent_idx]
+        children = [] # list of tuples of format (child_item, child_idx)
+        left_child_idx = 2*parent_idx + 1
+        right_child_idx = 2*parent_idx + 2
+
+        try:
+            left_child = self.heaparray[left_child_idx]
+        except IndexError:
+            pass
+        else:
+            children.append((left_child, left_child_idx))            
+
+        try:
+            right_child = self.heaparray[right_child_idx]
+        except IndexError:
+            pass            
+        else:
+            children.append((right_child, right_child_idx))
+
+
+        while children:
+            for child in children:
+                if self.cmp_func(child, parent):
+                    self.heaparray[parent_idx] = child[0] 
+                    # new value at parent_idx
+                    self.heaparray[child[1]] = parent
+                    new_idx = child[1]
+            self.percolate_down(new_idx)
 
 
     def percolate_up(self):
@@ -268,4 +323,5 @@ class Heap(object):
                 idx = parent_idx # change the idx to new idx
             else:
                 break
+
 
