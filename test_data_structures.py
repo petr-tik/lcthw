@@ -122,6 +122,23 @@ class HeapTestCase(unittest.TestCase):
     def test_insert_and_pop(self):
         pass
 
+
+    def test_pop_rets_top(self):
+        """ Testing that heap.pop returns the same value as heap.top before popping """
+        top = self.max_heap.top()
+        self.assertEqual(top, self.max_heap.pop())
+
+
+    def test_rebalance_after_pop(self):
+        biggest_val = rnd.randint(90,99)
+        second_biggest_val = rnd.randint(80,89)
+        vals = [rnd.randint(0,15) for _ in xrange(5)] + [biggest_val, second_biggest_val]
+        new_max_heap = Heap(1, vals)
+
+        new_max_heap.pop()
+        self.assertEqual(second_biggest_val, new_max_heap.top())
+
+
     def test_bigger_rises_in_max_heap(self):
         """ Test that if you push 2 values onto the heap, the greater one will stay on top. Values are generated at random, but the first is always greater than the second """
         bigger_val = rnd.randint(30,50) 
