@@ -238,6 +238,7 @@ class Heap(object):
     def pop(self):
         """ Another important method of the class - pops (removes and returns) the top element of the heap and rebalances it. First pop the top element, then add the last element of the heap to the top and move it down as much as possible """
         # deal with simple cases - heap of 0 or 1 elements
+        print "working with {}".format(self.heaparray)
         if not self.size:
             print "ERROR. Empty heap - nothing to return"
             return
@@ -249,14 +250,14 @@ class Heap(object):
             return ret
         # pops the element of the end of the array and moves it to the beginning  
         self.heaparray.insert(0, self.heaparray.pop(-1))
-
-        self.percolate_down()
+        print "popped {} from {}".format(ret, self.heaparray)
+        self.percolate_down(0)
         return ret
 
 
     def cmp_func(self, new_item, parent):
-        """ Internal compare function: looks up the self.max_or_min value to choose, which way to compare new_item and parent in percolate_up
-        return True if comparison works, False otherwise"""
+        """ Internal compare function: looks up the self.max_or_min value to choose, which way to compare new_item and parent in percolate_up and percolate_down funcs.
+        return True if comparison works, False otherwise """
         if self.max_or_min == 1:
             if new_item > parent:
                 return True
@@ -294,7 +295,6 @@ Comparison funcs - if self.max_or_min == 1
         else:
             children.append((right_child, right_child_idx))
 
-
         while children:
             for child in children:
                 if self.cmp_func(child, parent):
@@ -302,7 +302,9 @@ Comparison funcs - if self.max_or_min == 1
                     # new value at parent_idx
                     self.heaparray[child[1]] = parent
                     new_idx = child[1]
-            self.percolate_down(new_idx)
+                    self.percolate_down(new_idx)
+
+        return
 
 
     def percolate_up(self):
@@ -310,7 +312,7 @@ Comparison funcs - if self.max_or_min == 1
         if 1, swap if new element greater than parent
         elif 0, swap if new element is less than parent"""
         idx = self.size - 1 # starting idx is the last item of the array
-        while idx > 0:
+        while idx > -1:
             parent_idx = (idx - 1)/2
             parent = self.heaparray[parent_idx] # zero-based array
             if self.cmp_func(self.heaparray[idx], parent):
