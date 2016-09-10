@@ -1,5 +1,7 @@
 #! /usr/bin/env python
-# implementing a stack
+""" Implementing different data structures. Done - LinkedList, Queue, Stack 
+In progress - Heap (max or min)
+"""
 
 
 class Node(object):
