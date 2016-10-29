@@ -133,8 +133,8 @@ class HeapTestCase(unittest.TestCase):
         biggest_val = rnd.randint(90,99)
         second_biggest_val = rnd.randint(80,89)
         vals = [rnd.randint(0,15) for _ in xrange(5)] + [biggest_val, second_biggest_val]
-        new_max_heap = Heap(1, vals)
-
+        new_max_heap = Heap(0, vals)
+        print new_max_heap.items()
         new_max_heap.pop()
         self.assertEqual(second_biggest_val, new_max_heap.top())
 
