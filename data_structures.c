@@ -10,40 +10,109 @@
 /* LinkedList: structs and forward declarations
 Methods include: 
     add
-    add_from_left
     search
     delete
 */ 
 
-void test_LinkedList(void);
-
 typedef struct Node {
   /* This LinkedList node stores a int data and a ptr to the next Node struct */ 
   int data;
-  Node struct Node *next;
+  struct Node * next;
 } Node;
 
 
 typedef struct LinkedList {
-  Node head;
+  Node * head;
+  int length;
 } LinkedList;
 
 
+Node * create_node(int value) {
+  /* Given a value, create a LinkedList node with that value and 
+     return the pointer to it */ 
+  Node * ll_ptr = (Node *)malloc(sizeof(struct Node));
+  ll_ptr->data = value;
+  ll_ptr->next = NULL;
+  return ll_ptr;
+}
+
 int LinkedList_add(LinkedList *list_ptr, int value) {
-  if (*list_ptr->head->data == NULL) {
-    *list_ptr->head = value;
+  /* Function that adds an element to the singly-linked list
+
+   */
+  if (list_ptr->head == NULL) {
+    // if the list is empty
+    Node * new_node_ptr = create_node(value);
+    list_ptr->head = new_node_ptr;
+    list_ptr->length = 1;
     return 0; 
   } else {
-    node = *list_ptr->head
+    Node * node = list_ptr->head;
     while (node->next != NULL) {
       node = node->next;
     } 
-    new_node = Node;
-    new_node->data = value;
-    new_node->next = NULL;
-    node->next = new_node;
+    node->next = create_node(value);
+    list_ptr->length++;
 }  
   return 0;
+}
+
+
+int LinkedList_search(LinkedList *list_ptr, int value_to_find) {
+  /* Returns 0, if value_to_find is in the list
+             1, if value_to_find is not in the list
+             -1, if list is empty
+   */
+  if (list_ptr->head == NULL) return -1;
+  Node * node = list_ptr->head;
+  while (node->next != NULL) {  
+    if (node->data == value_to_find) return 0;
+    node = node->next;
+}
+  // get to the end and never find the value
+  return 1;
+}
+
+
+/* int LinkedList_delete(LinkedList *list_ptr, int value_to_delete) { */
+/*   /\* Deletes the target value from the LinkedList and returns 0.  */
+/*      If list empty - returns -1;  */
+/*      if the value isn't in the list, return 1 *\/ */
+/*   if ((list_ptr->head).data == NULL) { */
+/*     return -1;} */
+
+/* } */
+
+int LinkedList_free_all(LinkedList *list_ptr) {
+  /* Given a pointer to a LinkedList, iterate over all nodes and free them */
+  Node * node = list_ptr->head;
+  while(node != NULL) {
+    Node * temp_node = node->next;
+    free(node);
+    node = temp_node;
+}
+  return 0;
+}
+
+
+
+int test_LinkedList(void) {
+  /* Function to test LinkedList methods
+     Creates a LinkedList, and tests different functions 
+     by their return vals
+  */
+  LinkedList llist;
+  LinkedList * llist_ptr = &llist;
+  assert(LinkedList_search(llist_ptr, 8) == -1);
+  assert(LinkedList_add(llist_ptr, 5) == 0);
+  assert(LinkedList_add(llist_ptr, 7) == 0);
+  assert(LinkedList_add(llist_ptr, 8) == 0);
+
+  assert(LinkedList_search(llist_ptr, 5) == 0); 
+  //assert(LinkedList_add(llist_ptr, 8) == 1);
+  //LinkedList_delete(llist_ptr, 5);
+  //assert(LinkedList_search(llist_ptr, 6) == -1);
+  assert(LinkedList_free_all(llist_ptr) == 0);
 }
 
 
@@ -124,13 +193,12 @@ int main(int argc, char *argv[])
 {
   switch(get_option()) {
     case 1:
-      //test_LinkedList();
+      test_LinkedList();
       return 0;
-      break;
     case 2:
       //test_BST();
       return 0;
-      break;
+
     default:
       return 1;
 
