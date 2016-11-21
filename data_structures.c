@@ -63,25 +63,19 @@ int LinkedList_search(LinkedList *list_ptr, int value_to_find) {
              1, if value_to_find is not in the list
              -1, if list is empty
    */
-  if (list_ptr->head == NULL) return -1;
+  if (list_ptr->head == NULL) printf("Empty list\n"); return -1;
   Node * node = list_ptr->head;
-  while (node->next != NULL) {  
-    if (node->data == value_to_find) return 0;
+  while (node->next != NULL || node->data == value_to_find) {  
+    if (node->data == value_to_find) {
+      printf("Found %d!\n", value_to_find);
+      return 0;
+}
     node = node->next;
 }
   // get to the end and never find the value
+  printf("%d is NOT in the list\n", value_to_find);
   return 1;
 }
-
-
-/* int LinkedList_delete(LinkedList *list_ptr, int value_to_delete) { */
-/*   /\* Deletes the target value from the LinkedList and returns 0.  */
-/*      If list empty - returns -1;  */
-/*      if the value isn't in the list, return 1 *\/ */
-/*   if ((list_ptr->head).data == NULL) { */
-/*     return -1;} */
-
-/* } */
 
 int LinkedList_free_all(LinkedList *list_ptr) {
   /* Given a pointer to a LinkedList, iterate over all nodes and free them */
@@ -94,6 +88,44 @@ int LinkedList_free_all(LinkedList *list_ptr) {
   return 0;
 }
 
+int LinkedList_delete(LinkedList *list_ptr, int value_to_delete) {
+  /* Deletes the first occurence of target value 
+     from the LinkedList and returns 0.
+     If list empty - returns -1;
+     if the value isn't in the list, return 1 */
+  Node * cur = list_ptr->head;
+  if (cur == NULL) return -1;
+  if (value_to_delete == cur->data && list_ptr->length == 1) {
+    int errno = LinkedList_free_all(list_ptr);
+    list_ptr->head = NULL;
+    list_ptr->length == 0;
+    return 0;
+}
+  Node * prev;
+  while(cur->next != NULL) {
+    if (cur->data != value_to_delete) {
+      prev = cur;
+      cur = cur->next;
+}
+    prev->next = cur->next;
+    list_ptr->length--;
+    free(cur);
+    return 0;
+}
+  // if hasn't returned yet, no occurence is in the list
+  return 1;
+}
+
+void LinkedList_print(LinkedList *list_ptr) {
+  /* Given a pointer to a LinkedList, print each node's value and 
+     return nothing*/
+  Node * node = list_ptr->head;
+  while(node != NULL) {
+    printf("%d\t", node->data);
+    node = node->next;
+}
+  printf("\n");
+}
 
 
 int test_LinkedList(void) {
@@ -103,16 +135,23 @@ int test_LinkedList(void) {
   */
   LinkedList llist;
   LinkedList * llist_ptr = &llist;
-  assert(LinkedList_search(llist_ptr, 8) == -1);
-  assert(LinkedList_add(llist_ptr, 5) == 0);
-  assert(LinkedList_add(llist_ptr, 7) == 0);
-  assert(LinkedList_add(llist_ptr, 8) == 0);
-
-  assert(LinkedList_search(llist_ptr, 5) == 0); 
-  //assert(LinkedList_add(llist_ptr, 8) == 1);
-  //LinkedList_delete(llist_ptr, 5);
-  //assert(LinkedList_search(llist_ptr, 6) == -1);
-  assert(LinkedList_free_all(llist_ptr) == 0);
+  int errno;
+  errno = LinkedList_search(llist_ptr, 8);
+  assert(errno == -1);
+  errno = LinkedList_add(llist_ptr, 5);
+  assert(errno == 0);
+  errno = LinkedList_add(llist_ptr, 7);
+  assert(errno == 0);
+  errno = LinkedList_add(llist_ptr, 8);
+  assert(errno == 0);
+  errno = LinkedList_search(llist_ptr, 5);
+  LinkedList_print(llist_ptr);
+  errno = LinkedList_delete(llist_ptr, 7);
+  assert(errno == 0);
+  LinkedList_print(llist_ptr);
+  //errno = LinkedList_search(llist_ptr, 6);
+  //assert(errno == 1);
+  // LinkedList_free_all(llist_ptr);
 }
 
 
