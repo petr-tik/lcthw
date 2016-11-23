@@ -166,65 +166,66 @@ All operations take the pointer to the BST as argument and
 return int for success/failure. Either way, the BST is available under the same pointer
 */
 
-typedef struct BSTNode {
-  int key; // comparable key - make it an int
-  BSTNode struct BSTNode *left;
-  BSTNode struct BSTNode *right;
-} BSTNode;
+/* typedef struct BSTNode { */
+/*   int key; // comparable key - make it an int */
+/*   BSTNode struct BSTNode *left; */
+/*   BSTNode struct BSTNode *right; */
+/* } BSTNode; */
 
-/* Forward declaring test funcs */
+/* /\* Forward declaring test funcs *\/ */
 
-void test_BST(void); 
+/* void test_BST(void); */
 
-// declarations over
+/* // declarations over */
 
-int BST_search(int value, BSTNode *node)
-{
-  // check that tree is not empty
-  assert(node); 
+/* int BST_search(int value, BSTNode *node) */
+/* { */
+/*   // check that tree is not empty */
+/*   assert(node); */
 
-  // if tree empty or no such value, return 0, else 1
-  if !(node->key) {
-    return 1; } 
-  else if (node->key == value) {
-    return 0; }
-  else if (node->key < value) {
-    BST_search(value, node->right); }
-  else {
-    BST_search(value, node->left);}
-  return 1;
-}
+/*   // if tree empty or no such value, return 0, else 1 */
+/*   if (!(node->key)) { */
+/*     return 1; } */
+/*   else if (node->key == value) { */
+/*     return 0; } */
+/*   else if (node->key < value) { */
+/*     BST_search(value, node->right); } */
+/*   else { */
+/*     BST_search(value, node->left);} */
+/*   return 1; */
+/* } */
 
-int BST_insert(int value, BSTNode *tree)
-{
-  /* Given a value and a pointer to a Binary Search Tree, insert the value
-  return 0 if successful, 1 otherwise. 
-  The updated (or not, if return 1) tree 
-  will be available at the same pointer address */
-  if (!tree) {
-    node = (BSTNode *)malloc(sizeof(BSTNode)); 
-    node->key = value;
-    node->left = NULL;
-    node->right = NULL; 
-    return 0;
-}
-  else if (node->key > value) {
-    BST_insert(value, node->left);
-    } else {
-    BST_insert(value, node->right);}
-  return 1; // if it ever gets here, it never inserted a node
-}
+/* int BST_insert(int value, BSTNode *tree) */
+/* { */
+/*   /\* Given a value and a pointer to a Binary Search Tree, insert the value */
+/*   return 0 if successful, 1 otherwise. */
+/*   The updated (or not, if return 1) tree */
+/*   will be available at the same pointer address *\/ */
+/*   if (!tree) { */
+/*     node = (BSTNode *)malloc(sizeof(BSTNode)); */
+/*     node->key = value; */
+/*     node->left = NULL; */
+/*     node->right = NULL; */
+/*     return 0; */
+/* } */
+/*   else if (node->key > value) { */
+/*     BST_insert(value, node->left); */
+/*     } else { */
+/*     BST_insert(value, node->right);} */
+/*   return 1; // if it ever gets here, it never inserted a node */
+/* } */
 
 int get_option() {
-  /* Prints a numbered list of options and returns the chosen value, restarts if the value isn't allowed */
+  /* Prints a numbered list of options and returns the chosen value,
+     restarts if the value isn't allowed */
   int answer;
   printf("Which simulation do you want to run\n1. Linked List\n2. Binary Search Tree\n");
   fscanf(stdin, "%d", &answer);
-  if (answer < 3) {
+  if (answer > 3) {
     printf("ERROR! Invalid option, try again.\n");
-    return answer;
-} else {
     get_option();
+} else {
+    return answer;
 }
 }
 
