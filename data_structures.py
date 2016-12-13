@@ -128,36 +128,34 @@ class Stack(object):
         new_node = Node(value)
         if self.head is None:
             self.head = new_node
-            return
-
-        node = self.head
-        while node.next is not None:
-            node = node.next
-        node.next = new_node
+        else:
+            old_head = self.head
+            new_node.next = old_head
+            self.head = new_node
         self.size += 1
 
     def pop(self):
-        """Pops the value from the top of the stack"""
+        """Pops the value from the top of the stack,
+        reduces the size counter on the object"""
         if self.head is None:
-            print "Stack underflow"
             return
-        node = self.head
-        for _ in xrange(self.size):
-            prev = node  # keep track of current
-            node = node.next
-        prev.next = None  # make it the new top
-        val = node.data  # get the value
+        val = self.head.data
+        self.head = self.head.next
         self.size -= 1  # reduce the size
         return val
 
+    def top(self):
+        """ Returns the top value without removing it """
+        return self.head.data
+
     def as_list(self):
-        """ Returns the Stack as a list, where the head is at the start of the list"""
+        """ Helper for debugging. Returns the Stack as a list
+        with top of stack is at the start"""
         node = self.head
         res = []
-        while node.next is not None:
+        while node is not None and node.next is not None:
             res.append(node.data)
             node = node.next
-        res.append(node.data)
         return res
 
     def print_stack(self):
