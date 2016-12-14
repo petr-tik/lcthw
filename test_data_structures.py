@@ -1,15 +1,17 @@
-#! /usr/bin/env python 
+#! /usr/bin/env python
 
 import unittest
 from data_structures import LinkedList, Stack, Node, Queue, Heap
 import random as rnd
 
+
 class LinkedListTestCase(unittest.TestCase):
+
     def setUp(self):
-        self.arr = [rnd.randint(0,20) for x in xrange(10)]
+        self.arr = [rnd.randint(0, 20) for x in xrange(10)]
         self.LL1 = LinkedList(self.arr)
         self.LL2 = LinkedList()
-        self.det_ll = LinkedList([1,2,3,4])
+        self.det_ll = LinkedList([1, 2, 3, 4])
 
     def test_append(self):
         for item in self.arr:
@@ -25,7 +27,7 @@ class LinkedListTestCase(unittest.TestCase):
             l2.append_node(self.arr[idx])
 
         l2.left_append(self.arr[0])
-        self.assertEqual(l1,l2.as_list())
+        self.assertEqual(l1, l2.as_list())
 
     def test_delete_empty(self):
         ll2 = self.LL2.delete(5)
@@ -49,8 +51,10 @@ class LinkedListTestCase(unittest.TestCase):
 
 
 class StackTestCase(unittest.TestCase):
+
     def setUp(self):
-        self.arr = [rnd.randint(0,20) for x in xrange(10)]
+        print "\n\n\nTesting Stack"
+        self.arr = [rnd.randint(0, 20) for x in xrange(10)]
         self.st1 = Stack(self.arr)
         self.last_val = self.arr[-1]
 
@@ -77,9 +81,10 @@ class StackTestCase(unittest.TestCase):
 
 
 class QueueTestCase(unittest.TestCase):
+
     def setUp(self):
         self.bare_q = Queue()
-        self.q2 = Queue([4,5,6])
+        self.q2 = Queue([4, 5, 6])
 
     def test_dequeue_return(self):
         self.assertEqual(4, self.q2.dequeue())
