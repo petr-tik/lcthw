@@ -149,13 +149,13 @@ class HeapTestCase(unittest.TestCase):
         new_max_heap.pop()
         self.assertEqual(second_biggest_val, new_max_heap.top())
 
-    @unittest.skip("failing")
     def test_bigger_rises_in_max_heap(self):
-        """ Test that if you push 2 values onto the heap, the greater one will stay on top. Values are generated at random, but the first is always greater than the second """
+        """ The greater random value stays on top when 5 vals added"""
         bigger_val = rnd.randint(30, 50)
-        smaller_val = rnd.randint(0, 15)
+        for _ in xrange(5):
+            smaller_val = rnd.randint(0, 15)
+            self.max_heap.push(smaller_val)
         self.max_heap.push(bigger_val)
-        self.max_heap.push(smaller_val)
         self.assertEqual(bigger_val, self.max_heap.top())
 
     @unittest.skip("failing")
