@@ -315,17 +315,11 @@ class Heap(object):
 
         try:
             left_child = self.heaparray[left_child_idx]
-        except IndexError:
-            pass
-        else:
-            children.append((left_child, left_child_idx))
-
-        try:
             right_child = self.heaparray[right_child_idx]
         except IndexError:
-            pass
+            return
         else:
-            children.append((right_child, right_child_idx))
+            children.append((left_child, left_child_idx))
 
         while children:
             for child in children:
@@ -334,6 +328,6 @@ class Heap(object):
                     # new value at parent_idx
                     self.heaparray[child[1]] = parent
                     new_idx = child[1]
-                    self.percolate_down(new_idx)
-
+                    return self.percolate_down(new_idx)
+                return
         return
