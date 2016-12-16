@@ -317,7 +317,6 @@ class Heap(object):
         """
         parent_idx = start_parent_idx
         parent = self.heaparray[parent_idx]
-        children = []  # list of tuples of format (child_item, child_idx)
         left_child_idx = 2 * parent_idx + 1
         right_child_idx = 2 * parent_idx + 2
 
@@ -328,13 +327,11 @@ class Heap(object):
                 extreme_child = (left_child, left_child_idx)
             else:
                 extreme_child = (right_child, right_child_idx)
+            if self.cmp_func(extreme_child[0], parent):
+                self.heaparray[parent_idx] = extreme_child[0]
+                # new value at parent_idx
+                self.heaparray[extreme_child[1]] = parent
+                new_idx = extreme_child[1]
+                return self.percolate_down(new_idx)
         except IndexError:
             return
-
-        if self.cmp_func(extreme_child[0], parent):
-            self.heaparray[parent_idx] = extreme_child[0]
-            # new value at parent_idx
-            self.heaparray[extreme_child[1]] = parent
-            new_idx = extreme_child[1]
-            return self.percolate_down(new_idx)
-        return
