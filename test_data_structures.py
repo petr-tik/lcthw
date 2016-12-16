@@ -53,7 +53,6 @@ class LinkedListTestCase(unittest.TestCase):
 class StackTestCase(unittest.TestCase):
 
     def setUp(self):
-        print "\n\n\nTesting Stack"
         self.arr = [rnd.randint(0, 20) for x in xrange(10)]
         self.st1 = Stack(self.arr)
         self.last_val = self.arr[-1]
