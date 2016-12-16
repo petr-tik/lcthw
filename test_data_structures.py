@@ -105,49 +105,61 @@ class HeapTestCase(unittest.TestCase):
         self.min_heap = Heap(0)
         self.max_heap = Heap(1)
 
-    @unittest.skip("failing")
     def test_items_empty(self):
-        """ Testing that a newly created heap (min or max) is an empty list """
+        """ a newly created heap (min or max) is an empty list """
         self.assertEqual(self.min_heap.items(), [])
 
-    @unittest.skip("failing")
     def test_push_to_empty(self):
         """ Pushing a new value to empty always has it go on top """
         val_to_insert = rnd.randint(0, 5)
         self.min_heap.push(val_to_insert)
         self.assertEqual(val_to_insert, self.min_heap.top())
 
-    @unittest.skip("failing")
     def test_items_nonempty(self):
-        """ Testing that the .items() method returns an updated heaparray after pushing a value """
+        """ the .items() method returns a heaparray after pushing a value """
+        self.min_heap.push(10)
         self.assertEqual(self.min_heap.items(), self.min_heap.heaparray)
 
-    @unittest.skip("failing")
     def test_size_after_insert(self):
-        """ Testing that the private size attribute of class increments by 1 after adding a new item """
+        """ the size attribute of Heap class increments by 1 after pushing """
         size_before_ins = self.min_heap.size
         self.min_heap.push(5)
         self.assertEqual(size_before_ins + 1, self.min_heap.size)
 
-    def test_insert_and_pop(self):
-        pass
+    def test_push_and_pop(self):
+        val_to_test = 10
+        self.min_heap.push(val_to_test)
+        other_vals = [rnd.randint(20, 30) for _ in xrange(5)]
+        for val in other_vals:
+            self.min_heap.push(val)
+        self.assertEqual(val_to_test, self.min_heap.pop())
 
-    @unittest.skip("failing")
     def test_pop_rets_top(self):
-        """ Testing that heap.pop returns the same value as heap.top before popping """
+        """ Heap.pop returns the same value as heap.top before popping """
         top = self.max_heap.top()
         self.assertEqual(top, self.max_heap.pop())
 
-    @unittest.skip("failing")
     def test_rebalance_after_pop(self):
         biggest_val = rnd.randint(90, 99)
         second_biggest_val = rnd.randint(80, 89)
         vals = [rnd.randint(0, 15) for _ in xrange(5)] + \
             [biggest_val, second_biggest_val]
-        new_max_heap = Heap(0, vals)
-        print new_max_heap.items()
+        new_max_heap = Heap(1, vals)
         new_max_heap.pop()
         self.assertEqual(second_biggest_val, new_max_heap.top())
+
+    def test_rebalance_after_two_pops(self):
+        smallest_val = rnd.randint(0, 9)
+        second_smallest_val = rnd.randint(10, 19)
+        third_smallest_val = rnd.randint(20, 29)
+        random_bigger_vals = [rnd.randint(30, 50) for _ in xrange(5)]
+        all_vals = random_bigger_vals + \
+            [smallest_val, second_smallest_val, third_smallest_val]
+        for item in all_vals:
+            self.min_heap.push(item)
+        for _ in xrange(2):
+            self.min_heap.pop()
+        self.assertEqual(third_smallest_val, self.min_heap.top())
 
     def test_bigger_rises_in_max_heap(self):
         """ The greater random value stays on top when 5 vals added"""
@@ -158,12 +170,12 @@ class HeapTestCase(unittest.TestCase):
         self.max_heap.push(bigger_val)
         self.assertEqual(bigger_val, self.max_heap.top())
 
-    @unittest.skip("failing")
     def test_smaller_rises_in_min_heap(self):
-        """ Test that if you push 2 values onto the heap, the smaller one will stay on top. Values are generated at random, but the first is always smaller than the second """
-        bigger_val = rnd.randint(30, 50)
+        """ The smaller random value moves to top when 5 greater vals added"""
         smaller_val = rnd.randint(0, 15)
-        self.min_heap.push(bigger_val)
+        for _ in xrange(5):
+            bigger_val = rnd.randint(30, 50)
+            self.max_heap.push(bigger_val)
         self.min_heap.push(smaller_val)
         self.assertEqual(smaller_val, self.min_heap.top())
 
