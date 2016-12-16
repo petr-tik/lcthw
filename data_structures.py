@@ -1,12 +1,15 @@
 #! /usr/bin/env python
-""" Implementing different data structures. Done - LinkedList, Queue, Stack
-In progress - Heap (max or min)
+""" Implementing different data structures. 
+Done - LinkedList, Queue, Stack, Heap
+TODO:
+BST
+
 """
 
 
 class Node(object):
 
-    """docstring for Node"""
+    """Node object used for LinkedList and LL-based Stacks """
 
     def __init__(self, data, next=None):
         self.data = data
@@ -70,7 +73,6 @@ class LinkedList(object):
         node = self.head
         prev = None
         if node is None:
-            print "Empty list cannot delete"
             return None
         elif node.data == value:
             self.head = node.next
@@ -200,7 +202,6 @@ class Queue(object):
     def dequeue(self):
         """ Pops (Returns and removes) the head of queue """
         if self.size == 0:
-            print "Error: empty queue"
             return
 
         temp = self.head
@@ -310,10 +311,11 @@ class Heap(object):
 
     def percolate_down(self, parent_idx=0):
         """ Helper func for self.pop. 
-        Takes the heap after with the top has been removed.
-        Moves the last element to the (temporary) top of the heap and 
-        compare it to the smallest/greatest child 
-        to move it down as much as possible. 
+        Takes the heap after with the top has been and the last element 
+        moved to the (temporary) top of the heap. 
+        Returns nothing, but moves the new top as far down as possible
+        by comparing it to the extreme (smallest in min_heap, 
+        greatest in max_heap) to move it down as much as possible. 
         """
         parent = self.heaparray[parent_idx]
         left_child_idx = 2 * parent_idx + 1
@@ -322,6 +324,7 @@ class Heap(object):
             left_child = self.heaparray[left_child_idx]
             right_child = self.heaparray[right_child_idx]
             if self.cmp_func(left_child, right_child):
+                # use the same same comp_func to choose the most extreme child
                 extreme_child = (left_child, left_child_idx)
             else:
                 extreme_child = (right_child, right_child_idx)

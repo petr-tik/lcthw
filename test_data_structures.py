@@ -178,6 +178,17 @@ class HeapTestCase(unittest.TestCase):
         self.min_heap.push(smaller_val)
         self.assertEqual(smaller_val, self.min_heap.top())
 
+    def test_percolate_down_only_left_child(self):
+        pass
+
+    def test_big_heap(self):
+        big = 200
+        big2 = 150
+        vals = [big, big2] + [rnd.randint(0, 100) for _ in xrange(60)]
+        for val in vals:
+            self.max_heap.push(val)
+        self.assertEqual(big, self.max_heap.pop())
+        self.assertEqual(big2, self.max_heap.pop())
 
 if __name__ == '__main__':
     unittest.main(verbosity=10)
