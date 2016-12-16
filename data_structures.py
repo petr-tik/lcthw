@@ -308,18 +308,16 @@ class Heap(object):
         self.percolate_down(0)
         return ret
 
-    def percolate_down(self, start_parent_idx=0):
+    def percolate_down(self, parent_idx=0):
         """ Helper func for self.pop. 
         Takes the heap after with the top has been removed.
         Moves the last element to the (temporary) top of the heap and 
         compare it to the smallest/greatest child 
         to move it down as much as possible. 
         """
-        parent_idx = start_parent_idx
         parent = self.heaparray[parent_idx]
         left_child_idx = 2 * parent_idx + 1
         right_child_idx = 2 * parent_idx + 2
-
         try:
             left_child = self.heaparray[left_child_idx]
             right_child = self.heaparray[right_child_idx]
@@ -329,9 +327,10 @@ class Heap(object):
                 extreme_child = (right_child, right_child_idx)
             if self.cmp_func(extreme_child[0], parent):
                 self.heaparray[parent_idx] = extreme_child[0]
-                # new value at parent_idx
-                self.heaparray[extreme_child[1]] = parent
                 new_idx = extreme_child[1]
+                self.heaparray[new_idx] = parent
+                # swap parent and child and continue
+                # propagating parent vs comparisons down the tree
                 return self.percolate_down(new_idx)
         except IndexError:
             return
