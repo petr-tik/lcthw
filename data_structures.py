@@ -337,3 +337,27 @@ class Heap(object):
                 return self.percolate_down(new_idx)
         except IndexError:
             return
+class BST_Node(object):
+    """ Node of a Binary Search Tree. Recursively defined"""
+
+    def __init__(self, data, left_child=None, right_child=None):
+        self.data = data
+        self.left_child = left_child
+        self.right_child = right_child
+
+
+class BinarySearchTree(object):
+    """"""
+
+    def __init__(self, head=None):
+        self.head = head
+
+    def push(self, val, parent=None):
+        """ Creates and adds the new node to the BST in-place, returns nothing"""
+        if parent == None:
+            self.head = BST_Node(val)
+            return
+        if val >= parent.data:
+            self.push(val, parent.right_child)
+        else:
+            self.push(val, parent.left_child)

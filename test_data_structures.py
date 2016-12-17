@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import unittest
-from data_structures import LinkedList, Stack, Node, Queue, Heap
+from data_structures import LinkedList, Stack, Node, Queue, Heap, BST_Node, BinarySearchTree
 import random as rnd
 
 
@@ -190,5 +190,16 @@ class HeapTestCase(unittest.TestCase):
         self.assertEqual(big, self.max_heap.pop())
         self.assertEqual(big2, self.max_heap.pop())
 
+
+class BinarySearchTreeTestCase(unittest.TestCase):
+    """"""
+
+    def setUp(self):
+        self.bst1 = BinarySearchTree()
+
+    def test_pushing_to_empty(self):
+        self.bst1.push(5)
+        self.assertEqual(self.bst1.head.data, 5)
+
 if __name__ == '__main__':
-    unittest.main(verbosity=10)
+    unittest.main(verbosity=2)
