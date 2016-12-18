@@ -30,17 +30,20 @@ class LinkedListTestCase(unittest.TestCase):
         self.assertEqual(l1, l2.as_list())
 
     def test_delete_empty(self):
-        ll2 = self.LL2.delete(5)
-        self.assertEqual(ll2, None)
+        """ Deleting any value from an empty LL returns None """
+        random_val = rnd.randint(0, 10)
+        self.assertEqual(self.LL2.delete(random_val), None)
 
     def test_delete_not_found(self):
+        """ Deleting an item not in LL, leaves it unchanged """
         ll1_original = self.LL1.as_list()
         ll1_with_del = self.LL1
         ll1_with_del.delete(25)
-
         self.assertEqual(ll1_original, ll1_with_del.as_list())
 
     def test_delete_head(self):
+        """ Deleting the head of LL makes same list as 
+        creating a LL from the array without the first element """
         self.LL1.delete(self.arr[0])
         new_ll = LinkedList(self.arr[1:]).as_list()
         self.assertEqual(self.LL1.as_list(), new_ll)

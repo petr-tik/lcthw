@@ -102,8 +102,8 @@ class LinkedList(object):
         counter = 1
         while node.next is not None:
             if counter > N:
-            # only start keeping track of element N places behind,
-            # after reaching position N+1
+                # only start keeping track of element N places behind,
+                # after reaching position N+1
                 n_from_end = n_from_end.next
             node = node.next
             counter += 1
@@ -173,7 +173,8 @@ class Stack(object):
         print stack_values[counter], "<- top value"  # print it with an arrow
         print "|"
         for idx in xrange(counter - 1, -1, -1):
-            print stack_values[idx]  # print stack values from the end of the array
+            # print stack values from the end of the array
+            print stack_values[idx]
             if idx == 0:
                 break
             print "|"
@@ -288,8 +289,8 @@ class Heap(object):
                 return
 
     def pop(self):
-        """ Removes and returns the top element of the heap and rebalances it. 
-        First pop the top element, then add the last element of the heap 
+        """ Removes and returns the top element of the heap and rebalances it.
+        First pop the top element, then add the last element of the heap
         to the top and move it down as much as possible """
         # deal with simple cases - heap of 0 or 1 elements
         try:
@@ -310,12 +311,12 @@ class Heap(object):
         return ret
 
     def percolate_down(self, parent_idx=0):
-        """ Helper func for self.pop. 
-        Takes the heap after with the top has been and the last element 
-        moved to the (temporary) top of the heap. 
+        """ Helper func for self.pop.
+        Takes the heap after with the top has been and the last element
+        moved to the (temporary) top of the heap.
         Returns nothing, but moves the new top as far down as possible
-        by comparing it to the extreme (smallest in min_heap, 
-        greatest in max_heap) to move it down as much as possible. 
+        by comparing it to the extreme (smallest in min_heap,
+        greatest in max_heap) to move it down as much as possible.
         """
         parent = self.heaparray[parent_idx]
         left_child_idx = 2 * parent_idx + 1
