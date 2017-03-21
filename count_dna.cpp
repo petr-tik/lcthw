@@ -1,40 +1,51 @@
+#include <array>
 #include <iostream>
-#include <string>
-#include <map>
+#include <iterator>
 
 /*
   Rosalind stone puzzle about counting chars in a string
   http://rosalind.info/problems/dna/
 
-  clang++ count_dna.cpp -o count_dna
-  ./count_dna <DNA_STRING>
+  clang++ -std=c++14 -O3 count_dna.cpp -o count_dna
+  ./count_dna < DNA_STRING_FILE.txt
  */
 
 int main(int argc, char *argv[])
 {
 	// we know the keys, so we can hardwire them
-	std::map<char, int> dna_char_map;
-	dna_char_map['A'] = 0;
-	dna_char_map['C'] = 0;
-	dna_char_map['G'] = 0;
-	dna_char_map['T'] = 0;
-	std::string dna_string;
-	if (argc == 2) {
-		dna_string = argv[1];
-	} else {
-		// only works with 2 args - executable and string to analyse
-		std::cout << "Error. Only works with 2 arguments" << std::endl;
-		return 1;
-	}
-	for (char &c : dna_string) {
-		// assumes it will only see one of the 4 agreed chars
-		dna_char_map[c]++;
-	}
+	enum nucleotides { A, C, G, T };
 
-	for (auto &pair : dna_char_map) {
-		std::cout << pair.second << " ";
-	}
-	std::cout << std::endl;
+  // http://en.cppreference.com/w/cpp/container/array 
+	std::array<int, 4> dna_char_map;
+	dna_char_map.fill(0);
+
+  // http://en.cppreference.com/w/cpp/iterator/istream_iterator
+	std::istream_iterator<char> end;
+	for (std::istream_iterator<char> it = std::cin; it != end; ++it) {
+    switch (*it) {
+		default:
+      std::cerr << "bad input: " << *it << '\n';
+      return -1;
+		case 'A':
+			++dna_char_map[A];
+			break;
+		case 'C':
+			++dna_char_map[C];
+			break;
+		case 'G':
+			++dna_char_map[G];
+			break;
+		case 'T':
+			++dna_char_map[T];
+			break;
+    }
+  }
+
+  std::cout << dna_char_map[A] << ' ';
+  std::cout << dna_char_map[C] << ' ';
+  std::cout << dna_char_map[G] << ' ';
+  std::cout << dna_char_map[T] << ' ';
+  std::cout << '\n';
 
 	return 0;
 }
