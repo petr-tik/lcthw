@@ -15,17 +15,17 @@ int main(int argc, char *argv[])
 	// we know the keys, so we can hardwire them
 	enum nucleotides { A, C, G, T };
 
-  // http://en.cppreference.com/w/cpp/container/array 
+	// http://en.cppreference.com/w/cpp/container/array
 	std::array<int, 4> dna_char_map;
 	dna_char_map.fill(0);
 
-  // http://en.cppreference.com/w/cpp/iterator/istream_iterator
+	// http://en.cppreference.com/w/cpp/iterator/istream_iterator
 	std::istream_iterator<char> end;
 	for (std::istream_iterator<char> it = std::cin; it != end; ++it) {
-    switch (*it) {
+		switch (*it) {
 		default:
-      std::cerr << "bad input: " << *it << '\n';
-      return -1;
+			std::cerr << "bad input: " << *it << '\n';
+			return -1;
 		case 'A':
 			++dna_char_map[A];
 			break;
@@ -38,14 +38,14 @@ int main(int argc, char *argv[])
 		case 'T':
 			++dna_char_map[T];
 			break;
-    }
-  }
+		}
+	}
 
-  std::cout << dna_char_map[A] << ' ';
-  std::cout << dna_char_map[C] << ' ';
-  std::cout << dna_char_map[G] << ' ';
-  std::cout << dna_char_map[T] << ' ';
-  std::cout << '\n';
+	std::cout << dna_char_map[A] << ' ';
+	std::cout << dna_char_map[C] << ' ';
+	std::cout << dna_char_map[G] << ' ';
+	std::cout << dna_char_map[T] << ' ';
+	std::cout << '\n';
 
 	return 0;
 }
