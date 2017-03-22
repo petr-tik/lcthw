@@ -9,39 +9,37 @@
   <char><char_count> of all the characters in the to_compress string
   eg. aaabbcccdff -> a3b2c3d1f2
 
-
   clang++-3.7 -std=c++11 compress_string.cpp -o compress_string
   ./compress_string <string_to_compress>
 */
 
 using namespace std;
 
-string compress(string to_compress)
+string compress(const string &to_compress)
 {
-	int length = to_compress.length();
-	vector<char> letters;
-	vector<int> letter_counts;
+	/*
+	  Takes a reference (not pointer) to a const string, which makes the
+	  string immutable. Creates a counter (init at 0) and a stringstream,
+	  which is initialised with the first character of the string. After
+	  that, iterate over the given string compare it to the last char in the
+	  stringstream. If the char is different, append the counter of the
+	  previous char, reset counter to 1 and append the new char.
 
-	for (const char &c : to_compress) {
-		if (letters.back() == c) {
-			++letter_counts.back();
+	 */
+	stringstream ss;
+	int counter = 0;
+	ss << to_compress.at(0);
+	for (char c : to_compress) {
+		if (ss.str().back() == c) {
+			++counter;
 		} else {
 			// new element - add to letters and set its count to 1
-			letters.push_back(c);
-			letter_counts.push_back(1);
+			ss << counter;
+			counter = 1;
+			ss << c;
 		}
 	}
-	cout << letters.size() << endl;
-	// walk through both vectors,
-	// cast each element to char and append them to the string
-	stringstream ss;
 
-	for (int index = 0; index != letters.size(); ++index) {
-		char letter = letters[index];
-		char count = letter_counts[index];
-		cout << letter << count;
-		ss << letter << count;
-	}
 	return ss.str();
 }
 
@@ -50,7 +48,7 @@ int main(int argc, char *argv[])
 	string to_compress;
 	if (argc == 2) {
 		to_compress = argv[1];
-		cout << "let's compress some shizz" << endl;
+
 	} else {
 		cout << "ERROR. Only 2 arguments accepted" << endl;
 		return 1;
@@ -58,5 +56,6 @@ int main(int argc, char *argv[])
 
 	string res = compress(to_compress);
 	cout << res << endl;
+
 	return 0;
 }
