@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 {
 	string to_compress;
 	if (argc == 2) {
-		to_compress = argv[2];
+		to_compress = argv[1];
 		cout << "let's compress some shizz" << endl;
 	} else {
 		cout << "ERROR. Only 2 arguments accepted" << endl;
