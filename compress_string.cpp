@@ -32,7 +32,7 @@ std::string compress(const std::string &to_compress)
 			ss << c;
 		}
 	}
-
+	ss << count; // add the count for the last char
 	return ss.str();
 }
 
@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-  std::string res = compress(to_compress);
-  std::cout << res << '\n';
+  	std::string res = compress(to_compress);
+  	std::cout << res << '\n';
 	return 0;
 }
 
