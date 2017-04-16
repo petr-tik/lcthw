@@ -10,6 +10,15 @@ struct my_class {
 		std::cout << " Invoked my_class(int data)\n";
 	}
 
+	// 2 types of object consutructors from a class:
+	// move and copy
+	// Copy takes a object of the same type and creates a new one by copying
+	// the relevant data. The original object might live or not afterwards.
+	// Move takes a rvalue reference (&&) to an object of the same type,
+	// uses it to initialise its own data and destrors the original object
+	// afterwards. That is related to the nature of rvalues and references
+	// to them - they are destroyed when they leave the scope
+
 	// Copy constructor
 	my_class(const my_class &c) : data_(c.data_)
 	{
