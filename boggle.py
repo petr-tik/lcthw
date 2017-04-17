@@ -29,6 +29,9 @@ test_dict = ["algorithm", "a"]
 
 
 def get_dict_to_line(idx):
+    """  
+    Reads the /usr/share/dictionary up to a given line and returns the results 
+    """
     res = []
     while idx > 0:
         for line in open("/usr/share/dict/british-english"):
@@ -40,6 +43,12 @@ b_index = 21156
 
 
 def my_add(tup1, tup2):
+    """ 
+    Input: 2 tuples
+
+    Returns:
+    a tuple, where each item is the sum of the respective input tuple members
+    """
     return (tup1[0] + tup2[0], tup1[1] + tup2[1])
 
 
@@ -86,6 +95,7 @@ def prepare_dictionary():
             1 - prefix only
 
     """
+    pass
 
 
 def check_dictionary()
