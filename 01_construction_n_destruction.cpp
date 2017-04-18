@@ -121,13 +121,20 @@ int main()
 	my_class m;
 
 	std::cout << "\nInvoking foo(m)\n";
-	std::cout << foo(m);
+	foo(m);
 
 	std::cout << "\nInvoking bar(m)\n";
 	bar(m);
 
-	const my_class &c = m;
+	my_class &c = m;
+	c = m;
 	std::cout << "\nInvoking bar(c)\n";
 	bar(c);
+
+	my_class &d = m;
+	// d = m;
+	std::cout << "\nInvoking bar(d)\n";
+	bar(d);
+
 	return 0;
 }
