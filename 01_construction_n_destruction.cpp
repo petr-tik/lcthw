@@ -25,7 +25,8 @@ struct my_class {
 		// takes a const reference to an object of type my_class and
 		// constructrs a new object. Creates a copy of the existing
 		// object
-		std::cout << " Invoked my_class(const my_class& c)\n";
+		std::cout << " Invoked my_class(const my_class& c). Copy "
+			     "constructor.\n";
 	}
 
 	// Move constructor
@@ -34,14 +35,16 @@ struct my_class {
 		// given a rvalue reference to an object of type my_class,
 		// initialise new object's data_ variable to the value of
 		// c.data_
-		std::cout << " Invoked my_class(my_class&& c)\n";
+		std::cout
+		    << " Invoked my_class(my_class&& c). Move constructor.\n";
 	}
 
 	// Copy assignment
 	my_class &operator=(const my_class &c)
 	{
 		data_ = c.data_;
-		std::cout << " Invoked operator=(const my_class& c)\n";
+		std::cout << " Invoked operator=(const my_class& c). Copy "
+			     "assignment.\n";
 		return *this;
 	}
 
@@ -49,7 +52,8 @@ struct my_class {
 	my_class &operator=(my_class &&c)
 	{
 		data_ = c.data_;
-		std::cout << " Invoked operator=(my_class&& c)\n";
+		std::cout
+		    << " Invoked operator=(my_class&& c). Move assignment.\n";
 		return *this;
 	}
 
@@ -108,23 +112,48 @@ int main()
 	// 2) Modify code to invoke each of the special member functions.
 
 	// Special member functions are:
-	//     Default constructor
-	//     Copy Constructor
-	//     Copy assignment operator
+	//     Default constructor - done
+	//     Copy Constructor - done
+	//     Copy assignment operator - done
 	//     Destructor
 	//     Move constructor
 	//     Move assignment operator
 
 	// Explain what's going on.
 
+	// default constructor without data,
+	// creates an object of type my_class
 	std::cout << "\nInvoking my_class()\n";
 	my_class m;
 
+	// only 1 kind of foo is defined above. Takes the object of type
+	// my_class and returns its data. It can maliciously modify the object
+	// inside the body of foo
 	std::cout << "\nInvoking foo(m)\n";
 	foo(m);
+	/*
+ignoring return value
+returns
+	1	Invoking foo(m)
+	2	 Invoked my_class(const my_class& c)
+	uses the copy constructor
+	3	 Invoked foo(my_class c)
+
+	4	 Invoked ~my_class()
+	calls the default destroyer for the class, as we are leaving the scope
+of the bar function
+*/
 
 	std::cout << "\nInvoking bar(m)\n";
 	bar(m);
+	my_class &z = m;
+	z = m;
+	/*
+	Invoking bar(m)
+	 Invoked bar(my_class& c)
+	 Invoked operator=(const my_class& c). Copy assignment.
+
+	*/
 
 	my_class &c = m;
 	c = m;
