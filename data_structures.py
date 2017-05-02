@@ -1,9 +1,7 @@
 #! /usr/bin/env python
 """ Implementing different data structures. 
-Done - LinkedList, Queue, Stack, Heap
-TODO:
-BST
-
+Done: LinkedList, Queue, Stack, Heap
+TODO: BST
 """
 
 
@@ -184,7 +182,8 @@ class Queue(object):
 
     def __init__(self, arr=None):
         """Implementing a queue with a list and a head index
-        The dynamic nature of python allows me to keep growing the list and operate with indices
+        The dynamic nature of python allows me to keep growing the list 
+        and operate with indices
         """
         self.size = 0
         self.head = -1
@@ -213,7 +212,11 @@ class Queue(object):
 
 class Heap(object):
 
-    """ Implementing priority queue as a binary heap. The main property of a min or max heap is that each key is the smaller/greater (respectively) or equal to the keys in all his children. Max-heap has the greatest element at the top, min-heap lowest element at the top
+    """ Implementing priority queue as a binary heap. 
+    The main property of a min or max heap is that each key is 
+    smaller/greater (respectively) or equal to the keys in all his children. 
+    Max-heap has the greatest element at the top, 
+    min-heap lowest element at the top
     Usage:
     Heap(1, [1,3,4]) - makes a max-heap from [1,3,4]
     Heap(0, [2,3,1]) - makes a min-heap from [2,3,1]
@@ -338,6 +341,8 @@ class Heap(object):
                 return self.percolate_down(new_idx)
         except IndexError:
             return
+
+
 class BST_Node(object):
     """ Node of a Binary Search Tree. Recursively defined"""
 
