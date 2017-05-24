@@ -76,7 +76,8 @@ int foo(my_class c)
 
 int bar(const my_class &c)
 {
-	// takes a const reference to my_class object. Cannot change arguments
+	// takes a const lvalue reference to my_class object. Cannot change
+	// arguments
 	// i.e. anything inside object. Const = read-only
 	// returns the value of data_ stored inside the given class
 	// if you try to compile this method with the line below uncommented.
@@ -148,22 +149,15 @@ of the bar function
 	bar(m);
 	my_class &z = m;
 	z = m;
-	/*
-	Invoking bar(m)
-	 Invoked bar(my_class& c)
-	 Invoked operator=(const my_class& c). Copy assignment.
 
-	*/
-
-	my_class &c = m;
-	c = m;
 	std::cout << "\nInvoking bar(c)\n";
-	bar(c);
+	bar(z);
 
-	my_class &d = m;
+	// std::cout << "\t\tInvoking my_class &d = m;\n";
+	my_class &&d = std::move(m);
+	// std::cout << "\t\tInvoked my_class &d = m;\n";
 	// d = m;
 	std::cout << "\nInvoking bar(d)\n";
-	bar(d);
-
+	bar(std::move(m));
 	return 0;
 }
