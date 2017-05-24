@@ -145,19 +145,16 @@ returns
 of the bar function
 */
 
-	std::cout << "\nInvoking bar(m)\n";
-	bar(m);
-	my_class &z = m;
+	std::cout << "\nCopy assignment\n";
+	my_class z;
 	z = m;
 
-	std::cout << "\nInvoking bar(c)\n";
-	bar(z);
-
-	// std::cout << "\t\tInvoking my_class &d = m;\n";
-	my_class &&d = std::move(m);
+	std::cout << "\nMove constructor\n";
+	auto d = std::move(my_class(5));
 	// std::cout << "\t\tInvoked my_class &d = m;\n";
 	// d = m;
-	std::cout << "\nInvoking bar(d)\n";
-	bar(std::move(m));
+	std::cout << "\nMove assignment\n";
+	my_class f;
+	f = std::move(m);
 	return 0;
 }
