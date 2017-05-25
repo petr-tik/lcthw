@@ -91,14 +91,14 @@ int bar(const my_class &c)
 
 int bar(my_class &c)
 {
-	// takes a reference to an object of type my_class
+	// takes an l-value reference to an object of type my_class
 	std::cout << " Invoked bar(my_class& c)\n";
 	return c.data_;
 }
 
 int bar(my_class &&c)
 {
-	// takes an r-value reference to the object of type my_class
+	// takes an r-value reference to an object of type my_class
 	std::cout << " Invoked bar(my_class&& c)\n";
 	return c.data_;
 }
@@ -116,9 +116,9 @@ int main()
 	//     Default constructor - done
 	//     Copy Constructor - done
 	//     Copy assignment operator - done
-	//     Destructor
-	//     Move constructor
-	//     Move assignment operator
+	//     Destructor - done
+	//     Move constructor - done
+	//     Move assignment operator - done
 
 	// Explain what's going on.
 
@@ -132,6 +132,9 @@ int main()
 	// inside the body of foo
 	std::cout << "\nInvoking foo(m)\n";
 	foo(m);
+
+	std::cout << "\nCopy constructor\n";
+	my_class copy_con = my_class(m);
 	/*
 ignoring return value
 returns
@@ -146,15 +149,16 @@ of the bar function
 */
 
 	std::cout << "\nCopy assignment\n";
-	my_class z;
-	z = m;
+	my_class copy_assign;
+	copy_assign = m;
 
 	std::cout << "\nMove constructor\n";
-	auto d = std::move(my_class(5));
-	// std::cout << "\t\tInvoked my_class &d = m;\n";
-	// d = m;
+	auto move_con = std::move(my_class(5));
+
 	std::cout << "\nMove assignment\n";
-	my_class f;
-	f = std::move(m);
+	my_class move_assign;
+	move_assign = std::move(m);
+
+	std::cout << "Returning\n\n\n";
 	return 0;
 }
