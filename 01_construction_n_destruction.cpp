@@ -135,18 +135,6 @@ int main()
 
 	std::cout << "\nCopy constructor\n";
 	my_class copy_con = my_class(m);
-	/*
-ignoring return value
-returns
-	1	Invoking foo(m)
-	2	 Invoked my_class(const my_class& c)
-	uses the copy constructor
-	3	 Invoked foo(my_class c)
-
-	4	 Invoked ~my_class()
-	calls the default destroyer for the class, as we are leaving the scope
-of the bar function
-*/
 
 	std::cout << "\nCopy assignment\n";
 	my_class copy_assign;
