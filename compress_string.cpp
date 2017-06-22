@@ -10,8 +10,15 @@
   eg. aaabbcccdff -> a3b2c3d1f2
 
 
-  clang++-3.7 -std=c++11 compress_string.cpp -o compress_string
-  ./compress_string <string_to_compress>
+  $$$ clang++-3.7 -std=c++11 compress_string.cpp -o compress_string
+  $$$ ./compress_string <string_to_compress>
+
+  for debugging
+  $$$ clang++-3.7 -std=c++11 -g -D_GLIBCXX_DEBUG compress_string.cpp -o
+  compress_string
+  $$$ gdb ./compress_string
+  $$$ (gdb) start <string_to_compress>
+
 */
 
 std::string compress(const std::string &to_compress)
@@ -24,7 +31,7 @@ std::string compress(const std::string &to_compress)
 		if (c == letter) {
 			++count;
 		} else {
-			if (count > 1) {
+			if (count >= 1) {
 				ss << count;
 			}
 			letter = c;
@@ -47,8 +54,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-  	std::string res = compress(to_compress);
-  	std::cout << res << '\n';
+	std::string res = compress(to_compress);
+	std::cout << res << '\n';
 	return 0;
 }
-
