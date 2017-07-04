@@ -36,6 +36,7 @@ int make_child(node_t *parent)
 	int child_val = generate_random_between_l_n_r(10, 40);
 	int parent_val = parent->value;
 	node_t *child_node = create_node(child_val);
+
 	if (child_val < parent_val) {
 		parent->left_child = child_node;
 		return 0;
@@ -54,21 +55,44 @@ int generate_random_between_l_n_r(int l, int r)
 	return res;
 }
 
+void clear_children(node_t *parent)
+{
+	// given a parent pointer, delete its children and free them
+	if (parent) {
+		if (parent->right_child) {
+			free(parent->right_child);
+		}
+		if (parent->left_child) {
+			free(parent->left_child);
+		}
+	}
+}
+
 node_t *make_tree()
 {
 	node_t *root = create_node(20);
 	int res1, res2;
-	while ()
-
-		res1 = make_child(root);
-	res2 = make_child(root);
-
+	int levels = 5;
+	node_t *cur = root;
+	while (levels > 0) {
+		res1 = make_child(cur);
+		res2 = make_child(cur);
+		if (res1 || res2 == 1) {
+			// if either child creation fails, delete both children
+			// and try again
+			clear_children(cur);
+			continue;
+		} else {
+			levels--;
+		}
+	}
 	return root;
 }
 
 int make_tree_of(int elements)
 {
-	// given the number of elements, create a tree with the number of
+	// given the number of elements, create a tree with the number
+	// of
 	// elements and return a pointer to root
 	// TODO
 	return 1;
