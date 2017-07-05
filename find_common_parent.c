@@ -37,67 +37,6 @@ node_t *create_node(int value)
 	return new_node;
 }
 
-int make_child(node_t *parent)
-{
-	// given a pointer to parent, creates a random node and makes it the
-	// appropriate child. Returns 0 on success, changes parent node
-	// in-place, 1 on failure
-	int child_val = generate_random_between_l_n_r(10, 40);
-	int parent_val = parent->value;
-	node_t *child_node = create_node(child_val);
-
-	if (child_val < parent_val) {
-		parent->left_child = child_node;
-		return 0;
-	} else if (child_val > parent_val) {
-		parent->right_child = child_node;
-		return 0;
-	} else { // cannot make a child with the same value
-		return 1;
-	}
-}
-
-int generate_random_between_l_n_r(int l, int r)
-{
-	int res;
-	res = rand() % (r + 1 - r) + r;
-	return res;
-}
-
-void clear_children(node_t *parent)
-{
-	// given a parent pointer, delete its children and free them
-	if (parent) {
-		if (parent->right_child) {
-			free(parent->right_child);
-		}
-		if (parent->left_child) {
-			free(parent->left_child);
-		}
-	}
-}
-
-node_t *make_tree()
-{
-	node_t *root = create_node(20);
-	int res1, res2;
-	int levels = 5;
-	node_t *cur = root;
-	while (levels > 0) {
-		res1 = make_child(cur);
-		res2 = make_child(cur);
-		if (res1 || res2 == 1) {
-			// if either child creation fails, delete both children
-			// and try again
-			clear_children(cur);
-			continue;
-		} else {
-			levels--;
-		}
-	}
-	return root;
-}
-
 node_t *make_tree_manual()
 {
 	node_t *root = create_node(20);
@@ -118,5 +57,6 @@ int main(int argc, char *argv[])
 {
 	printf("Hello world\n");
 	node_t *root = make_tree_manual();
+
 	return 0;
 }
