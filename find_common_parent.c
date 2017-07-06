@@ -75,15 +75,17 @@ node_t *find_common_ancestor(node_t *root, int val1, int val2)
 	node_t *ret = NULL;
 	node_t *cur = root;
 	while (cur) {
-		if (((val1 < cur->value) && (val2 > cur->value)) ||
-		    ((val1 > cur->value) && (val2 < cur->value))) {
+		if ((val1 < cur->value && cur->value < val2) ||
+		    (val2 < cur->value && cur->value < val1)) {
 			if (is_value_in_tree(cur, val1) &&
 			    is_value_in_tree(cur, val2) == 1) {
 				return cur;
+			} else {
+				return NULL;
 			}
-		} else if (val1 < cur->value && cur->value < val2) {
+		} else if (val1 < cur->value && cur->value > val2) {
 			cur = cur->right_child;
-		} else if (val1 > cur->value && cur->value > val2) {
+		} else if (val1 > cur->value && cur->value < val2) {
 			cur = cur->left_child;
 		}
 	}
@@ -93,12 +95,18 @@ node_t *find_common_ancestor(node_t *root, int val1, int val2)
 int main(int argc, char *argv[])
 {
 	node_t *root = make_tree_manual();
-	node_t *res = find_common_ancestor(root, 37, 25);
+	int val1, val2;
+	val1 = 37;
+	val2 = 25;
+	node_t *res = find_common_ancestor(root, val1, val2);
 	if (res) {
 		printf("%d\n", res->value);
 		return 0;
+	} else {
+		printf("At least one of the values - %d, %d -  isn't in the "
+		       "tree\n",
+		       val1, val2);
 	}
-	printf("%p", res);
 
 	return 0;
 }
