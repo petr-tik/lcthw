@@ -33,7 +33,9 @@ node_t *create_node(int value)
 	// given a value, allocs a node_t with that value and returns a pointer
 	// to it
 	node_t *new_node = malloc(sizeof(node_t));
-	new_node->value = value;
+	if (new_node) {
+		new_node->value = value;
+	}
 	return new_node;
 }
 
@@ -52,6 +54,21 @@ node_t *make_tree_manual()
 	return root;
 }
 
+void in_order_print(node_t *root)
+{
+	if (root) {
+		in_order_print(root->right_child);
+		printf("%d ", root->value);
+		in_order_print(root->left_child);
+	}
+}
+
+void test_in_order()
+{
+	node_t *root = make_tree_manual();
+	in_order_print(root);
+	printf("\n");
+}
 void free_tree(node_t *root)
 {
 	// Given the root of the tree, free all the nodes
