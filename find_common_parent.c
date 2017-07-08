@@ -52,6 +52,20 @@ node_t *make_tree_manual()
 	return root;
 }
 
+void free_tree(node_t *root)
+{
+	// Given the root of the tree, free all the nodes
+
+	if (root) {
+		if (root->right_child) {
+			free_tree(root->right_child);
+		}
+		if (root->left_child) {
+			free_tree(root->left_child);
+		}
+		free(root);
+	}
+}
 int is_value_in_tree(node_t *root, int val)
 {
 	// given a value, return 1 if a node with such value is in the tree.
@@ -113,8 +127,10 @@ int test_find_ancestor_false()
 	val2 = 25;
 	node_t *res = find_common_ancestor(root, val1, val2);
 	if (res) {
+		free_tree(root);
 		return 0;
 	} else {
+		free_tree(root);
 		return 1;
 	}
 }
