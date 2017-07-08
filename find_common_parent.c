@@ -40,7 +40,6 @@ node_t *create_node(int value)
 node_t *make_tree_manual()
 {
 	node_t *root = create_node(20);
-	int res;
 	node_t *first_r_child = create_node(10);
 	first_r_child->right_child = create_node(5);
 	first_r_child->left_child = create_node(15);
