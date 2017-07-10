@@ -9,10 +9,10 @@ ancestor, return null
 
 Normal compilation:
 
-$ clang find_common_parent.c -o find_common_parent
+$ clang binary_tree_operations.c -o bst_ops
 
 with gdb
-$ clang -g find_common_parent.c -o find_common_parent
+$ clang -g binary_tree_operations.c -o bst_ops
 
 */
 
@@ -24,6 +24,7 @@ int generate_random_between_l_n_r(int l, int r);
 
 typedef struct node {
 	int value;
+	// children are from parent's POV - left is greater, right is smaller
 	struct node *left_child;
 	struct node *right_child;
 } node_t;
@@ -69,6 +70,39 @@ void test_in_order()
 	in_order_print(root);
 	printf("\n");
 }
+
+void post_order_print(node_t *root)
+{
+	if (root) {
+		post_order_print(root->right_child);
+		post_order_print(root->left_child);
+		printf("%d ", root->value);
+	}
+}
+
+void test_post_order()
+{
+	node_t *root = make_tree_manual();
+	post_order_print(root);
+	printf("\n");
+}
+
+void pre_order_print(node_t *root)
+{
+	if (root) {
+		printf("%d ", root->value);
+		pre_order_print(root->right_child);
+		pre_order_print(root->left_child);
+	}
+}
+
+void test_pre_order()
+{
+	node_t *root = make_tree_manual();
+	pre_order_print(root);
+	printf("\n");
+}
+
 void free_tree(node_t *root)
 {
 	// Given the root of the tree, free all the nodes
