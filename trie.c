@@ -77,6 +77,16 @@ void print_simple_trie(trie_node_t *root, trie_node_t *path_so_far[], int idx)
 	}
 }
 
+void build_dict()
+{
+	FILE *ret = popen("shuf -n 20 /usr/share/dict/british-english", "r");
+	char c;
+	while ((c = getc(ret)) != EOF) {
+		putchar(c);
+	}
+
+	pclose(ret);
+}
 int main(int argc, char *argv[])
 {
 	trie_node_t *head = add_node('H');
