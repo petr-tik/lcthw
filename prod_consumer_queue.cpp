@@ -26,13 +26,13 @@ enum sign_code {
 sign_code char_to_signcode(const char &sign)
 {
 
-	if (strcmp(sign, "+") == 0) {
+	if (sign == '+') {
 		return eAddition;
-	} else if (strcmp(sign, "-") == 0) {
+	} else if (sign == '-') {
 		return eSubstraction;
-	} else if (strcmp(sign, "*") == 0) {
+	} else if (sign == '*') {
 		return eMultiplication;
-	} else if (strcmp(sign, "/") == 0) {
+	} else if (sign == '/') {
 		return eDivision;
 	}
 }
@@ -47,7 +47,7 @@ std::vector<int> string_to_ints(const std::string &string_no_sign)
 	std::string string_so_far;
 	std::vector<int> result;
 	for (auto char_in_string : string_no_sign) {
-		if (char_in_string == " ") {
+		if (&char_in_string == " ") {
 			result.push_back(stoi(string_so_far));
 			string_so_far.clear();
 		} else {
@@ -56,15 +56,16 @@ std::vector<int> string_to_ints(const std::string &string_no_sign)
 	}
 }
 
-int operation_to_result(const std::string &rpn_expression)
+int operation_to_result(const std::string rpn_expression)
 {
 	/*
 	  Safe to assume input is correct i.e. `/ 8 4` or  `+ 5 6 7`  is
 	  possible, `/ 8 4 5 3` isn't.
       */
 	int result = 0;
-	const char &sign = rpn_expression.at(0);
-	std::vector<int> v = string_to_ints(rpn_expression.substr(2));
+	const char &sign = rpn_expression[0];
+	std::vector<int> v =
+	    string_to_ints(rpn_expression.substr(2, rpn_expression.size()));
 
 	switch (char_to_signcode(sign)) {
 	case eAddition:
