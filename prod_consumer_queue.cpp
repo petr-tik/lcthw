@@ -14,6 +14,8 @@ then wake the consumer.
 work will be reading a string like `+ 5 6 7` or `/ 8 4` and returning the
 result.
 
+g++ -std=c++11 -g prod_consumer_queue.cpp -o prod
+
 */
 
 enum sign_code {
@@ -45,15 +47,19 @@ std::vector<int> string_to_ints(const std::string &string_no_sign)
 	`5 2 14 67` -> [5, 2, 14, 67]
 	*/
 	std::string string_so_far;
-	std::vector<int> result;
+	string_so_far.clear();
+	std::vector<int> result(0);
 	for (auto char_in_string : string_no_sign) {
-		if (&char_in_string == " ") {
+		if (char_in_string == ' ') {
 			result.push_back(stoi(string_so_far));
 			string_so_far.clear();
 		} else {
 			string_so_far.push_back(char_in_string);
 		}
 	}
+
+	result.push_back(stoi(string_so_far));
+	return result;
 }
 
 int operation_to_result(const std::string rpn_expression)
