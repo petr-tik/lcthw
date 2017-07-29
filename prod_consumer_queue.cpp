@@ -87,6 +87,22 @@ int operation_to_result(const std::string rpn_expression)
 	return result;
 }
 
+std::stringstream gen_example_string()
+{
+	std::stringstream example_string;
+	char signs[] = {'+', '-', '*', '/'};
+	char random_sign = signs[std::rand() % 4];
+	example_string << random_sign << " ";
+	int rand_num1, rand_num2;
+	rand_num1 = std::rand() % 20 + 1;
+	rand_num2 = std::rand() % 20 + 1;
+
+	example_string << rand_num1 << " ";
+	example_string << rand_num2;
+
+	return example_string;
+}
+
 int main(int argc, char *argv[])
 {
 	int res, res2, res3, res4;
@@ -107,5 +123,14 @@ int main(int argc, char *argv[])
 	res4 = operation_to_result(ex4);
 	std::cout << "(" << ex4 << ")"
 		  << " = " << res4 << "\n";
+
+	for (int idx = 0; idx < 5; ++idx) {
+		std::string ex = gen_example_string().str();
+		res = operation_to_result(ex);
+
+		std::cout << "(" << ex << ")"
+			  << " = " << res << "\n";
+	}
+
 	return res;
 }
