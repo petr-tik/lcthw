@@ -80,18 +80,32 @@ int operation_to_result(const std::string rpn_expression)
 		return std::accumulate(v.begin(), v.end(), 1,
 				       std::multiplies<int>());
 	case eDivision:
-		return -1;
+		return v[0] / v[1];
 	case eSubstraction:
-		return -1;
+		return v[0] - std::accumulate(v.begin() + 1, v.end(), 0);
 	}
 	return result;
 }
 
 int main(int argc, char *argv[])
 {
-	int res;
-	const std::string &ex = "+ 5 2";
+	int res, res2, res3, res4;
+	const std::string &ex = "+ 5 2 7 8";
+	const std::string &ex2 = "* 10 3 4";
+	const std::string &ex3 = "/ 8 4";
+	const std::string &ex4 = "- 25 5 11";
+
 	res = operation_to_result(ex);
-	std::cout << res << "\n";
+	std::cout << "(" << ex << ")"
+		  << " = " << res << "\n";
+	res2 = operation_to_result(ex2);
+	std::cout << "(" << ex2 << ")"
+		  << " = " << res2 << "\n";
+	res3 = operation_to_result(ex3);
+	std::cout << "(" << ex3 << ")"
+		  << " = " << res3 << "\n";
+	res4 = operation_to_result(ex4);
+	std::cout << "(" << ex4 << ")"
+		  << " = " << res4 << "\n";
 	return res;
 }
