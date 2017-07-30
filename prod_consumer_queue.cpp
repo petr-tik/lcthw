@@ -1,7 +1,12 @@
 #include <algorithm>
+#include <condition_variable> // std::condition_variable
 #include <cstring>
 #include <iostream>
+#include <mutex>
 #include <numeric>
+#include <queue>
+#include <stdlib.h>
+#include <sstream>
 #include <thread>
 #include <vector>
 
@@ -103,34 +108,53 @@ std::stringstream gen_example_string()
 	return example_string;
 }
 
+std::mutex mx;
+std::condition_variable cv;
+std::queue<std::string> queue;
+
+void producer(int n)
+{
+	for (int i = 0; i < n; ++i) {
+		std::lock_guard<std::mutex> lk(mx);
+		std::string ex = gen_example_string().str();
+
+		queue.push(ex);
+		std::cout << "pushing "
+			  << "(" << ex << ")"
+			  << " to the queue\n";
+	}
+	cv.notify_all();
+}
+
+bool is_queue_empty(std::queue<std::string> q) { return q.empty(); }
+
+void consumer()
+{
+	while (true) {
+		std::unique_lock<std::mutex> lk(mx);
+		cv.wait(lk, [] { return !queue.empty(); });
+		while (!queue.empty()) {
+			std::string consumed = queue.front();
+			std::cout << "consumed " << consumed
+				  << " from the queue\n";
+			queue.pop();
+			std::cout << operation_to_result(consumed) << "\n";
+		}
+		return;
+	}
+}
+
 int main(int argc, char *argv[])
 {
-	int res, res2, res3, res4;
-	const std::string &ex = "+ 5 2 7 8";
-	const std::string &ex2 = "* 10 3 4";
-	const std::string &ex3 = "/ 8 4";
-	const std::string &ex4 = "- 25 5 11";
 
-	res = operation_to_result(ex);
-	std::cout << "(" << ex << ")"
-		  << " = " << res << "\n";
-	res2 = operation_to_result(ex2);
-	std::cout << "(" << ex2 << ")"
-		  << " = " << res2 << "\n";
-	res3 = operation_to_result(ex3);
-	std::cout << "(" << ex3 << ")"
-		  << " = " << res3 << "\n";
-	res4 = operation_to_result(ex4);
-	std::cout << "(" << ex4 << ")"
-		  << " = " << res4 << "\n";
+	// std::mutex mx;
+	// std::condition_variable cv;
+	// std::queue<std::string> queue;
 
-	for (int idx = 0; idx < 5; ++idx) {
-		std::string ex = gen_example_string().str();
-		res = operation_to_result(ex);
+	std::thread t1(producer, 20);
+	std::thread t2(consumer);
+	t2.join();
+	t1.join();
 
-		std::cout << "(" << ex << ")"
-			  << " = " << res << "\n";
-	}
-
-	return res;
+	return 0;
 }
