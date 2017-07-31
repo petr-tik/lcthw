@@ -19,7 +19,7 @@ then wake the consumer.
 work will be reading a string like `+ 5 6 7` or `/ 8 4` and returning the
 result.
 
-g++ -std=c++11 -g prod_consumer_queue.cpp -o prod
+clang++-3.7 -std=c++11 -lpthread -g prod_consumer_queue.cpp -o prod
 
 */
 
@@ -92,20 +92,21 @@ int operation_to_result(const std::string rpn_expression)
 	return result;
 }
 
-std::stringstream gen_example_string()
+std::string gen_example_string()
 {
+	// no input, returns
 	std::stringstream example_string;
 	char signs[] = {'+', '-', '*', '/'};
 	char random_sign = signs[std::rand() % 4];
 	example_string << random_sign << " ";
 	int rand_num1, rand_num2;
-	rand_num1 = std::rand() % 20 + 1;
-	rand_num2 = std::rand() % 20 + 1;
+	rand_num1 = std::rand() % 40 + 1;
+	rand_num2 = std::rand() % 40 + 1;
 
 	example_string << rand_num1 << " ";
 	example_string << rand_num2;
 
-	return example_string;
+	return example_string.str();
 }
 
 std::mutex mx;
@@ -116,24 +117,27 @@ void producer(int n)
 {
 	for (int i = 0; i < n; ++i) {
 		std::lock_guard<std::mutex> lk(mx);
-		std::string ex = gen_example_string().str();
+		std::string ex = gen_example_string();
+		std::thread::id prod_id = std::this_thread::get_id();
 
 		queue.push(ex);
-		std::cout << "pushing "
+		std::cout << "Producer thread id: " << prod_id << " pushing "
 			  << "(" << ex << ")"
 			  << " to the queue\n";
 	}
 	cv.notify_all();
 }
 
-bool is_queue_empty(std::queue<std::string> q) { return q.empty(); }
-
 void consumer()
 {
+
 	while (true) {
+
 		std::unique_lock<std::mutex> lk(mx);
 		cv.wait(lk, [] { return !queue.empty(); });
 		while (!queue.empty()) {
+			std::thread::id cons_id = std::this_thread::get_id();
+			std::cout << "Consumer thread id: " << cons_id << "\n";
 			std::string consumed = queue.front();
 			std::cout << "consumed " << consumed
 				  << " from the queue\n";
@@ -147,14 +151,14 @@ void consumer()
 int main(int argc, char *argv[])
 {
 
-	// std::mutex mx;
-	// std::condition_variable cv;
-	// std::queue<std::string> queue;
-
-	std::thread t1(producer, 20);
+	std::thread t1(producer, 2000);
+	std::thread t3(producer, 4000);
 	std::thread t2(consumer);
-	t2.join();
+
 	t1.join();
+	t3.join();
+
+	t2.join();
 
 	return 0;
 }
