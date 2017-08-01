@@ -32,7 +32,7 @@ enum sign_code {
 
 sign_code char_to_signcode(const char &sign)
 {
-
+	// used in the switch statement below
 	if (sign == '+') {
 		return eAddition;
 	} else if (sign == '-') {
@@ -43,12 +43,12 @@ sign_code char_to_signcode(const char &sign)
 		return eDivision;
 	}
 }
+
 std::vector<int> string_to_ints(const std::string &string_no_sign)
 {
 	/*
 	Given a string without a sign, return a vector of ints inside
-	the
-	string.
+	the string.
 	`5 2 14 67` -> [5, 2, 14, 67]
 	*/
 	std::string string_so_far;
@@ -70,11 +70,19 @@ std::vector<int> string_to_ints(const std::string &string_no_sign)
 int operation_to_result(const std::string rpn_expression)
 {
 	/*
+	  Input:
+	      string in reverse polish notation `+ 4 10`
+	  Evaluates the string
+	  Output:
+	      Result of the calculation
 	  Safe to assume input is correct i.e. `/ 8 4` or  `+ 5 6 7`  is
 	  possible, `/ 8 4 5 3` isn't.
       */
 	int result = 0;
 	const char &sign = rpn_expression[0];
+
+	// todo initialiser fucks it up
+	// set values to 0
 	std::vector<int> v =
 	    string_to_ints(rpn_expression.substr(2, rpn_expression.size()));
 
