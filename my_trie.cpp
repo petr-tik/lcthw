@@ -10,27 +10,38 @@ Supports English alphabet, hence number of letters
 
 class trie_node_t
 {
+
+	/*
+	  Trie_node type, which will carry a letter and a pointer to a vector of
+	  pointers to children.
+
+	*/
       private:
-	std::vector<trie_node_t> children;
+	int char_to_alph_index(char letter)
+	{
+
+		int num = letter;
+		return num - 97;
+	}
+
+	std::vector<trie_node_t> *children;
 	char letter;  // store the letter
 	char is_word; // if sequence up to now is a word - set to 1
       public:
-	~trie_node_t();
-
-	trie_node_t()
+	trie_node_t() : is_word(0), letter(''){}
 	{
-		is_word = 0;
-		letter = '';
-		std::vector<trie_node_t> &children =
-		    new[trie_node_t] std::vector;
+		std::vector<trie_node_t *> *children =
+		    new std::vector<trie_node_t *>;
 	}
 
-	trie_node_t(char letter)
+	trie_node_t(char letter) : is_word(0), letter(letter){}
 	{
 		is_word = 0;
 		letter = letter;
-		children = new std::vector<trie_node_t>;
-	}
+		std::vector<trie_node_t *> *children =
+		    new std::vector<trie_node_t *>;
+	};
+	~trie_node_t(){};
 };
 
 class Trie
