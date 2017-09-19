@@ -58,6 +58,12 @@ trie_node_t *add_to_trie(trie_node_t *root, const char *word, int idx_in_word)
 	return root;
 }
 
+int is_word_in_trie(trie_node_t *root, const char *word)
+{
+	/* Given a word and the root of a dictionary trie, returns 1 if word is
+	 * in the trie, else - 0 */
+}
+
 void print_simple_trie(trie_node_t *root, trie_node_t *path_so_far[], int idx)
 {
 	path_so_far[idx] = root;
@@ -90,11 +96,9 @@ void build_dict()
 int main(int argc, char *argv[])
 {
 	trie_node_t *head = add_node('H');
-	const char *word = "bzed";
-	const char *word_two = "bzea";
-	trie_node_t *res = add_to_trie(head, word, 0);
-	trie_node_t *res_two = add_to_trie(head, word_two, 0);
-	trie_node_t *path[10];
-	print_simple_trie(res, path, 0);
+	while (true) {
+		printf(">");
+	}
+
 	return 0;
 }
