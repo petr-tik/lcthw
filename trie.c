@@ -7,6 +7,8 @@ Trie implementation to build a compact prefix-tree and store dictionaries.
 
 Supports English alphabet, hence number of letters
 
+clang trie.c -o trie && ./trie
+
 */
 
 #define LETTERS 26 // english by default
@@ -17,7 +19,7 @@ typedef struct trie_node {
 	char is_word; // if sequence up to now is a word - set to 1, else 0
 } trie_node_t;
 
-int char_to_alph_index(char letter)
+int char_to_ascii(char letter)
 {
 
 	int num = letter;
@@ -47,7 +49,7 @@ trie_node_t *add_to_trie(trie_node_t *root, const char *word, int idx_in_word)
 		return root;
 	}
 	char letter = word[idx_in_word];
-	int idx = char_to_alph_index(letter);
+	int idx = char_to_ascii(letter);
 	if (root->children[idx] != NULL) {
 		++idx_in_word;
 		add_to_trie(root->children[idx], word, idx_in_word);
@@ -62,6 +64,16 @@ int is_word_in_trie(trie_node_t *root, const char *word)
 {
 	/* Given a word and the root of a dictionary trie, returns 1 if word is
 	 * in the trie, else - 0 */
+	int idx = 0;
+	trie_node_t *cur = root;
+	while (idx < strlen(word)) {
+		if (!cur)
+			return 0;
+		char letter = word[idx];
+		cur = cur->children[char_to_ascii(letter)];
+		idx++;
+	}
+	return (cur->is_word) ? 1 : 0;
 }
 
 void print_simple_trie(trie_node_t *root, trie_node_t *path_so_far[], int idx)
@@ -93,12 +105,11 @@ void build_dict()
 
 	pclose(ret);
 }
+
 int main(int argc, char *argv[])
 {
 	trie_node_t *head = add_node('H');
-	while (true) {
-		printf(">");
-	}
-
+	add_to_trie(head, "new_word", 0);
+	printf("%d", is_word_in_trie(head, "new_word"));
 	return 0;
 }
