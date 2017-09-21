@@ -50,10 +50,11 @@ trie_node_t *add_to_trie(trie_node_t *root, const char *word, int idx_in_word)
 	}
 	char letter = word[idx_in_word];
 	int idx = char_to_ascii(letter);
-	if (root->children[idx] != NULL) {
+	if ((root->children[idx])) {
 		++idx_in_word;
 		add_to_trie(root->children[idx], word, idx_in_word);
 	} else {
+		++idx_in_word;
 		root->children[idx] = add_node(letter);
 		add_to_trie(root, word, idx_in_word);
 	}
@@ -70,6 +71,8 @@ int is_word_in_trie(trie_node_t *root, const char *word)
 		if (!cur)
 			return 0;
 		char letter = word[idx];
+		if (idx == strlen(word))
+			return cur->is_word;
 		cur = cur->children[char_to_ascii(letter)];
 		idx++;
 	}
@@ -109,7 +112,7 @@ void build_dict()
 int main(int argc, char *argv[])
 {
 	trie_node_t *head = add_node('H');
-	add_to_trie(head, "new_word", 0);
+	add_to_trie(head, "newword", 0);
 	printf("%d", is_word_in_trie(head, "new_word"));
 	return 0;
 }
