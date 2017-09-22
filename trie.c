@@ -8,16 +8,20 @@ Trie implementation to build a compact prefix-tree and store dictionaries.
 Supports English alphabet, hence number of letters
 
 clang trie.c -o trie && ./trie
+clang -g -std=c99 -Wall trie.c -o trie
+
 
 */
 
 #define LETTERS 26 // english by default
 
-typedef struct trie_node {
-	struct trie_node *children[LETTERS];
+typedef struct trie_node_t {
+	struct trie_node_t *children[LETTERS];
 	char letter;  // store the letter
 	char is_word; // if sequence up to now is a word - set to 1, else 0
 } trie_node_t;
+
+#define trie_node_size sizeof(trie_node_t)
 
 int char_to_ascii(char letter)
 {
@@ -34,29 +38,45 @@ trie_node_t *add_node(char letter)
 	   NULL pointer, it will be written to the relevant index at
 	   node->children[] and the recursive call will try again.
 	*/
-	trie_node_t *new_node = malloc(sizeof(trie_node_t));
+	trie_node_t *new_node = malloc(trie_node_size);
 	if (new_node) {
-		// if alloc fails, cannot access NULL pointer
+		// avoid accessing null pointer
+		new_node->is_word = 0;
 		new_node->letter = letter;
 	}
 	return new_node;
 }
 
-trie_node_t *add_to_trie(trie_node_t *root, const char *word, int idx_in_word)
+void add_to_trie(trie_node_t *root, const char *word)
 {
-	if (idx_in_word >= strlen(word)) {
-		root->is_word = 1;
-		return root;
+	/*
+	Iterative implementation of the add_to_trie method
+	 */
+
+	trie_node_t *cur = root;
+	for (int idx_in_word = 0; idx_in_word < strlen(word); ++idx_in_word) {
+		char letter = word[idx_in_word];
+		int idx = char_to_ascii(letter);
+		if (!(cur->children[idx])) {
+			cur->children[idx] = add_node(letter);
+		}
+		cur = cur->children[idx];
 	}
-	char letter = word[idx_in_word];
-	int idx = char_to_ascii(letter);
-	if ((root->children[idx])) {
-		++idx_in_word;
-		add_to_trie(root->children[idx], word, idx_in_word);
-	} else {
-		++idx_in_word;
-		root->children[idx] = add_node(letter);
-		add_to_trie(root, word, idx_in_word);
+	// last letter needs to carry 1
+	cur->is_word = 1;
+	return;
+}
+
+void free_trie(trie_node_t *root)
+{
+	for (int child_idx = 0; child_idx < LETTERS; child_idx++) {
+		trie_node_t *child = root->children[child_idx];
+		if (child) {
+			free_trie(child);
+		}
+	}
+	free(root);
+}
 	}
 	return root;
 }
@@ -112,7 +132,12 @@ void build_dict()
 int main(int argc, char *argv[])
 {
 	trie_node_t *head = add_node('H');
-	add_to_trie(head, "newword", 0);
-	printf("%d", is_word_in_trie(head, "new_word"));
+
+	char word1[] = "hello";
+	char word2[] = "world";
+	add_to_trie(head, word1);
+	printf("%s is/not in trie: %d\n", word1, is_word_in_trie(head, word1));
+	printf("%s is/not in trie: %d\n", word2, is_word_in_trie(head, word2));
+	free_trie(head);
 	return 0;
 }
