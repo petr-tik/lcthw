@@ -77,13 +77,48 @@ void free_trie(trie_node_t *root)
 	}
 	free(root);
 }
+
+int has_children(trie_node_t *parent)
+{
+	for (int idx = 0; idx < LETTERS; ++idx) {
+		if (parent->children[idx]) {
+			return 1;
+		}
 	}
-	return root;
+	return 0;
+}
+
+void _delete_word(trie_node_t *root, const char *word, int idx_in_word)
+{
+	if (idx_in_word != strlen(word)) {
+		char letter = word[idx_in_word];
+		int idx = char_to_ascii(letter);
+		trie_node_t *next = root->children[idx];
+		if (next)
+			_delete_word(next, word, ++idx_in_word);
+	}
+	if (idx_in_word == strlen(word) && has_children(root)) {
+		root->is_word = 0;
+		return;
+	} else
+		free(root);
+}
+
+void delete_word(trie_node_t *root, const char *word)
+{
+	/* traverses the trie down letter-by-letter.
+
+	 */
+	char first_actual_letter = word[0];
+	int idx = char_to_ascii(first_actual_letter);
+	trie_node_t *next = root->children[idx];
+	_delete_word(next, word, 1);
 }
 
 int is_word_in_trie(trie_node_t *root, const char *word)
 {
-	/* Given a word and the root of a dictionary trie, returns 1 if word is
+	/* Given a word and the root of a dictionary trie, returns 1 if
+	 * word is
 	 * in the trie, else - 0 */
 	int idx = 0;
 	trie_node_t *cur = root;
@@ -134,10 +169,12 @@ int main(int argc, char *argv[])
 	trie_node_t *head = add_node('H');
 
 	char word1[] = "hello";
-	char word2[] = "world";
+	char word2[] = "worldie";
 	add_to_trie(head, word1);
+	add_to_trie(head, word2);
 	printf("%s is/not in trie: %d\n", word1, is_word_in_trie(head, word1));
 	printf("%s is/not in trie: %d\n", word2, is_word_in_trie(head, word2));
+	delete_word(head, "worldie");
 	free_trie(head);
 	return 0;
 }
