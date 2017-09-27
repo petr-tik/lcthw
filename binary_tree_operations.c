@@ -55,6 +55,28 @@ node_t *make_tree_manual()
 	return root;
 }
 
+int depth_recur(node_t *root, int depth)
+{
+	if (!root)
+		return depth;
+	int new_depth = depth + 1;
+	int right_depth = depth_recur(root->right_child, new_depth);
+	int left_depth = depth_recur(root->left_child, new_depth);
+	return right_depth > left_depth ? right_depth : left_depth;
+}
+
+int max_tree_depth(node_t *root) { return depth_recur(root, 0); }
+
+int test_max_tree_depth()
+{
+
+	node_t *root = make_tree_manual();
+	node_t *only_root = create_node(5);
+	printf("Expected: 3. Depth of tree: %d\n", max_tree_depth(root));
+	printf("Expected: 3. Depth of tree: %d\n", max_tree_depth(only_root));
+	return 0;
+}
+
 void in_order_print(node_t *root)
 {
 	if (root) {
