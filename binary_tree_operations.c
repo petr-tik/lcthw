@@ -73,7 +73,7 @@ int test_max_tree_depth()
 	node_t *root = make_tree_manual();
 	node_t *only_root = create_node(5);
 	printf("Expected: 3. Depth of tree: %d\n", max_tree_depth(root));
-	printf("Expected: 3. Depth of tree: %d\n", max_tree_depth(only_root));
+	printf("Expected: 0. Depth of tree: %d\n", max_tree_depth(only_root));
 	return 0;
 }
 
