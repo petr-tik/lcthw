@@ -42,6 +42,21 @@ node_t *create_node(int value)
 
 node_t *make_tree_manual()
 {
+	/*
+	  Draws this BST for testing
+
+		  20
+		/   \
+	       /     \
+	      /       \
+	     /         \
+	    10         30
+	   /   \      /  \
+	  /     \    /    \
+	 5      15  25    35
+
+	*/
+
 	node_t *root = create_node(20);
 	node_t *first_r_child = create_node(10);
 	first_r_child->right_child = create_node(5);
@@ -208,11 +223,81 @@ int test_find_ancestor_false()
 	}
 }
 
+int find_node_in_subtree(node_t *root, int value, int depth);
+int find_dist_helper(node_t *root, int from, int to, int depth_so_far);
+
+int find_distance(node_t *root, int from, int to)
+{
+
+	/*
+	   Returns the int distance between from and to nodes. If at least 1 of
+	   them isn't in the tree, return -1.
+
+	   assume from is smaller than to.
+	*/
+	return find_dist_helper(root, from, to, 0);
+}
+
+int find_node_in_subtree(node_t *root, int value, int depth)
+{
+	node_t *cur = root;
+	while (cur) {
+
+		if (value == cur->value) {
+			return depth;
+		} else if (value > cur->value) {
+			cur = cur->left_child;
+			depth++;
+		} else {
+			cur = cur->right_child;
+			depth++;
+		}
+	}
+	return -1;
+}
+
+int find_dist_helper(node_t *root, int from, int to, int depth_so_far)
+{
+	if (!root) {
+		return depth_so_far;
+	}
+	if (root->value >= from && root->value <= to) {
+		int new_depth = depth_so_far + 1;
+		int right_node_depth =
+		    find_node_in_subtree(root->right_child, from, new_depth);
+		int left_node_depth =
+		    find_node_in_subtree(root->left_child, to, new_depth);
+		if (left_node_depth == -1 || right_node_depth == -1) {
+			return -1;
+		} else {
+			return left_node_depth + right_node_depth;
+		}
+	}
+	node_t *next;
+	if (root->value > to) {
+		node_t *next = root->left_child;
+	}
+	if (root->value < from) {
+		node_t *next = root->right_child;
+	}
+	return find_dist_helper(next, from, to, depth_so_far);
+}
+
+int test_find_distance()
+{
+	node_t *root = make_tree_manual();
+	in_order_print(root);
+	int from = 5;
+	int to = 35;
+	printf("%d\n", find_distance(root, from, to));
+}
+
 int main(int argc, char *argv[])
 {
 	int res1, res2;
 	res1 = test_find_ancestor_true();
 	res2 = test_find_ancestor_false();
-	printf("%d %d\n", res1, res2);
+
+	test_find_distance();
 	return 0;
 }
