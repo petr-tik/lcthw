@@ -286,10 +286,15 @@ int find_dist_helper(node_t *root, int from, int to, int depth_so_far)
 int test_find_distance()
 {
 	node_t *root = make_tree_manual();
-	in_order_print(root);
 	int from = 5;
 	int to = 35;
-	printf("%d\n", find_distance(root, from, to));
+	int res_should_be_four = find_distance(root, from, to);
+	from = 10;
+	to = 30;
+	int res_should_be_two = find_distance(root, from, to);
+
+	int all_results = (res_should_be_four == 4) & (res_should_be_two == 2);
+	return all_results;
 }
 
 int main(int argc, char *argv[])
